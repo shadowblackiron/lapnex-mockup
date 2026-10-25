@@ -1,0 +1,3 @@
+# Design preview of lapnex.pk. Please do not list it in search results.
+User-agent: *
+Disallow: /

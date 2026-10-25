@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Lapnex Style Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+
+      /* Lapnex teal: greener and deeper than the reference site */
+      --color-brand-50:#ECF8F5; --color-brand-100:#D1EFE8; --color-brand-200:#A3DED1;
+      --color-brand-300:#6CC7B5; --color-brand-400:#34AA95; --color-brand-500:#158F7B;
+      --color-brand-600:#0D7A6A; --color-brand-700:#0B6358; --color-brand-800:#0A4F47;
+      --color-brand-900:#08332F;
+
+      /* Orange accent: sale prices, discount badges, Buy Now */
+      --color-accent-50:#FFF4EC; --color-accent-100:#FFE4CF; --color-accent-500:#F97316;
+      --color-accent-600:#EA580C; --color-accent-700:#C2410C;
+
+      --color-ink:#0F2A33; --color-ink-soft:#3A4A50; --color-ink-muted:#6B7A80;
+      --color-line:#E6E9EB;
+      --color-surface:#FFFFFF; --color-surface-alt:#F4F5F6; --color-well:#F7F7F8;
+
+      --color-cond-new:#16A34A; --color-cond-openbox:#7C3AED;
+      --color-cond-refurb:#2563EB; --color-cond-used:#D97706;
+      --color-whatsapp:#25D366; --color-star:#F59E0B;
+    }
+  </style>
+  <style>[x-cloak]{display:none !important}</style>
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.9/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+  <script>
+    function styleguide() {
+      return {
+        toast: false, timer: null,
+        show() { this.toast = true; clearTimeout(this.timer); this.timer = setTimeout(() => this.toast = false, 2500); },
+
+        /* Dummy products for the card states. Later pages reuse this same card template. */
+        products: [
+          { name: 'LENOVO LEGION 5 RYZEN 7 RTX 3060', cond: 'New', grade: null, price: 215000, old: 245000, stock: 5,
+            specs: [['cpu', 'Ryzen 7'], ['ram', '16GB'], ['ssd', '512GB'], ['screen', '15.6"']] },
+          { name: 'APPLE MACBOOK AIR M1 13" 2020', cond: 'Open Box', grade: null, price: 165000, old: null, stock: 2,
+            specs: [['cpu', 'Apple M1'], ['ram', '8GB'], ['ssd', '256GB'], ['screen', '13.3"']] },
+          { name: 'DELL LATITUDE 7490 i7 8TH', cond: 'Used', grade: 'A', price: 55000, old: null, stock: 1,
+            specs: [['cpu', 'i7 8th'], ['ram', '16GB'], ['ssd', '512GB'], ['screen', '14"']] },
+          { name: 'HP ELITEBOOK 840 G6 i5 8TH', cond: 'Refurbished', grade: 'A+', price: 48500, old: null, stock: 0,
+            specs: [['cpu', 'i5 8th'], ['ram', '16GB'], ['ssd', '256GB'], ['screen', '14"']] },
+        ],
+        money(n) { return 'Rs ' + n.toLocaleString('en-US'); },
+        off(p) { return Math.round((p.old - p.price) / p.old * 100); },
+        condClass(c) {
+          return { 'New': 'bg-cond-new/10 text-cond-new', 'Open Box': 'bg-cond-openbox/10 text-cond-openbox',
+                   'Refurbished': 'bg-cond-refurb/10 text-cond-refurb', 'Used': 'bg-cond-used/10 text-cond-used' }[c];
+        },
+      };
+    }
+  </script>
+</head>
+<body class="bg-surface text-ink font-sans antialiased">
+
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden" aria-hidden="true">
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/></symbol>
+  <symbol id="i-ram" viewBox="0 0 24 24"><path d="M6 19v-3M10 19v-3M14 19v-3M18 19v-3M8 6v4M12 6v4M16 6v4"/><rect x="2" y="3" width="20" height="14" rx="2"/></symbol>
+  <symbol id="i-ssd" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></symbol>
+  <symbol id="i-screen" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
+</svg>
+
+<header class="bg-linear-to-r from-brand-900 to-brand-800 text-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-6 flex items-center justify-between gap-4">
+    <div class="min-w-0">
+      <!-- Placeholder wordmark: the X is two crossing screen shapes (replace with the client's logo) -->
+      <p class="flex items-center text-2xl font-extrabold tracking-tight leading-none" aria-label="Lapnex">
+        <span>LAPNE</span>
+        <svg viewBox="0 0 24 24" class="size-6 -ml-px" fill="none" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l16 16" stroke="#34AA95"/><path d="M20 4L4 20" stroke="#F97316"/></svg>
+      </p>
+      <h1 class="mt-3 text-2xl md:text-[32px] font-extrabold tracking-tight">Style guide</h1>
+      <p class="text-sm text-white/70">Lapnex mockup · tokens and components</p>
+    </div>
+    <a href="index.html" class="shrink-0 inline-flex items-center justify-center h-11 px-5 rounded-full bg-white/10 ring-1 ring-white/30 text-sm font-bold hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-brand-300">&larr; All pages</a>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12 space-y-12" x-data="styleguide()">
+
+  <!-- Colours -->
+  <section>
+    <h2 class="text-xl md:text-2xl font-extrabold">Colours</h2>
+    <span class="block mt-2 mb-5 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+
+    <h3 class="text-sm font-bold text-ink-soft mb-2">Brand (Lapnex teal)</h3>
+    <div class="grid grid-cols-5 md:grid-cols-10 gap-2 mb-6">
+      <div><div class="h-14 rounded-2xl bg-brand-50 ring-1 ring-line"></div><p class="mt-1 text-[11px] text-ink-muted">50 · #ECF8F5</p></div>
+      <div><div class="h-14 rounded-2xl bg-brand-100 ring-1 ring-line"></div><p class="mt-1 text-[11px] text-ink-muted">100 · #D1EFE8</p></div>
+      <div><div class="h-14 rounded-2xl bg-brand-200"></div><p class="mt-1 text-[11px] text-ink-muted">200 · #A3DED1</p></div>
+      <div><div class="h-14 rounded-2xl bg-brand-300"></div><p class="mt-1 text-[11px] text-ink-muted">300 · #6CC7B5</p></div>
+      <div><div class="h-14 rounded-2xl bg-brand-400"></div><p class="mt-1 text-[11px] text-ink-muted">400 · #34AA95</p></div>
+      <div><div class="h-14 rounded-2xl bg-brand-500"></div><p class="mt-1 text-[11px] text-ink-muted">500 · #158F7B</p></div>
+      <div><div class="h-14 rounded-2xl bg-brand-600"></div><p class="mt-1 text-[11px] text-ink-muted">600 · #0D7A6A</p></div>
+      <div><div class="h-14 rounded-2xl bg-brand-700"></div><p class="mt-1 text-[11px] text-ink-muted">700 · #0B6358</p></div>
+      <div><div class="h-14 rounded-2xl bg-brand-800"></div><p class="mt-1 text-[11px] text-ink-muted">800 · #0A4F47</p></div>
+      <div><div class="h-14 rounded-2xl bg-brand-900"></div><p class="mt-1 text-[11px] text-ink-muted">900 · #08332F</p></div>
+    </div>
+
+    <h3 class="text-sm font-bold text-ink-soft mb-2">Accent (orange)</h3>
+    <div class="grid grid-cols-5 gap-2 max-w-xl mb-6">
+      <div><div class="h-14 rounded-2xl bg-accent-50 ring-1 ring-line"></div><p class="mt-1 text-[11px] text-ink-muted">50 · #FFF4EC</p></div>
+      <div><div class="h-14 rounded-2xl bg-accent-100 ring-1 ring-line"></div><p class="mt-1 text-[11px] text-ink-muted">100 · #FFE4CF</p></div>
+      <div><div class="h-14 rounded-2xl bg-accent-500"></div><p class="mt-1 text-[11px] text-ink-muted">500 · #F97316</p></div>
+      <div><div class="h-14 rounded-2xl bg-accent-600"></div><p class="mt-1 text-[11px] text-ink-muted">600 · #EA580C</p></div>
+      <div><div class="h-14 rounded-2xl bg-accent-700"></div><p class="mt-1 text-[11px] text-ink-muted">700 · #C2410C</p></div>
+    </div>
+
+    <h3 class="text-sm font-bold text-ink-soft mb-2">Neutrals</h3>
+    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-2 mb-6">
+      <div><div class="h-14 rounded-2xl bg-ink"></div><p class="mt-1 text-[11px] text-ink-muted">ink · #0F2A33</p></div>
+      <div><div class="h-14 rounded-2xl bg-ink-soft"></div><p class="mt-1 text-[11px] text-ink-muted">ink-soft · #3A4A50</p></div>
+      <div><div class="h-14 rounded-2xl bg-ink-muted"></div><p class="mt-1 text-[11px] text-ink-muted">ink-muted · #6B7A80</p></div>
+      <div><div class="h-14 rounded-2xl bg-line"></div><p class="mt-1 text-[11px] text-ink-muted">line · #E6E9EB</p></div>
+      <div><div class="h-14 rounded-2xl bg-surface ring-1 ring-line"></div><p class="mt-1 text-[11px] text-ink-muted">surface · #FFFFFF</p></div>
+      <div><div class="h-14 rounded-2xl bg-surface-alt ring-1 ring-line"></div><p class="mt-1 text-[11px] text-ink-muted">surface-alt · #F4F5F6</p></div>
+      <div><div class="h-14 rounded-2xl bg-well ring-1 ring-line"></div><p class="mt-1 text-[11px] text-ink-muted">well · #F7F7F8</p></div>
+    </div>
+
+    <h3 class="text-sm font-bold text-ink-soft mb-2">Condition, WhatsApp &amp; stars</h3>
+    <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+      <div><div class="h-14 rounded-2xl bg-cond-new"></div><p class="mt-1 text-[11px] text-ink-muted">cond-new · #16A34A</p></div>
+      <div><div class="h-14 rounded-2xl bg-cond-openbox"></div><p class="mt-1 text-[11px] text-ink-muted">cond-openbox · #7C3AED</p></div>
+      <div><div class="h-14 rounded-2xl bg-cond-refurb"></div><p class="mt-1 text-[11px] text-ink-muted">cond-refurb · #2563EB</p></div>
+      <div><div class="h-14 rounded-2xl bg-cond-used"></div><p class="mt-1 text-[11px] text-ink-muted">cond-used · #D97706</p></div>
+      <div><div class="h-14 rounded-2xl bg-whatsapp"></div><p class="mt-1 text-[11px] text-ink-muted">whatsapp · #25D366</p></div>
+      <div><div class="h-14 rounded-2xl bg-star"></div><p class="mt-1 text-[11px] text-ink-muted">star · #F59E0B</p></div>
+    </div>
+  </section>
+
+  <!-- Typography -->
+  <section>
+    <h2 class="text-xl md:text-2xl font-extrabold">Typography</h2>
+    <span class="block mt-2 mb-5 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+    <div class="space-y-5 rounded-3xl bg-white ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] p-5 md:p-6">
+      <div><p class="text-xs text-ink-muted mb-1">H1 · text-2xl md:text-[32px] font-extrabold tracking-tight</p><p class="text-2xl md:text-[32px] font-extrabold tracking-tight">Used &amp; Refurbished Laptops</p></div>
+      <div>
+        <p class="text-xs text-ink-muted mb-1">Section H2 · text-xl md:text-2xl font-extrabold + gradient underline</p>
+        <p class="text-xl md:text-2xl font-extrabold">Shop by Budget</p>
+        <span class="block mt-2 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+      </div>
+      <div><p class="text-xs text-ink-muted mb-1">Card title · text-[13px] md:text-sm font-bold</p><p class="text-[13px] md:text-sm font-bold">DELL LATITUDE 7490 i7 8TH</p></div>
+      <div><p class="text-xs text-ink-muted mb-1">Body · text-sm md:text-[15px]</p><p class="text-sm md:text-[15px] text-ink-soft">Every used laptop goes through a 32-point check. Not sure which laptop? WhatsApp us, we reply fast.</p></div>
+      <div><p class="text-xs text-ink-muted mb-1">Muted · text-sm text-ink-muted</p><p class="text-sm text-ink-muted">Delivery in 2–4 working days all over Pakistan.</p></div>
+      <div><p class="text-xs text-ink-muted mb-1">Price · text-lg md:text-xl font-extrabold tabular-nums</p>
+        <p class="flex items-baseline gap-2"><span class="text-lg md:text-xl font-extrabold tabular-nums text-accent-600">Rs 55,000</span><span class="text-sm text-ink-muted line-through tabular-nums">Rs 62,000</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Buttons -->
+  <section>
+    <h2 class="text-xl md:text-2xl font-extrabold">Buttons</h2>
+    <span class="block mt-2 mb-5 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+    <div class="space-y-5 rounded-3xl bg-white ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] p-5 md:p-6">
+      <div class="flex flex-wrap items-center gap-3">
+        <button class="inline-flex items-center justify-center h-11 px-6 rounded-full bg-brand-600 text-white text-sm font-bold hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2">Primary</button>
+        <button class="inline-flex items-center justify-center h-11 px-6 rounded-full bg-accent-600 text-white text-sm font-bold hover:bg-accent-700 focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2">Buy Now</button>
+        <button class="inline-flex items-center justify-center h-11 px-6 rounded-full bg-white ring-1 ring-line text-ink text-sm font-bold hover:bg-surface-alt focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2">Outline</button>
+        <button class="inline-flex items-center justify-center h-11 px-6 rounded-full text-brand-700 text-sm font-bold hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-brand-400">Ghost</button>
+        <button class="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full bg-whatsapp text-ink text-sm font-bold hover:brightness-95 focus-visible:ring-2 focus-visible:ring-whatsapp focus-visible:ring-offset-2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="size-5" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.7-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg>
+          Order on WhatsApp
+        </button>
+        <button disabled class="inline-flex items-center justify-center h-11 px-6 rounded-full bg-surface-alt text-ink-muted text-sm font-bold cursor-not-allowed">Sold out</button>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <button class="inline-flex items-center justify-center h-9 px-4 rounded-full bg-brand-600 text-white text-xs font-bold">Small · 36px</button>
+        <button class="inline-flex items-center justify-center h-11 px-6 rounded-full bg-brand-600 text-white text-sm font-bold">Medium · 44px</button>
+        <button class="inline-flex items-center justify-center h-[52px] px-8 rounded-full bg-brand-600 text-white text-base font-bold">Large · 52px</button>
+        <button class="inline-flex items-center justify-center size-11 rounded-full bg-brand-600 text-white hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2" aria-label="Add to cart">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="size-5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Badges + chips -->
+  <section>
+    <h2 class="text-xl md:text-2xl font-extrabold">Badges &amp; spec chips</h2>
+    <span class="block mt-2 mb-5 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+    <div class="space-y-5 rounded-3xl bg-white ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] p-5 md:p-6">
+      <div>
+        <p class="text-xs text-ink-muted mb-2">Condition</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="rounded-full text-xs font-bold px-2.5 py-0.5 bg-cond-new/10 text-cond-new">New</span>
+          <span class="rounded-full text-xs font-bold px-2.5 py-0.5 bg-cond-openbox/10 text-cond-openbox">Open Box</span>
+          <span class="rounded-full text-xs font-bold px-2.5 py-0.5 bg-cond-refurb/10 text-cond-refurb">Refurbished</span>
+          <span class="rounded-full text-xs font-bold px-2.5 py-0.5 bg-cond-used/10 text-cond-used">Used</span>
+        </div>
+      </div>
+      <div>
+        <p class="text-xs text-ink-muted mb-2">Condition with grade (used &amp; refurbished only)</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="rounded-full text-xs font-bold px-2.5 py-0.5 bg-cond-refurb/10 text-cond-refurb">Refurbished · A+</span>
+          <span class="rounded-full text-xs font-bold px-2.5 py-0.5 bg-cond-used/10 text-cond-used">Used · A</span>
+          <span class="rounded-full text-xs font-bold px-2.5 py-0.5 bg-cond-used/10 text-cond-used">Used · B</span>
+        </div>
+      </div>
+      <div>
+        <p class="text-xs text-ink-muted mb-2">Discount &amp; stock notes</p>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="rounded-full bg-accent-600 text-white text-xs font-bold px-2.5 py-0.5">-12%</span>
+          <span class="rounded-full bg-accent-50 text-accent-700 text-xs font-bold px-2.5 py-0.5">Only 1 left</span>
+          <span class="rounded-full bg-surface-alt text-ink-muted text-xs font-bold px-2.5 py-0.5">Sold out</span>
+        </div>
+      </div>
+      <div>
+        <p class="text-xs text-ink-muted mb-2">Spec chips</p>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="inline-flex items-center gap-1 text-[11px] bg-surface-alt text-ink-soft rounded-full px-2 py-0.5">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="size-3" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/></svg>i7 8th</span>
+          <span class="inline-flex items-center gap-1 text-[11px] bg-surface-alt text-ink-soft rounded-full px-2 py-0.5">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="size-3" aria-hidden="true"><path d="M6 19v-3M10 19v-3M14 19v-3M18 19v-3M8 6v4M12 6v4M16 6v4"/><rect x="2" y="3" width="20" height="14" rx="2"/></svg>16GB</span>
+          <span class="inline-flex items-center gap-1 text-[11px] bg-surface-alt text-ink-soft rounded-full px-2 py-0.5">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="size-3" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>512GB SSD</span>
+          <span class="inline-flex items-center gap-1 text-[11px] bg-surface-alt text-ink-soft rounded-full px-2 py-0.5">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="size-3" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>14"</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product card -->
+  <section>
+    <h2 class="text-xl md:text-2xl font-extrabold">Product card</h2>
+    <span class="block mt-2 mb-2 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+    <p class="mb-5 text-sm text-ink-muted max-w-2xl">Four states: New with discount, Open Box, Used grade A with one left, and Refurbished sold out. Hover a card on desktop to see the second photo. The cart button shows the toast.</p>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
+      <template x-for="p in products" :key="p.name">
+        <!-- COMPONENT: product-card -->
+        <article class="group relative flex flex-col rounded-3xl bg-white ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] hover:shadow-[0_6px_20px_rgba(15,42,51,0.10)] transition-shadow p-2.5 md:p-3">
+          <div class="relative aspect-square overflow-hidden rounded-2xl bg-well">
+            <img src="assets/img/laptop-a.svg" alt="" width="400" height="400" loading="lazy"
+                 class="absolute inset-0 size-full object-contain p-3 md:p-4 transition-opacity duration-200 md:group-hover:opacity-0"
+                 :class="p.stock === 0 && 'opacity-50 grayscale'">
+            <img src="assets/img/laptop-b.svg" alt="" width="400" height="400" loading="lazy"
+                 class="absolute inset-0 size-full object-contain p-3 md:p-4 opacity-0 transition-opacity duration-200"
+                 :class="p.stock === 0 ? 'hidden' : 'md:group-hover:opacity-100'">
+            <span class="absolute top-2 left-2 rounded-full text-[11px] md:text-xs font-bold px-2 md:px-2.5 py-0.5 bg-white/90 backdrop-blur-sm" :class="condClass(p.cond)">
+              <span x-text="p.cond"></span><span x-show="p.grade" x-text="' · ' + p.grade"></span>
+            </span>
+            <span x-show="p.old" class="absolute bottom-2 left-2 rounded-full bg-accent-600 text-white text-[11px] md:text-xs font-bold px-2 py-0.5" x-text="'-' + (p.old ? off(p) : 0) + '%'"></span>
+            <span x-show="p.stock === 0" class="absolute bottom-2 right-2 rounded-full bg-ink/85 text-white text-[11px] md:text-xs font-bold px-2.5 py-0.5">Sold out</span>
+          </div>
+
+          <div class="flex flex-1 flex-col pt-3">
+            <h3 class="text-[13px] md:text-sm font-bold leading-snug text-ink line-clamp-2 min-h-[2.5em]">
+              <a href="product.html" class="after:absolute after:inset-0 after:rounded-3xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-brand-400" x-text="p.name"></a>
+            </h3>
+
+            <ul class="mt-2 flex flex-nowrap gap-1 overflow-hidden [mask-image:linear-gradient(to_right,black_88%,transparent)]" aria-label="Key specs">
+              <template x-for="s in p.specs" :key="s[0]">
+                <li class="inline-flex shrink-0 items-center gap-1 text-[11px] bg-surface-alt text-ink-soft rounded-full px-2 py-0.5">
+                  <svg class="size-3" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use :href="'#i-' + s[0]"/></svg>
+                  <span x-text="s[1]"></span>
+                </li>
+              </template>
+            </ul>
+
+            <p class="mt-2 min-h-4 text-xs font-bold text-accent-700" x-text="p.stock > 0 && p.stock <= 2 ? 'Only ' + p.stock + ' left' : ''"></p>
+
+            <div class="mt-auto pt-2 flex items-end justify-between gap-1.5">
+              <div class="min-w-0">
+                <p class="text-base sm:text-lg md:text-xl font-extrabold tabular-nums whitespace-nowrap leading-tight" :class="p.old ? 'text-accent-600' : 'text-ink'" x-text="money(p.price)"></p>
+                <p class="text-xs text-ink-muted line-through tabular-nums whitespace-nowrap min-h-4" x-text="p.old ? money(p.old) : ''"></p>
+              </div>
+              <button type="button" @click="p.stock > 0 && show()" :disabled="p.stock === 0"
+                      class="relative z-10 shrink-0 inline-flex items-center justify-center size-9 md:size-10 rounded-full bg-brand-600 text-white hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 disabled:bg-surface-alt disabled:text-ink-muted disabled:cursor-not-allowed"
+                      :aria-label="p.stock === 0 ? 'Sold out' : 'Add ' + p.name + ' to cart'">
+                <svg class="size-[18px] md:size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg>
+              </button>
+            </div>
+          </div>
+        </article>
+        <!-- /COMPONENT: product-card -->
+      </template>
+    </div>
+  </section>
+
+  <!-- Form controls -->
+  <section>
+    <h2 class="text-xl md:text-2xl font-extrabold">Form controls</h2>
+    <span class="block mt-2 mb-5 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+    <div class="grid grid-cols-[minmax(0,1fr)] md:grid-cols-2 gap-5 rounded-3xl bg-white ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] p-5 md:p-6">
+
+      <div class="md:col-span-2">
+        <p class="text-sm font-bold mb-1.5">Pill search (category select inside, orange button)</p>
+        <form class="flex items-center h-12 rounded-full bg-white ring-1 ring-line focus-within:ring-2 focus-within:ring-brand-400 pl-2 pr-1.5" onsubmit="return false">
+          <label for="sg-cat" class="sr-only">Category</label>
+          <select id="sg-cat" class="h-9 rounded-full bg-surface-alt text-xs font-bold text-ink-soft px-3 border-0 focus:outline-none">
+            <option>All</option><option>Laptops</option><option>MacBooks</option><option>Accessories</option>
+          </select>
+          <label for="sg-search" class="sr-only">Search</label>
+          <input id="sg-search" type="search" placeholder="Search by brand, model or processor…" class="flex-1 min-w-0 h-full bg-transparent px-3 text-sm placeholder:text-ink-muted focus:outline-none">
+          <button type="submit" class="shrink-0 inline-flex items-center justify-center size-9 rounded-full bg-accent-600 text-white hover:bg-accent-700 focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2" aria-label="Search">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <div>
+        <label for="sg-name" class="block text-sm font-bold mb-1.5">Full name</label>
+        <input id="sg-name" type="text" placeholder="e.g. Ahmed Khan" class="w-full h-11 px-4 rounded-full bg-white ring-1 ring-line text-sm placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-400">
+      </div>
+      <div>
+        <label for="sg-phone" class="block text-sm font-bold mb-1.5">Phone</label>
+        <input id="sg-phone" type="tel" inputmode="numeric" placeholder="03XXXXXXXXX" class="w-full h-11 px-4 rounded-full bg-white ring-1 ring-line text-sm placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-400">
+      </div>
+      <div>
+        <label for="sg-city" class="block text-sm font-bold mb-1.5">City</label>
+        <select id="sg-city" class="w-full h-11 px-4 rounded-full bg-white ring-1 ring-line text-sm focus:outline-none focus:ring-2 focus:ring-brand-400">
+          <option>Lahore</option><option>Karachi</option><option>Islamabad</option><option>Rawalpindi</option><option>Faisalabad</option>
+        </select>
+      </div>
+      <div>
+        <label for="sg-sort" class="block text-sm font-bold mb-1.5">Sort pill</label>
+        <select id="sg-sort" class="w-full h-11 px-4 rounded-full bg-surface-alt text-sm font-bold text-ink-soft focus:outline-none focus:ring-2 focus:ring-brand-400">
+          <option>Newest First</option><option>Price: Low to High</option><option>Price: High to Low</option><option>Featured</option>
+        </select>
+      </div>
+      <div>
+        <label for="sg-err" class="block text-sm font-bold mb-1.5">Input with error</label>
+        <input id="sg-err" type="text" value="0300" aria-invalid="true" aria-describedby="sg-err-msg" class="w-full h-11 px-4 rounded-full bg-white ring-2 ring-red-500 text-sm focus:outline-none">
+        <p id="sg-err-msg" class="mt-1 px-2 text-xs text-red-600">Enter a valid phone number, e.g. 03001234567.</p>
+      </div>
+      <div>
+        <label for="sg-note" class="block text-sm font-bold mb-1.5">Textarea</label>
+        <textarea id="sg-note" rows="3" placeholder="Anything we should know?" class="w-full px-4 py-3 rounded-2xl bg-white ring-1 ring-line text-sm placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-400"></textarea>
+      </div>
+
+      <!-- Filter-style options: count right-aligned -->
+      <div>
+        <p class="text-sm font-bold mb-1">Filter checkbox (count right-aligned)</p>
+        <div x-data="{ dell: true, hp: false }" class="max-w-xs">
+          <label class="flex items-center gap-3 min-h-11 cursor-pointer text-sm" :class="dell ? 'font-bold text-brand-700' : 'text-ink-soft'">
+            <input type="checkbox" x-model="dell" class="size-5 rounded-md accent-brand-600 focus-visible:ring-2 focus-visible:ring-brand-400">
+            <span class="flex-1">Dell</span><span class="text-xs font-normal text-ink-muted tabular-nums">28</span>
+          </label>
+          <label class="flex items-center gap-3 min-h-11 cursor-pointer text-sm" :class="hp ? 'font-bold text-brand-700' : 'text-ink-soft'">
+            <input type="checkbox" x-model="hp" class="size-5 rounded-md accent-brand-600 focus-visible:ring-2 focus-visible:ring-brand-400">
+            <span class="flex-1">HP</span><span class="text-xs font-normal text-ink-muted tabular-nums">16</span>
+          </label>
+          <label class="flex items-center gap-3 min-h-11 text-sm text-ink-muted opacity-60">
+            <input type="checkbox" disabled class="size-5 rounded-md">
+            <span class="flex-1">Toshiba</span><span class="text-xs tabular-nums">0</span>
+          </label>
+        </div>
+      </div>
+
+      <div x-data="{ on: true }" class="flex items-center gap-3 min-h-11 self-start">
+        <button type="button" role="switch" :aria-checked="on" @click="on = !on" :class="on ? 'bg-brand-600' : 'bg-line'" class="relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2" aria-label="In stock only">
+          <span :class="on ? 'translate-x-6' : 'translate-x-1'" class="inline-block size-5 rounded-full bg-white shadow transition-transform"></span>
+        </button>
+        <span class="text-sm font-bold">In stock only</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Payment options -->
+  <section x-data="{ pay: 'cod' }">
+    <h2 class="text-xl md:text-2xl font-extrabold">Payment option cards</h2>
+    <span class="block mt-2 mb-5 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3" role="radiogroup" aria-label="Payment method">
+      <label :class="pay === 'cod' ? 'ring-2 ring-brand-600 bg-brand-50' : 'ring-1 ring-line bg-white'" class="flex items-start gap-3 p-4 rounded-2xl cursor-pointer min-h-11">
+        <input type="radio" name="pay" value="cod" x-model="pay" class="mt-1 size-4 accent-brand-600">
+        <span class="flex-1"><span class="flex items-center justify-between"><span class="text-sm font-bold">Cash on Delivery</span><span class="text-[11px] font-bold bg-surface-alt text-ink-soft rounded-full px-2 py-0.5">COD</span></span>
+          <span class="block mt-0.5 text-xs text-ink-muted">Pay the courier when it arrives.</span></span>
+      </label>
+      <label :class="pay === 'bank' ? 'ring-2 ring-brand-600 bg-brand-50' : 'ring-1 ring-line bg-white'" class="flex items-start gap-3 p-4 rounded-2xl cursor-pointer min-h-11">
+        <input type="radio" name="pay" value="bank" x-model="pay" class="mt-1 size-4 accent-brand-600">
+        <span class="flex-1"><span class="flex items-center justify-between"><span class="text-sm font-bold">Bank Transfer</span><span class="text-[11px] font-bold bg-surface-alt text-ink-soft rounded-full px-2 py-0.5">IBFT</span></span>
+          <span class="block mt-0.5 text-xs text-ink-muted">Send money, then upload the receipt.</span></span>
+      </label>
+      <label :class="pay === 'card' ? 'ring-2 ring-brand-600 bg-brand-50' : 'ring-1 ring-line bg-white'" class="flex items-start gap-3 p-4 rounded-2xl cursor-pointer min-h-11">
+        <input type="radio" name="pay" value="card" x-model="pay" class="mt-1 size-4 accent-brand-600">
+        <span class="flex-1"><span class="flex items-center justify-between"><span class="text-sm font-bold">Debit / Credit Card</span><span class="text-[11px] font-bold bg-surface-alt text-ink-soft rounded-full px-2 py-0.5">VISA</span></span>
+          <span class="block mt-0.5 text-xs text-ink-muted">Visa, Mastercard, PayPak. Secure checkout.</span></span>
+      </label>
+    </div>
+  </section>
+
+  <!-- USP + testimonial -->
+  <section>
+    <h2 class="text-xl md:text-2xl font-extrabold">Trust components</h2>
+    <span class="block mt-2 mb-5 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="rounded-3xl bg-white ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] p-5">
+        <span class="inline-flex items-center justify-center size-12 rounded-full bg-brand-50 text-brand-600">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="size-6" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+        </span>
+        <p class="mt-3 font-extrabold">32-point inspection</p>
+        <p class="mt-1 text-sm text-ink-muted">Every laptop is tested before it is listed.</p>
+      </div>
+      <div class="rounded-3xl bg-white ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] p-5">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center size-11 rounded-full bg-brand-100 text-brand-700 text-sm font-extrabold" aria-hidden="true">HF</span>
+          <div class="min-w-0">
+            <p class="text-sm font-extrabold">Hira Fatima <span class="font-semibold text-ink-muted">(Multan)</span></p>
+            <p class="text-star text-sm tracking-wide" aria-label="5 out of 5 stars">★★★★★</p>
+          </div>
+        </div>
+        <p class="mt-3 text-sm text-ink-soft">HP EliteBook bohat premium feel deta hai. Zoom meetings + multitasking bina lag ke chalti hai.</p>
+        <p class="mt-2 text-xs font-bold text-ink-muted">Dec 01, 2025</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast -->
+  <section>
+    <h2 class="text-xl md:text-2xl font-extrabold">Toast</h2>
+    <span class="block mt-2 mb-5 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+    <button type="button" @click="show()" class="inline-flex items-center justify-center h-11 px-6 rounded-full bg-brand-600 text-white text-sm font-bold hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2">Add to cart (show toast)</button>
+
+    <div x-show="toast" x-transition.opacity x-cloak role="status" aria-live="polite" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 rounded-full bg-ink text-white text-sm font-bold shadow-xl pl-4 pr-5 py-3">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5 text-cond-new" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      Added to cart
+      <a href="cart.html" class="text-brand-300 underline underline-offset-2">View cart</a>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

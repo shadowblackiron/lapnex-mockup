@@ -1,0 +1,1309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Lapnex | Laptops in Pakistan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+
+      /* Lapnex teal: greener and deeper than the reference site */
+      --color-brand-50:#ECF8F5; --color-brand-100:#D1EFE8; --color-brand-200:#A3DED1;
+      --color-brand-300:#6CC7B5; --color-brand-400:#34AA95; --color-brand-500:#158F7B;
+      --color-brand-600:#0D7A6A; --color-brand-700:#0B6358; --color-brand-800:#0A4F47;
+      --color-brand-900:#08332F;
+
+      /* Orange accent: sale prices, discount badges, Buy Now */
+      --color-accent-50:#FFF4EC; --color-accent-100:#FFE4CF; --color-accent-500:#F97316;
+      --color-accent-600:#EA580C; --color-accent-700:#C2410C;
+
+      --color-ink:#0F2A33; --color-ink-soft:#3A4A50; --color-ink-muted:#6B7A80;
+      --color-line:#E6E9EB;
+      --color-surface:#FFFFFF; --color-surface-alt:#F4F5F6; --color-well:#F7F7F8;
+
+      --color-cond-new:#16A34A; --color-cond-openbox:#7C3AED;
+      --color-cond-refurb:#2563EB; --color-cond-used:#D97706;
+      --color-whatsapp:#25D366; --color-star:#F59E0B;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
+  <style>
+    :root{--swiper-theme-color:#0D7A6A;--swiper-pagination-bullet-inactive-color:#0F2A33;--swiper-pagination-bullet-inactive-opacity:.2}
+    .hero-dots .swiper-pagination-bullet{background:#fff;opacity:.45;width:8px;height:8px;transition:width .2s}
+    .hero-dots .swiper-pagination-bullet-active{opacity:1;width:24px;border-radius:9999px}
+    .hit{position:relative}.hit::after{content:"";position:absolute;inset:-6px -2px}
+    nav[aria-label="Breadcrumb"] a{position:relative}nav[aria-label="Breadcrumb"] a::after{content:"";position:absolute;inset:-14px -6px}
+    .swiper-pagination-bullet{position:relative}.swiper-pagination-bullet::after{content:"";position:absolute;inset:-18px -8px}
+    .no-scrollbar{scrollbar-width:none}.no-scrollbar::-webkit-scrollbar{display:none}
+    [x-cloak]{display:none !important}
+    @keyframes lx-marquee{to{transform:translateX(-50%)}}
+    .lx-marquee{display:flex;width:max-content;animation:lx-marquee 45s linear infinite}
+    .lx-marquee-wrap:hover .lx-marquee{animation-play-state:paused}
+    @media (prefers-reduced-motion:reduce){.lx-marquee{animation:none}}
+  </style>
+  <script defer src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.9/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+  <script>
+    /* Home page dummy data. In the Laravel build this comes from the database and settings. */
+    function home() {
+      const P = (name, cond, grade, price, old, stock, cpu, ram, ssd, scr) =>
+        ({ name, cond, grade, price, old, stock, specs: [['cpu', cpu], ['ram', ram], ['ssd', ssd], ['screen', scr]] });
+      const dell = [
+        P('DELL LATITUDE 7490 i7 8TH', 'Used', 'A', 55000, null, 1, 'i7 8th', '16GB', '512GB', '14"'),
+        P('DELL LATITUDE 5440 i5 4TH', 'Used', 'B', 30000, null, 4, 'i5 4th', '8GB', '256GB', '14"'),
+        P('DELL PRECISION 7530 i7 8TH', 'Used', 'A', 98000, null, 2, 'i7 8th', '16GB', '512GB', '15.6"'),
+        P('DELL LATITUDE 5420 i5 11TH', 'Refurbished', 'A+', 72000, 79000, 3, 'i5 11th', '16GB', '256GB', '14"'),
+        P('DELL XPS 13 9370 i7 8TH', 'Open Box', null, 89000, null, 1, 'i7 8th', '16GB', '512GB', '13.3"'),
+        P('DELL INSPIRON 15 3520 i5 12TH', 'New', null, 129000, 142000, 6, 'i5 12th', '8GB', '512GB', '15.6"'),
+      ];
+      const hp = [
+        P('HP ELITEBOOK 840 G6 i5 8TH', 'Refurbished', 'A+', 48500, null, 5, 'i5 8th', '16GB', '256GB', '14"'),
+        P('HP ELITEBOOK 830 G5 i5 8TH', 'Used', 'A', 53000, null, 0, 'i5 8th', '8GB', '256GB', '13.3"'),
+        P('HP ZBOOK 15 G5 i7 8TH', 'Refurbished', 'A', 89000, null, 2, 'i7 8th', '16GB', '512GB', '15.6"'),
+        P('HP PROBOOK 640 G5 i5 7TH', 'Used', 'B', 47000, null, 1, 'i5 7th', '8GB', '256GB', '14"'),
+        P('HP ELITEBOOK 1030 G7 i7 10TH x360', 'Used', 'A', 109000, null, 2, 'i7 10th', '16GB', '512GB', '13.3"'),
+        P('HP PAVILION 15 RYZEN 5', 'New', null, 118000, 129000, 4, 'Ryzen 5', '8GB', '512GB', '15.6"'),
+      ];
+      const lenovo = [
+        P('LENOVO THINKPAD T480 i5 8TH', 'Used', 'A', 42000, null, 2, 'i5 8th', '8GB', '256GB', '14"'),
+        P('LENOVO THINKPAD X260 i7 6TH', 'Used', 'B', 35000, null, 3, 'i7 6th', '8GB', '256GB', '12.5"'),
+        P('LENOVO LEGION 5 RYZEN 7 RTX 3060', 'New', null, 215000, 245000, 5, 'Ryzen 7', '16GB', '512GB', '15.6"'),
+        P('LENOVO THINKPAD X1 CARBON G7 i7', 'Refurbished', 'A+', 98000, null, 1, 'i7 10th', '16GB', '512GB', '14"'),
+        P('LENOVO IDEAPAD 3 i3 11TH', 'New', null, 74000, null, 8, 'i3 11th', '8GB', '256GB', '15.6"'),
+        P('LENOVO THINKPAD T14 RYZEN 5 PRO', 'Open Box', null, 92000, null, 2, 'Ryzen 5', '16GB', '512GB', '14"'),
+      ];
+      const apple = [
+        P('APPLE MACBOOK AIR M1 13" 2020', 'Open Box', null, 165000, null, 2, 'Apple M1', '8GB', '256GB', '13.3"'),
+        P('APPLE MACBOOK PRO 13" M1', 'Used', 'A', 185000, null, 1, 'Apple M1', '8GB', '512GB', '13.3"'),
+        P('APPLE MACBOOK PRO 16" 2019 i7', 'Used', 'A', 195000, 215000, 1, 'i7 9th', '16GB', '512GB', '16"'),
+        P('APPLE MACBOOK AIR 2017 i5', 'Used', 'B', 65000, null, 3, 'i5 5th', '8GB', '128GB', '13.3"'),
+        P('APPLE MACBOOK AIR M2 13"', 'New', null, 255000, 275000, 3, 'Apple M2', '8GB', '256GB', '13.6"'),
+        P('APPLE MACBOOK PRO 14" M1 PRO', 'Refurbished', 'A+', 395000, null, 1, 'M1 Pro', '16GB', '512GB', '14.2"'),
+      ];
+      const all = [...dell, ...hp, ...lenovo, ...apple];
+      const by = (n) => all.find(p => p.name === n);
+
+      return {
+        toast: false, timer: null, toastText: '',
+        add(p) {
+          if (p.stock === 0) return;
+          Alpine.store('cart').add({ name: p.name, cond: p.cond, grade: p.grade, price: p.price, old: p.old, stock: p.stock, options: [] });
+        },
+        off(p) { return Math.round((p.old - p.price) / p.old * 100); },
+
+        slides: [
+          { badge: 'Tested before it ships', title: 'Laptops you can trust, at prices that make sense',
+            text: 'New, open box, refurbished and used laptops. Every one checked and delivered all over Pakistan.',
+            b1: 'Shop laptops', b2: 'Condition guide', u2: 'condition-guide.html', bg: 'from-brand-900 via-brand-800 to-brand-600' },
+          { badge: 'Shop by budget', title: 'Great laptops under Rs 60,000',
+            text: 'Business-class Dell, HP and Lenovo laptops for students, offices and everyday work.',
+            b1: 'See laptops under Rs 60,000', b2: 'All budgets', u2: 'budget.html', bg: 'from-ink via-brand-900 to-brand-700' },
+          { badge: 'Apple', title: 'MacBooks, open box and certified used',
+            text: 'M1 and M2 MacBooks and earlier Intel models, with clear condition grades.',
+            b1: 'Shop MacBooks', b2: 'Talk to us', u2: 'contact.html', bg: 'from-accent-700 via-brand-900 to-ink' },
+        ],
+
+        promos: [
+          { eyebrow: 'Up to 25% off', title: 'On Sale', bg: 'from-accent-600 to-accent-700' },
+          { eyebrow: 'Just landed', title: 'New Arrivals', bg: 'from-brand-600 to-brand-800' },
+          { eyebrow: 'Business class', title: 'Dell Laptops', bg: 'from-brand-800 to-ink' },
+          { eyebrow: 'EliteBook & ProBook', title: 'HP Laptops', bg: 'from-brand-500 to-brand-700' },
+          { eyebrow: 'ThinkPad & Legion', title: 'Lenovo Laptops', bg: 'from-ink to-brand-800' },
+          { eyebrow: 'Chargers, bags, SSDs', title: 'Accessories', bg: 'from-accent-500 to-accent-700' },
+        ],
+
+        budgets: [
+          { pre: 'Under', val: 'Rs 40,000', n: 42 }, { pre: 'Rs 40,000 –', val: 'Rs 60,000', n: 58 },
+          { pre: 'Rs 60,000 –', val: 'Rs 80,000', n: 37 }, { pre: 'Rs 80,000 –', val: 'Rs 1 Lakh', n: 29 },
+          { pre: 'Rs 1 Lakh –', val: 'Rs 1.5 Lakh', n: 21 }, { pre: 'Above', val: 'Rs 1.5 Lakh', n: 16 },
+        ],
+
+        latest: [by('DELL LATITUDE 7490 i7 8TH'), by('HP ELITEBOOK 840 G6 i5 8TH'), by('LENOVO THINKPAD T480 i5 8TH'), by('APPLE MACBOOK AIR M1 13" 2020'),
+                 by('DELL PRECISION 7530 i7 8TH'), by('HP ZBOOK 15 G5 i7 8TH'), by('LENOVO THINKPAD X1 CARBON G7 i7'), by('DELL XPS 13 9370 i7 8TH')],
+        deals: all.filter(p => p.old && p.stock > 0).slice(0, 4),
+        brandRows: [
+          { name: 'Dell Laptops', items: dell }, { name: 'HP Laptops', items: hp },
+          { name: 'Lenovo Laptops', items: lenovo }, { name: 'Apple MacBooks', items: apple },
+        ],
+
+        needs: [
+          { t: 'With Graphics Card', n: 32 }, { t: '360° / 2-in-1', n: 18 }, { t: 'Students', n: 141 }, { t: 'Graphic Designers', n: 107 },
+          { t: 'Developers / Coding', n: 97 }, { t: 'Gaming', n: 20 }, { t: 'Office / Corporate', n: 140 }, { t: 'E-Commerce', n: 150 },
+        ],
+        features: [
+          { t: 'Office / Everyday Use', s: 'Reliable business laptops', bg: 'bg-brand-50' },
+          { t: 'Gaming & Graphics', s: 'Dedicated GPU, high refresh', bg: 'bg-accent-50' },
+          { t: 'Latest Generations', s: '11th to 14th gen processors', bg: 'bg-well' },
+        ],
+
+        usps: [
+          { i: 'shield', t: '32-point inspection', d: 'Every laptop is checked before it is listed.' },
+          { i: 'video', t: 'Video call before dispatch', d: 'We show you the actual laptop on WhatsApp video.' },
+          { i: 'battery', t: 'Battery warranty', d: 'Battery backup covered for the period on each product.' },
+          { i: 'plug', t: 'Original charger', d: 'Charger included with every laptop.' },
+          { i: 'truck', t: 'Free delivery & COD', d: 'Delivery all over Pakistan, pay on delivery.' },
+          { i: 'percent', t: 'Advance-payment discount', d: 'Extra discount when you pay in advance.' },
+          { i: 'receipt', t: 'All-inclusive prices', d: 'No hidden charges, the price you see is the price you pay.' },
+          { i: 'whatsapp', t: 'Real human support', d: 'Message us on WhatsApp, we reply quickly.' },
+        ],
+
+        conditions: [
+          { t: 'New', d: 'Brand new in a sealed box.', dot: 'bg-cond-new', badge: 'bg-cond-new/10 text-cond-new' },
+          { t: 'Open Box', d: 'Unused or barely used, box opened, all accessories.', dot: 'bg-cond-openbox', badge: 'bg-cond-openbox/10 text-cond-openbox' },
+          { t: 'Refurbished', d: 'Professionally restored and tested, parts replaced where needed.', dot: 'bg-cond-refurb', badge: 'bg-cond-refurb/10 text-cond-refurb' },
+          { t: 'Used', d: 'Pre-owned, tested and working. Cosmetic grade shown.', dot: 'bg-cond-used', badge: 'bg-cond-used/10 text-cond-used' },
+        ],
+
+        partners: ['Client Logo 1', 'Client Logo 2', 'Client Logo 3', 'Client Logo 4', 'Client Logo 5', 'Client Logo 6'],
+
+        testimonials: [
+          { n: 'Ayesha Rauf', c: 'Lahore', d: 'Mar 12, 2026', x: 'Laptop bilkul waisa hi mila jaisa pictures mein tha. Battery aur keyboard sab perfect hain.' },
+          { n: 'Hamza Qureshi', c: 'Karachi', d: 'Feb 28, 2026', x: 'Video call par laptop dikhaya phir dispatch kiya. Bohat bharosa mila, ThinkPad ab tak mast chal raha hai.' },
+          { n: 'Bilal Ahmed', c: 'Islamabad', d: 'Feb 03, 2026', x: 'Ordered an EliteBook for office work. Packing was great and it arrived in two days. Highly recommended.' },
+          { n: 'Sana Malik', c: 'Faisalabad', d: 'Jan 19, 2026', x: 'Mere budget mein achi laptop mil gayi. WhatsApp par team ne sahi guide kiya.' },
+          { n: 'Usman Tariq', c: 'Peshawar', d: 'Jan 07, 2026', x: 'Advance payment kiya aur discount bhi mila. Laptop condition exactly as described.' },
+          { n: 'Noor Fatima', c: 'Rawalpindi', d: 'Dec 22, 2025', x: 'Bought a MacBook for my studies. Clean, tested, and a fair price. Will buy again.' },
+        ],
+
+        brands: ['Dell', 'HP', 'Lenovo', 'Apple', 'Asus', 'Acer', 'Microsoft', 'MSI'],
+
+        faqOpen: 0,
+        faqs: [
+          { q: 'What do New, Open Box, Refurbished and Used mean?', a: 'New is sealed and unused. Open Box is unused or barely used with the box opened. Refurbished is professionally restored and tested. Used is pre-owned, tested and working, with a cosmetic grade (A+, A or B). See our condition guide for details.' },
+          { q: 'Do your laptops come with a warranty?', a: 'Yes. The warranty period is shown on every product page, and it is covered in our Warranty policy.' },
+          { q: 'Can I pay Cash on Delivery?', a: 'Yes. Cash on Delivery is available for most orders. For high-value orders we may ask for a small advance to confirm the order.' },
+          { q: 'Which online payment methods do you accept?', a: 'Bank transfer, JazzCash, Easypaisa and debit or credit cards. You also get a discount when you pay in advance.' },
+          { q: 'How long does delivery take?', a: 'Orders are usually delivered within 2 to 4 working days all over Pakistan. You can also collect from our shop.' },
+          { q: 'Can I return a laptop?', a: 'Yes, within the return window shown on our Returns & Refunds page, if the laptop is in the same condition you received it.' },
+        ],
+
+        seoOpen: false,
+        searches: ['Core i5 laptops', 'Core i7 laptops', '8th generation laptops', 'Dell Latitude 7490', 'HP EliteBook 840', 'Lenovo ThinkPad T480',
+                   'MacBook Air M1', 'Gaming laptops', 'Touchscreen laptops', 'Laptops under 60000', 'Laptops for students', 'Used laptops Lahore'],
+      };
+    }
+
+    /* Cart store shared by every page (header count, drawer, cart page, add-to-cart buttons).
+       The mockup keeps it in localStorage so it survives page changes. In the Laravel build the cart lives in the
+       session and prices are always recomputed on the server. */
+    function lapnexCart(storage) {
+      const KEY = 'lapnex-cart-v1';
+      const demo = () => [
+        { key: 'DELL LATITUDE 7490 i7 8TH', name: 'DELL LATITUDE 7490 i7 8TH', cond: 'Used', grade: 'A', price: 55000, old: null, stock: 1, options: [], qty: 1 },
+        { key: 'HP ELITEBOOK 840 G6 i5 8TH|32GB DDR4|256GB SSD', name: 'HP ELITEBOOK 840 G6 i5 8TH', cond: 'Refurbished', grade: 'A+', price: 57500, old: 63000, stock: 5, options: ['32GB DDR4', '256GB SSD'], qty: 1 },
+        { key: 'LENOVO THINKPAD T480 i5 8TH', name: 'LENOVO THINKPAD T480 i5 8TH', cond: 'Used', grade: 'A', price: 42000, old: null, stock: 2, options: [], qty: 2 },
+      ];
+      return {
+        items: [], open: false, freeOver: 50000, deliveryFee: 500, justAdded: null,
+        init() { this.load(); },
+        load() {
+          try {
+            const raw = storage.getItem(KEY);
+            if (raw === null) { this.items = demo(); this.save(); } else this.items = JSON.parse(raw);
+          } catch (e) { this.items = demo(); }
+        },
+        save() { try { storage.setItem(KEY, JSON.stringify(this.items)); } catch (e) {} },
+        keyOf(p) { return [p.name, ...(p.options || [])].join('|'); },
+        get count() { return this.items.reduce((n, i) => n + i.qty, 0); },
+        get subtotal() { return this.items.reduce((n, i) => n + i.price * i.qty, 0); },
+        get saved() { return this.items.reduce((n, i) => n + (i.old ? (i.old - i.price) * i.qty : 0), 0); },
+        get toFree() { return Math.max(0, this.freeOver - this.subtotal); },
+        get freeProgress() { return Math.min(100, Math.round(this.subtotal / this.freeOver * 100)); },
+        add(p, qty = 1) {
+          if (!p.stock) return false;
+          const key = this.keyOf(p), have = this.items.find(i => i.key === key);
+          if (have) have.qty = Math.min(p.stock, have.qty + qty);
+          else this.items.push({ key, name: p.name, cond: p.cond, grade: p.grade || null, price: p.price, old: p.old || null, stock: p.stock, options: p.options || [], qty: Math.min(p.stock, qty) });
+          this.justAdded = key; this.save(); this.open = true;
+          return true;
+        },
+        setQty(key, n) {
+          const it = this.items.find(i => i.key === key); if (!it) return;
+          it.qty = Math.max(1, Math.min(it.stock, Math.round(+n) || 1)); this.save();
+        },
+        inc(key) { const it = this.items.find(i => i.key === key); if (it) this.setQty(key, it.qty + 1); },
+        dec(key) { const it = this.items.find(i => i.key === key); if (it) this.setQty(key, it.qty - 1); },
+        remove(key) { this.items = this.items.filter(i => i.key !== key); this.save(); },
+        clear() { this.items = []; this.save(); },
+        reset() { this.items = demo(); this.save(); },
+        fmt(n) { return 'Rs ' + n.toLocaleString('en-US'); },
+      };
+    }
+    document.addEventListener('alpine:init', () => {
+      let store; try { store = window.localStorage; store.getItem('x'); } catch (e) { const m = {}; store = { getItem: k => (k in m ? m[k] : null), setItem: (k, v) => { m[k] = v; } }; }
+      Alpine.store('cart', lapnexCart(store));
+    });
+
+    /* Shared header/footer data. In the Laravel build these come from the database and settings. */
+    function lapnex() {
+      const money = (n) => 'Rs ' + n.toLocaleString('en-US');
+      return {
+        drawer: false, mega: false, navOpen: null, accOpen: null, scrolled: false, sOpen: false, q: '',
+
+        ticker: [
+          '32-point inspection on every laptop',
+          'Warranty on every laptop',
+          'Free delivery all over Pakistan',
+          'Cash on Delivery available',
+          'Video call before dispatch',
+        ],
+        socials: [
+          { n: 'Facebook', i: 'facebook', u: 'https://www.facebook.com/' }, { n: 'Instagram', i: 'instagram', u: 'https://www.instagram.com/' },
+          { n: 'TikTok', i: 'tiktok', u: 'https://www.tiktok.com/' }, { n: 'YouTube', i: 'youtube', u: 'https://www.youtube.com/' },
+        ],
+
+        menu: {
+          processor: [
+            { t: 'Core i3' }, { t: 'Core i5' }, { t: 'Core i7' }, { t: 'Core i9' },
+            { t: 'Core Ultra' }, { t: 'AMD Ryzen' }, { t: 'Apple M-series' },
+          ],
+          generation: [
+            { t: '11th – 14th Gen' }, { t: '9th – 10th Gen' }, { t: '7th – 8th Gen' },
+            { t: '5th – 6th Gen' }, { t: '1st – 4th Gen' },
+          ],
+          features: [
+            { t: 'With Graphics Card' }, { t: 'Touchscreen' }, { t: '360° / 2-in-1' },
+            { t: 'Numeric Keypad' }, { t: 'Backlit Keyboard' }, { t: 'H-Series CPU' },
+          ],
+          use: [
+            { t: 'Students' }, { t: 'Office / Corporate' }, { t: 'Developers / Coding' },
+            { t: 'Graphic Designers' }, { t: 'Gaming' }, { t: 'E-Commerce' },
+            { t: 'Beginners / Daily Use' }, { t: 'Workstation' },
+          ],
+          brands: [
+            { t: 'Dell' }, { t: 'HP' }, { t: 'Lenovo' }, { t: 'Apple MacBook' }, { t: 'Asus' },
+            { t: 'Acer' }, { t: 'Microsoft' }, { t: 'MSI' }, { t: 'Samsung' },
+          ],
+          budget: [
+            { t: 'Under Rs 40,000' }, { t: 'Rs 40,000 – 60,000', u: 'budget.html' }, { t: 'Rs 60,000 – 80,000' },
+            { t: 'Rs 80,000 – 1 Lakh' }, { t: 'Rs 1 – 1.5 Lakh' }, { t: 'Above Rs 1.5 Lakh' },
+          ],
+          condition: [
+            { t: 'New', dot: 'bg-cond-new' }, { t: 'Open Box', dot: 'bg-cond-openbox' },
+            { t: 'Refurbished', dot: 'bg-cond-refurb' }, { t: 'Used', dot: 'bg-cond-used' },
+          ],
+        },
+        navItems: [
+          { k: 'processor', t: 'Processor' }, { k: 'generation', t: 'Generation' },
+          { k: 'features', t: 'Features' }, { k: 'use', t: 'Use Case' }, { k: 'brands', t: 'Brands' },
+          { k: 'budget', t: 'Budget' }, { k: 'condition', t: 'Condition' },
+        ],
+        megaCols: [
+          { groups: [{ h: 'Brands', k: 'brands' }] },
+          { groups: [{ h: 'Processor', k: 'processor' }, { h: 'Generation', k: 'generation' }] },
+          { groups: [{ h: 'Use Case', k: 'use' }] },
+          { groups: [{ h: 'Features', k: 'features' }] },
+          { groups: [{ h: 'Budget', k: 'budget' }] },
+          { groups: [{ h: 'Condition', k: 'condition' }] },
+        ],
+        topCategories: ['Laptops', 'MacBooks', 'Desktops & PCs', 'Accessories'],
+
+        footerCols: [
+          { t: 'Shop', l: [['Laptops', 'listing.html'], ['MacBooks', 'listing.html'], ['Desktops & PCs', 'listing.html'], ['Accessories', 'listing.html'], ['New Arrivals', 'listing.html'], ['Deals', 'listing.html'], ['Lowest Price', 'listing.html']] },
+          { t: 'Popular', l: [['Dell Laptops', 'listing.html'], ['HP Laptops', 'listing.html'], ['Lenovo Laptops', 'listing.html'], ['Core i5 Laptops', 'listing.html'], ['Core i7 Laptops', 'listing.html'], ['8th Gen Laptops', 'listing.html'], ['Touchscreen Laptops', 'listing.html'], ['Gaming Laptops', 'listing.html'], ['Laptops Under Rs 60,000', 'budget.html'], ['Laptops for Students', 'listing.html']] },
+          { t: 'Information', l: [['About Us', 'about.html'], ['Contact Us', 'contact.html'], ['Condition Guide', 'condition-guide.html'], ['Track Order', 'track.html'], ['FAQs', 'faq.html'], ['Your Cart', 'cart.html']] },
+          { t: 'Policy', l: [['Warranty', 'warranty.html'], ['Returns & Refunds', 'returns.html'], ['Delivery', 'delivery.html'], ['Privacy Policy', 'privacy.html'], ['Terms & Conditions', 'terms.html']] },
+        ],
+        payments: ['Cash on Delivery', 'Bank Transfer', 'JazzCash', 'Easypaisa', 'Raast', 'Visa', 'Mastercard'],
+
+        products: [
+          { n: 'Dell Latitude 7490 i7 8th · 16GB · 512GB SSD', p: 55000, c: 'Used' },
+          { n: 'HP EliteBook 840 G6 i5 8th · 16GB · 256GB SSD', p: 48500, c: 'Refurbished' },
+          { n: 'Lenovo ThinkPad T480 i5 8th · 8GB · 256GB SSD', p: 42000, c: 'Used' },
+          { n: 'Apple MacBook Air M1 · 8GB · 256GB', p: 165000, c: 'Open Box' },
+          { n: 'Dell Precision 7530 i7 8th · 16GB · Quadro P1000', p: 98000, c: 'Used' },
+          { n: 'HP ZBook 15 G5 i7 8th · 16GB · 512GB SSD', p: 89000, c: 'Refurbished' },
+          { n: 'Lenovo Legion 5 Ryzen 7 · 16GB · RTX 3060', p: 215000, c: 'New' },
+          { n: 'Asus TUF F15 i5 11th · 16GB · RTX 3050', p: 185000, c: 'New' },
+          { n: 'Dell Latitude 5420 i5 11th · 16GB · 256GB SSD', p: 72000, c: 'Refurbished' },
+          { n: 'Dell XPS 13 9370 i7 8th · 16GB · 512GB SSD', p: 89000, c: 'Open Box' },
+          { n: 'Dell Latitude 5440 i5 4th · 8GB · 256GB SSD', p: 30000, c: 'Used' },
+          { n: 'HP EliteBook 830 G5 i5 8th · 8GB · 256GB SSD', p: 53000, c: 'Used' },
+        ],
+        get results() {
+          const words = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+          if (this.q.trim().length < 2) return [];
+          return this.products.filter(p => words.every(w => p.n.toLowerCase().includes(w))).slice(0, 6);
+        },
+        price: money,
+        condClass(c) {
+          return { 'New': 'bg-cond-new/10 text-cond-new', 'Open Box': 'bg-cond-openbox/10 text-cond-openbox',
+                   'Refurbished': 'bg-cond-refurb/10 text-cond-refurb', 'Used': 'bg-cond-used/10 text-cond-used' }[c];
+        },
+
+        onScroll() {
+          const y = window.scrollY;
+          if (y > 80) this.scrolled = true; else if (y < 10) this.scrolled = false;
+        },
+        closeAll() { this.drawer = false; this.mega = false; this.navOpen = null; this.sOpen = false; this.$store.cart.open = false; },
+        focusSearch() {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          this.$nextTick(() => { this.$refs.search.focus(); });
+        },
+      };
+    }
+  </script>
+</head>
+<body class="bg-surface text-ink font-sans antialiased pb-16 md:pb-0"
+      x-data="lapnex()"
+      @scroll.window.passive="onScroll()" @keydown.escape.window="closeAll()"
+      x-effect="document.body.classList.toggle('overflow-hidden', drawer || $store.cart.open)">
+
+<!-- Icon sprite: Lucide-style 24px icons, used via <svg><use href="#i-name"/></svg> -->
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+  <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/></symbol>
+  <symbol id="i-ram" viewBox="0 0 24 24"><path d="M6 19v-3M10 19v-3M14 19v-3M18 19v-3M8 6v4M12 6v4M16 6v4"/><rect x="2" y="3" width="20" height="14" rx="2"/></symbol>
+  <symbol id="i-ssd" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></symbol>
+  <symbol id="i-screen" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><path d="m16 13 5.22 3.48a.5.5 0 0 0 .78-.42V7.87a.5.5 0 0 0-.75-.43L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
+  <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2" y="7" width="16" height="10" rx="2"/><path d="M22 11v2M6 11v2M10 11v2M14 11v2"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+  <symbol id="i-percent" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 17.5v-11"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <!-- Lapnex placeholder mark: two crossing strokes forming the X -->
+  <symbol id="lx-x" viewBox="0 0 24 24"><path d="M4 4l16 16" stroke="#34AA95" stroke-width="3.2" stroke-linecap="round"/><path d="M20 4 4 20" stroke="#F97316" stroke-width="3.2" stroke-linecap="round"/></symbol>
+</svg>
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:font-bold focus:text-brand-700">Skip to content</a>
+
+<!-- COMPONENT: site-header (topbar + header + nav-bar + mega-menu) -->
+<div class="sticky top-0 z-40 bg-linear-to-r from-brand-900 to-brand-800 text-white">
+
+  <!-- COMPONENT: topbar -->
+  <div x-show="!scrolled" x-collapse class="bg-black/20 text-xs text-white/80">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-9 flex items-center gap-6">
+      <div class="lx-marquee-wrap flex-1 min-w-0 overflow-hidden" aria-label="Why shop at Lapnex">
+        <div class="lx-marquee whitespace-nowrap">
+          <template x-for="copy in [1, 2]" :key="copy">
+            <div class="flex shrink-0 items-center gap-8 pr-8" :aria-hidden="copy === 2">
+              <template x-for="item in ticker" :key="item">
+                <span class="inline-flex items-center gap-1.5 font-semibold">
+                  <svg class="size-3.5 text-accent-500" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg>
+                  <span x-text="item"></span>
+                </span>
+              </template>
+            </div>
+          </template>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-4 shrink-0">
+        <a href="tel:+923000000000" class="inline-flex items-center gap-1.5 font-bold text-white hover:underline">
+          <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg>+92 300 0000000
+        </a>
+        <a href="track.html" class="hover:text-white hover:underline">Track order</a>
+        <a href="contact.html" class="hover:text-white hover:underline">Help</a>
+        <span class="h-4 w-px bg-white/25" aria-hidden="true"></span>
+        <div class="flex items-center gap-1.5">
+          <template x-for="s in socials" :key="s.n">
+            <a :href="s.u" target="_blank" rel="noopener" :aria-label="s.n + ' (opens in a new tab)'" class="hit inline-flex items-center justify-center size-6 rounded-full bg-white/10 hover:bg-white/25">
+              <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use :href="'#i-' + s.i"/></svg>
+            </a>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /COMPONENT: topbar -->
+
+  <!-- COMPONENT: header -->
+  <header>
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex flex-wrap items-center gap-x-3 gap-y-3 lg:gap-x-6">
+      <button type="button" @click="drawer = true; mega = false" class="lg:hidden inline-flex items-center justify-center size-11 -ml-2 rounded-full hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand-300" aria-label="Open menu" :aria-expanded="drawer">
+        <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+
+      <a href="home.html" class="flex min-h-11 items-center text-[26px] font-extrabold tracking-tight leading-none focus-visible:ring-2 focus-visible:ring-brand-300 rounded" aria-label="Lapnex home">LAPNE<svg class="size-7 -ml-px" fill="none" aria-hidden="true"><use href="#lx-x"/></svg></a>
+
+      <!-- Search: sits on its own row on mobile, in the middle on desktop -->
+      <div class="relative order-last w-full lg:order-none lg:w-auto lg:flex-1 lg:max-w-3xl" @click.outside="sOpen = false">
+        <form role="search" action="#" onsubmit="return false" class="flex items-center h-12 rounded-full bg-white text-ink ring-1 ring-white/20 focus-within:ring-2 focus-within:ring-brand-300 pl-2 pr-1.5">
+          <label for="hdr-cat" class="sr-only">Category</label>
+          <select id="hdr-cat" class="hidden sm:block h-9 rounded-full bg-surface-alt text-xs font-bold text-ink-soft pl-3 pr-2 border-0 focus:outline-none">
+            <option>All</option><option>Laptops</option><option>MacBooks</option><option>Accessories</option>
+          </select>
+          <label for="hdr-q" class="sr-only">Search laptops</label>
+          <input id="hdr-q" x-ref="search" x-model="q" @focus="sOpen = true" @input="sOpen = true" type="search" autocomplete="off"
+                 placeholder="Search by brand, model or processor…"
+                 class="flex-1 min-w-0 h-full bg-transparent px-3 text-sm placeholder:text-ink-muted focus:outline-none"
+                 role="combobox" aria-autocomplete="list" aria-controls="hdr-suggest" :aria-expanded="sOpen && results.length > 0">
+          <button type="submit" class="shrink-0 inline-flex items-center justify-center size-11 rounded-full bg-accent-600 text-white hover:bg-accent-700 focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2" aria-label="Search">
+            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-search"/></svg>
+          </button>
+        </form>
+
+        <div id="hdr-suggest" x-show="sOpen && results.length > 0" x-transition.opacity x-cloak role="listbox"
+             class="absolute left-0 right-0 top-full mt-2 z-50 rounded-3xl bg-white text-ink shadow-xl ring-1 ring-line p-2">
+          <template x-for="p in results" :key="p.n">
+            <a href="product.html" role="option" class="flex items-center gap-3 rounded-2xl p-2 hover:bg-brand-50 focus-visible:bg-brand-50">
+              <span class="inline-flex items-center justify-center size-11 shrink-0 rounded-xl bg-well text-ink-muted">
+                <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-laptop"/></svg>
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="block truncate text-sm font-bold" x-text="p.n"></span>
+                <span class="mt-0.5 flex items-center gap-2">
+                  <span class="text-sm font-extrabold tabular-nums text-accent-600" x-text="price(p.p)"></span>
+                  <span class="rounded-full text-[11px] font-bold px-2 py-px" :class="condClass(p.c)" x-text="p.c"></span>
+                </span>
+              </span>
+            </a>
+          </template>
+          <a href="listing.html" class="mt-1 flex items-center justify-between rounded-2xl px-3 py-2.5 text-sm font-bold text-brand-700 hover:bg-brand-50">
+            <span>See all results for “<span x-text="q.trim()"></span>”</span>
+            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="ml-auto lg:ml-0 flex items-center gap-1 sm:gap-2">
+        <a href="login.html" class="hidden lg:flex flex-col items-center justify-center min-w-12 h-12 rounded-2xl text-[11px] font-bold text-white/85 hover:text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand-300">
+          <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-user"/></svg>Account
+        </a>
+        <a href="wishlist.html" class="relative flex flex-col items-center justify-center min-w-11 sm:min-w-12 h-11 sm:h-12 rounded-2xl text-[11px] font-bold text-white/85 hover:text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand-300" aria-label="Wishlist, 3 items">
+          <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-heart"/></svg>
+          <span class="hidden sm:block">Wishlist</span>
+          <span class="absolute top-0.5 right-1.5 sm:right-2 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-accent-600 text-white text-[10px] font-bold">3</span>
+        </a>
+        <button type="button" @click="$store.cart.open = true; mega = false; navOpen = null" class="relative flex flex-col items-center justify-center min-w-11 sm:min-w-12 h-11 sm:h-12 rounded-2xl text-[11px] font-bold text-white/85 hover:text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand-300" :aria-label="'Cart, ' + $store.cart.count + ' items'">
+          <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg>
+          <span class="hidden sm:block">Cart</span>
+          <span x-show="$store.cart.count > 0" class="absolute top-0.5 right-1.5 sm:right-2 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-accent-600 text-white text-[10px] font-bold" x-text="$store.cart.count"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <!-- /COMPONENT: header -->
+
+  <!-- COMPONENT: nav-bar (desktop only) -->
+  <nav class="hidden lg:block bg-white text-ink border-b border-line relative" aria-label="Shop by">
+    <div class="max-w-7xl mx-auto px-6 h-12 flex items-center gap-1">
+      <button type="button" @click="mega = !mega; navOpen = null" :aria-expanded="mega" aria-controls="mega-menu"
+              class="inline-flex items-center gap-2 h-9 pl-3 pr-4 mr-2 rounded-full bg-brand-600 text-white text-sm font-bold hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2">
+        <svg class="size-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-grid"/></svg>
+        All Categories
+        <svg class="size-4 transition-transform" :class="mega && 'rotate-180'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+      </button>
+
+      <ul class="flex items-center" @click.outside="navOpen = null">
+        <template x-for="item in navItems" :key="item.k">
+          <li class="relative" @mouseenter="navOpen = item.k; mega = false" @mouseleave="navOpen = null">
+            <button type="button" @click="navOpen = item.k; mega = false" :aria-expanded="navOpen === item.k"
+                    class="inline-flex items-center gap-1 h-9 px-3 rounded-full text-sm font-bold text-ink-soft hover:text-brand-700 hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-brand-400"
+                    :class="navOpen === item.k && 'text-brand-700 bg-brand-50'">
+              <span x-text="item.t"></span>
+              <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </button>
+            <div x-show="navOpen === item.k" x-cloak x-transition.opacity.duration.100ms
+                 class="absolute left-0 top-full w-60 z-40 pt-1">
+              <ul class="rounded-2xl bg-white shadow-xl ring-1 ring-line p-2">
+                <template x-for="link in menu[item.k]" :key="link.t">
+                  <li><a :href="link.u || 'listing.html'" class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-semibold text-ink-soft hover:bg-brand-50 hover:text-brand-700">
+                    <span x-show="link.dot" class="size-2.5 rounded-full" :class="link.dot"></span><span x-text="link.t"></span></a></li>
+                </template>
+              </ul>
+            </div>
+          </li>
+        </template>
+      </ul>
+
+      <a href="listing.html" class="ml-auto inline-flex items-center gap-1.5 h-9 px-3 rounded-full text-sm font-extrabold text-accent-600 hover:bg-accent-50 focus-visible:ring-2 focus-visible:ring-accent-500">
+        <svg class="size-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-flame"/></svg>Deals
+      </a>
+    </div>
+
+    <!-- COMPONENT: mega-menu -->
+    <div id="mega-menu" x-show="mega" x-cloak x-transition.opacity.duration.100ms @click.outside="mega = false"
+         class="absolute left-0 right-0 top-full z-40 bg-white text-ink border-b border-line shadow-xl max-h-[calc(100vh-170px)] overflow-y-auto">
+      <div class="max-w-7xl mx-auto px-6 py-6 grid grid-cols-7 gap-6">
+        <template x-for="col in megaCols" :key="col.groups[0].h">
+          <div>
+            <template x-for="(g, gi) in col.groups" :key="g.h">
+              <div :class="gi > 0 && 'mt-5'">
+                <p class="text-xs font-extrabold uppercase tracking-wider text-brand-700 mb-2" x-text="g.h"></p>
+                <ul class="space-y-0.5">
+                  <template x-for="link in menu[g.k]" :key="link.t">
+                    <li><a :href="link.u || 'listing.html'" class="flex items-center gap-2 py-1 text-sm font-semibold text-ink-soft hover:text-brand-700">
+                      <span x-show="link.dot" class="size-2.5 rounded-full" :class="link.dot"></span><span x-text="link.t"></span></a></li>
+                  </template>
+                </ul>
+              </div>
+            </template>
+          </div>
+        </template>
+        <a href="listing.html" class="group relative flex flex-col justify-end overflow-hidden rounded-3xl bg-linear-to-br from-brand-700 to-brand-900 p-4 text-white min-h-52 focus-visible:ring-2 focus-visible:ring-brand-400">
+          <span class="absolute -top-8 -right-8 size-28 rounded-full bg-accent-500/80 blur-sm" aria-hidden="true"></span>
+          <span class="relative text-[11px] font-extrabold uppercase tracking-wider text-accent-100">This week</span>
+          <span class="relative mt-1 text-lg font-extrabold leading-tight">Certified laptops on sale</span>
+          <span class="relative mt-3 inline-flex items-center gap-1 text-sm font-bold">Shop deals
+            <svg class="size-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-right"/></svg></span>
+        </a>
+      </div>
+    </div>
+    <!-- /COMPONENT: mega-menu -->
+  </nav>
+  <!-- /COMPONENT: nav-bar -->
+</div>
+<!-- /COMPONENT: site-header -->
+
+<!-- COMPONENT: mobile-drawer -->
+<div x-show="drawer" x-cloak class="lg:hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Menu">
+  <div x-show="drawer" x-transition.opacity @click="drawer = false" class="absolute inset-0 bg-ink/50"></div>
+  <div x-show="drawer" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+       x-transition:leave="transition ease-in duration-150" x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
+       class="absolute inset-y-0 left-0 w-[88%] max-w-sm bg-white flex flex-col shadow-2xl">
+    <div class="flex items-center justify-between px-4 h-16 bg-linear-to-r from-brand-900 to-brand-800 text-white shrink-0">
+      <span class="flex items-center text-2xl font-extrabold tracking-tight leading-none">LAPNE<svg class="size-6 -ml-px" fill="none" aria-hidden="true"><use href="#lx-x"/></svg></span>
+      <button type="button" @click="drawer = false" class="inline-flex items-center justify-center size-11 -mr-2 rounded-full hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand-300" aria-label="Close menu">
+        <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto overscroll-contain">
+      <div class="p-4 grid grid-cols-2 gap-2">
+        <a href="login.html" class="inline-flex items-center justify-center gap-2 h-11 rounded-full bg-brand-600 text-white text-sm font-bold">
+          <svg class="size-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-user"/></svg>Sign in</a>
+        <a href="track.html" class="inline-flex items-center justify-center gap-2 h-11 rounded-full bg-white ring-1 ring-line text-sm font-bold">Track order</a>
+      </div>
+
+      <ul class="px-2">
+        <template x-for="c in topCategories" :key="c">
+          <li><a href="listing.html" class="flex items-center justify-between min-h-12 px-3 rounded-2xl text-[15px] font-bold hover:bg-brand-50"><span x-text="c"></span>
+            <svg class="size-4 text-ink-muted" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-right"/></svg></a></li>
+        </template>
+        <li><a href="listing.html" class="flex items-center gap-2 min-h-12 px-3 rounded-2xl text-[15px] font-extrabold text-accent-600 hover:bg-accent-50">
+          <svg class="size-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-flame"/></svg>Deals</a></li>
+      </ul>
+
+      <p class="px-5 pt-4 pb-1 text-xs font-extrabold uppercase tracking-wider text-ink-muted">Shop by</p>
+      <ul class="px-2 pb-4">
+        <template x-for="item in navItems" :key="item.k">
+          <li>
+            <button type="button" @click="accOpen = accOpen === item.k ? null : item.k" :aria-expanded="accOpen === item.k"
+                    class="flex w-full items-center justify-between min-h-12 px-3 rounded-2xl text-[15px] font-bold hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-brand-400">
+              <span x-text="item.t"></span>
+              <svg class="size-4 text-ink-muted transition-transform" :class="accOpen === item.k && 'rotate-180'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </button>
+            <ul x-show="accOpen === item.k" x-collapse class="ml-3 pl-3 border-l-2 border-brand-100">
+              <template x-for="link in menu[item.k]" :key="link.t">
+                <li><a :href="link.u || 'listing.html'" class="flex items-center gap-2.5 min-h-11 px-3 rounded-xl text-sm font-semibold text-ink-soft hover:bg-brand-50 hover:text-brand-700">
+                  <span x-show="link.dot" class="size-2.5 rounded-full" :class="link.dot"></span><span x-text="link.t"></span></a></li>
+              </template>
+            </ul>
+          </li>
+        </template>
+      </ul>
+    </div>
+
+    <div class="shrink-0 p-4 border-t border-line">
+      <a href="https://wa.me/923000000000" class="inline-flex w-full items-center justify-center gap-2 h-12 rounded-full bg-whatsapp text-ink text-sm font-extrabold">
+        <svg class="size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-whatsapp"/></svg>Chat on WhatsApp</a>
+    </div>
+  </div>
+</div>
+<!-- /COMPONENT: mobile-drawer -->
+
+<!-- COMPONENT: cart-drawer -->
+<div x-show="$store.cart.open" x-cloak class="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title" x-data="{ c: $store.cart }">
+  <div x-show="c.open" x-transition.opacity @click="c.open = false" class="absolute inset-0 bg-ink/50"></div>
+  <div x-show="c.open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+       x-transition:leave="transition ease-in duration-150" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
+       class="absolute inset-y-0 right-0 flex w-full max-w-md flex-col bg-white shadow-2xl">
+
+    <div class="flex shrink-0 items-center justify-between border-b border-line px-5 h-16">
+      <h2 id="cart-drawer-title" class="flex items-center gap-2 text-lg font-extrabold">
+        <svg class="size-5 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg>
+        Your cart <span class="text-sm font-bold text-ink-muted" x-text="'(' + c.count + ')'"></span></h2>
+      <button type="button" @click="c.open = false" class="inline-flex size-11 -mr-2 items-center justify-center rounded-full hover:bg-surface-alt focus-visible:ring-2 focus-visible:ring-brand-400" aria-label="Close cart">
+        <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+
+    <!-- Empty -->
+    <div x-show="c.items.length === 0" class="flex flex-1 flex-col items-center justify-center px-8 text-center">
+      <span class="inline-flex size-16 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+        <svg class="size-8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg></span>
+      <p class="mt-4 text-lg font-extrabold">Your cart is empty</p>
+      <p class="mt-1 text-sm text-ink-muted">Find a laptop you like and add it here.</p>
+      <a href="listing.html" class="mt-5 inline-flex h-11 items-center rounded-full bg-brand-600 px-6 text-sm font-extrabold text-white hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2">Shop laptops</a>
+    </div>
+
+    <!-- Items -->
+    <div x-show="c.items.length > 0" class="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5">
+      <div class="mt-4 rounded-2xl bg-brand-50 p-3 text-sm">
+        <p class="font-bold text-brand-800" x-text="c.toFree > 0 ? 'Add ' + c.fmt(c.toFree) + ' more for free delivery' : 'You have unlocked free delivery'"></p>
+        <div class="mt-2 h-2 overflow-hidden rounded-full bg-white" role="progressbar" :aria-valuenow="c.freeProgress" aria-valuemin="0" aria-valuemax="100" aria-label="Progress to free delivery">
+          <div class="h-full rounded-full bg-linear-to-r from-brand-500 to-accent-500 transition-all" :style="'width:' + c.freeProgress + '%'"></div></div>
+      </div>
+      <ul class="divide-y divide-line">
+        <template x-for="i in c.items" :key="i.key">
+          <li class="flex gap-3 py-4">
+            <a href="product.html" class="size-20 shrink-0 rounded-2xl bg-well p-1.5" tabindex="-1" aria-hidden="true"><img src="assets/img/laptop-a.svg" alt="" width="80" height="80" class="size-full object-contain"></a>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-start justify-between gap-2">
+                <a href="product.html" class="line-clamp-2 text-[13px] font-bold leading-snug hover:text-brand-700" x-text="i.name"></a>
+                <button type="button" @click="c.remove(i.key)" class="-mr-3 -mt-2.5 inline-flex size-11 shrink-0 items-center justify-center rounded-full text-ink-muted hover:bg-accent-50 hover:text-accent-700 focus-visible:ring-2 focus-visible:ring-accent-500" :aria-label="'Remove ' + i.name">
+                  <svg class="size-[18px]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-trash"/></svg></button>
+              </div>
+              <p class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span class="rounded-full px-2 py-0.5 text-[11px] font-bold" :class="condClass(i.cond)"><span x-text="i.cond"></span><span x-show="i.grade" x-text="' · ' + i.grade"></span></span>
+                <span x-show="i.options.length" class="text-xs text-ink-muted" x-text="i.options.join(' · ')"></span>
+              </p>
+              <div class="mt-2 flex items-center justify-between gap-2">
+                <div class="inline-flex h-11 items-center rounded-full bg-white ring-1 ring-line" role="group" :aria-label="'Quantity for ' + i.name">
+                  <button type="button" @click="c.dec(i.key)" :disabled="i.qty <= 1" class="inline-flex size-11 items-center justify-center rounded-full hover:bg-surface-alt focus-visible:ring-2 focus-visible:ring-brand-400 disabled:opacity-40" aria-label="Decrease quantity">
+                    <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><use href="#i-minus"/></svg></button>
+                  <span class="w-7 text-center text-sm font-extrabold tabular-nums" aria-live="polite" x-text="i.qty"></span>
+                  <button type="button" @click="c.inc(i.key)" :disabled="i.qty >= i.stock" class="inline-flex size-11 items-center justify-center rounded-full hover:bg-surface-alt focus-visible:ring-2 focus-visible:ring-brand-400 disabled:opacity-40" aria-label="Increase quantity">
+                    <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><use href="#i-plus"/></svg></button>
+                </div>
+                <p class="text-right"><span class="block text-base font-extrabold tabular-nums" x-text="c.fmt(i.price * i.qty)"></span>
+                  <span x-show="i.qty > 1" class="block text-xs tabular-nums text-ink-muted" x-text="c.fmt(i.price) + ' each'"></span></p>
+              </div>
+              <p x-show="i.qty >= i.stock" class="mt-1.5 text-xs font-bold text-accent-700" x-text="i.stock === 1 ? 'Only 1 available' : 'Maximum available: ' + i.stock"></p>
+            </div>
+          </li>
+        </template>
+      </ul>
+    </div>
+
+    <!-- Footer -->
+    <div x-show="c.items.length > 0" class="shrink-0 border-t border-line p-5">
+      <div class="flex items-baseline justify-between">
+        <span class="text-sm font-bold text-ink-soft">Subtotal</span>
+        <span class="text-xl font-extrabold tabular-nums" x-text="c.fmt(c.subtotal)"></span>
+      </div>
+      <p x-show="c.saved > 0" class="mt-1 text-right text-xs font-bold text-cond-new" x-text="'You are saving ' + c.fmt(c.saved)"></p>
+      <p class="mt-1 text-xs text-ink-muted">Delivery and any advance-payment discount are calculated at checkout.</p>
+      <div class="mt-4 grid grid-cols-2 gap-3">
+        <a href="cart.html" class="inline-flex h-12 items-center justify-center rounded-full bg-white text-sm font-extrabold ring-1 ring-line hover:bg-surface-alt focus-visible:ring-2 focus-visible:ring-brand-400">View cart</a>
+        <a href="checkout.html" class="inline-flex h-12 items-center justify-center rounded-full bg-accent-600 text-sm font-extrabold text-white hover:bg-accent-700 focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2">Checkout</a>
+      </div>
+      <p class="mt-3 text-center text-xs text-ink-muted">By checking out you agree to our <a href="terms.html" class="font-bold text-brand-700 hover:underline">Terms &amp; Conditions</a>.</p>
+    </div>
+  </div>
+</div>
+<!-- /COMPONENT: cart-drawer -->
+
+<main id="main" x-data="home()">
+  <h1 class="sr-only">Lapnex: new, open box, refurbished and used laptops in Pakistan</h1>
+
+  <!-- 1. HERO -->
+  <section class="pt-4 md:pt-6" aria-label="Featured offers">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="relative"
+           x-data="{ sw: null }"
+           x-init="$nextTick(() => sw = new Swiper($refs.hero, { rewind: true, speed: 500, autoplay: matchMedia('(prefers-reduced-motion: reduce)').matches ? false : { delay: 5500, disableOnInteraction: false }, pagination: { el: $refs.dots, clickable: true } }))">
+        <div x-ref="hero" class="swiper overflow-hidden rounded-3xl">
+          <div class="swiper-wrapper">
+            <template x-for="s in slides" :key="s.title">
+              <div class="swiper-slide">
+                <div class="relative flex min-h-[420px] md:min-h-[400px] lg:min-h-[440px] overflow-hidden rounded-3xl bg-linear-to-br text-white" :class="s.bg">
+                  <span class="absolute -right-20 -top-24 size-80 rounded-full bg-white/5" aria-hidden="true"></span>
+                  <span class="absolute right-24 -bottom-32 size-72 rounded-full bg-accent-500/20 blur-2xl" aria-hidden="true"></span>
+                  <div class="relative z-10 flex flex-col justify-center gap-4 p-6 pb-52 md:p-12 md:pb-12 md:w-3/5 lg:w-1/2">
+                    <span class="self-start rounded-full bg-accent-600 px-3 py-1 text-xs font-extrabold" x-text="s.badge"></span>
+                    <p class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.1]" x-text="s.title"></p>
+                    <p class="max-w-md text-sm md:text-base text-white/80" x-text="s.text"></p>
+                    <div class="mt-2 flex flex-wrap gap-3">
+                      <a href="listing.html" class="inline-flex items-center justify-center h-12 px-6 rounded-full bg-white text-brand-800 text-sm font-extrabold hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900" x-text="s.b1"></a>
+                      <a :href="s.u2" class="inline-flex items-center justify-center h-12 px-6 rounded-full bg-white/10 ring-1 ring-white/50 text-sm font-extrabold hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white" x-text="s.b2"></a>
+                    </div>
+                  </div>
+                  <img src="assets/img/laptop-a.svg" alt="" width="400" height="400"
+                       class="absolute -bottom-4 right-1/2 translate-x-1/2 w-60 md:translate-x-0 md:right-6 md:bottom-1/2 md:translate-y-1/2 md:w-[380px] lg:right-12 lg:w-[440px] drop-shadow-2xl">
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+        <div x-ref="dots" class="hero-dots absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-1.5"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. PROMO TILES -->
+  <section class="py-8 md:py-12" aria-label="Featured collections">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
+      <template x-for="t in promos" :key="t.title">
+        <a href="listing.html" class="group relative flex min-h-[9.5rem] flex-col justify-between gap-3 overflow-hidden rounded-3xl bg-linear-to-br p-4 text-white sm:aspect-[3/2] md:p-6 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2" :class="t.bg">
+          <span class="relative z-10 text-[11px] md:text-xs font-extrabold uppercase tracking-wider text-white/80" x-text="t.eyebrow"></span>
+          <span class="relative z-10">
+            <span class="block text-lg md:text-3xl font-extrabold leading-tight" x-text="t.title"></span>
+            <span class="mt-2 md:mt-3 inline-flex h-8 md:h-9 items-center gap-1 rounded-full bg-white px-3 md:px-4 text-xs md:text-sm font-extrabold text-ink">Shop now
+              <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+          </span>
+          <img src="assets/img/laptop-a.svg" alt="" width="400" height="400" loading="lazy"
+               class="absolute -right-8 -bottom-5 w-24 opacity-40 transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-2 sm:w-28 sm:opacity-90 md:w-48">
+        </a>
+      </template>
+    </div>
+  </section>
+
+  <!-- 3. SHOP BY BUDGET -->
+  <section class="pb-8 md:pb-12" aria-labelledby="h-budget">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="mb-5">
+        <h2 id="h-budget" class="text-xl md:text-2xl font-extrabold">Shop by Budget</h2>
+        <span class="block mt-2 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
+        <template x-for="b in budgets" :key="b.val + b.pre">
+          <a href="budget.html" class="group flex items-center justify-between gap-3 rounded-3xl bg-white p-4 md:p-6 ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] hover:shadow-[0_6px_20px_rgba(15,42,51,0.10)] hover:ring-brand-300 transition focus-visible:ring-2 focus-visible:ring-brand-400">
+            <span class="min-w-0">
+              <span class="block text-xs md:text-sm font-bold text-ink-muted" x-text="b.pre"></span>
+              <span class="block text-lg md:text-2xl font-extrabold tabular-nums text-brand-800 whitespace-nowrap" x-text="b.val"></span>
+              <span class="mt-1 block text-xs font-semibold text-ink-muted" x-text="b.n + ' laptops'"></span>
+            </span>
+            <span class="hidden sm:inline-flex shrink-0 items-center justify-center size-10 rounded-full bg-brand-50 text-brand-700 transition group-hover:bg-brand-600 group-hover:text-white">
+              <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+            </span>
+          </a>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. LATEST ARRIVALS -->
+  <section class="pb-8 md:pb-12" aria-labelledby="h-latest">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <h2 id="h-latest" class="text-xl md:text-2xl font-extrabold">Latest Arrivals</h2>
+          <span class="block mt-2 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+        </div>
+        <a href="listing.html" class="inline-flex min-h-11 items-center whitespace-nowrap text-sm font-bold text-brand-700 hover:underline">View all →</a>
+      </div>
+      <div class="no-scrollbar -mx-4 -my-2 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 py-2 md:mx-0 md:my-0 md:grid md:grid-cols-4 md:gap-5 md:overflow-visible md:p-0">
+        <template x-for="p in latest" :key="p.name">
+          <!-- COMPONENT: product-card -->
+          <article class="group relative flex w-[46%] shrink-0 snap-start flex-col rounded-3xl bg-white p-2.5 ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] transition-shadow hover:shadow-[0_6px_20px_rgba(15,42,51,0.10)] sm:w-[31%] md:w-auto md:p-3">
+            <div class="relative aspect-square overflow-hidden rounded-2xl bg-well">
+              <img src="assets/img/laptop-a.svg" alt="" width="400" height="400" loading="lazy" class="absolute inset-0 size-full object-contain p-3 transition-opacity duration-200 md:p-4 md:group-hover:opacity-0" :class="p.stock === 0 && 'opacity-50 grayscale'">
+              <img src="assets/img/laptop-b.svg" alt="" width="400" height="400" loading="lazy" class="absolute inset-0 size-full object-contain p-3 opacity-0 transition-opacity duration-200 md:p-4" :class="p.stock === 0 ? 'hidden' : 'md:group-hover:opacity-100'">
+              <span class="absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-bold backdrop-blur-sm md:px-2.5 md:text-xs" :class="condClass(p.cond)"><span x-text="p.cond"></span><span x-show="p.grade" x-text="' · ' + p.grade"></span></span>
+              <span x-show="p.old" class="absolute bottom-2 left-2 rounded-full bg-accent-600 px-2 py-0.5 text-[11px] font-bold text-white md:text-xs" x-text="'-' + (p.old ? off(p) : 0) + '%'"></span>
+              <span x-show="p.stock === 0" class="absolute bottom-2 right-2 rounded-full bg-ink/85 px-2.5 py-0.5 text-[11px] font-bold text-white md:text-xs">Sold out</span>
+            </div>
+            <div class="flex flex-1 flex-col pt-3">
+              <h3 class="line-clamp-2 min-h-[2.5em] text-[13px] font-bold leading-snug text-ink md:text-sm">
+                <a href="product.html" class="after:absolute after:inset-0 after:rounded-3xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-brand-400" x-text="p.name"></a>
+              </h3>
+              <ul class="mt-2 flex flex-nowrap gap-1 overflow-hidden [mask-image:linear-gradient(to_right,black_88%,transparent)]" aria-label="Key specs">
+                <template x-for="s in p.specs" :key="s[0]">
+                  <li class="inline-flex shrink-0 items-center gap-1 rounded-full bg-surface-alt px-2 py-0.5 text-[11px] text-ink-soft">
+                    <svg class="size-3" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use :href="'#i-' + s[0]"/></svg><span x-text="s[1]"></span>
+                  </li>
+                </template>
+              </ul>
+              <p class="mt-2 min-h-4 text-xs font-bold text-accent-700" x-text="p.stock > 0 && p.stock <= 2 ? 'Only ' + p.stock + ' left' : ''"></p>
+              <div class="mt-auto flex items-end justify-between gap-1.5 pt-2">
+                <div class="min-w-0">
+                  <p class="whitespace-nowrap text-[15px] font-extrabold leading-tight tabular-nums sm:text-lg md:text-xl" :class="p.old ? 'text-accent-600' : 'text-ink'" x-text="price(p.price)"></p>
+                  <p class="min-h-4 whitespace-nowrap text-xs tabular-nums text-ink-muted line-through" x-text="p.old ? price(p.old) : ''"></p>
+                </div>
+                <button type="button" @click="add(p)" :disabled="p.stock === 0" class="relative z-10 inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-surface-alt disabled:text-ink-muted" :aria-label="p.stock === 0 ? 'Sold out' : 'Add ' + p.name + ' to cart'">
+                  <svg class="size-[18px] md:size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg>
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- /COMPONENT: product-card -->
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SHOP BY NEED (carousel) -->
+  <section class="bg-surface-alt py-8 md:py-12" aria-labelledby="h-need"
+           x-data="{ sw: null }"
+           x-init="$nextTick(() => sw = new Swiper($refs.sw, { slidesPerView: 2.2, spaceBetween: 12, breakpoints: { 640: { slidesPerView: 3.2 }, 1024: { slidesPerView: 5, spaceBetween: 16 }, 1280: { slidesPerView: 6, spaceBetween: 16 } }, navigation: { prevEl: $refs.prev, nextEl: $refs.next } }))">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <h2 id="h-need" class="text-xl md:text-2xl font-extrabold">Shop by Need</h2>
+          <span class="block mt-2 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+        </div>
+        <div class="flex gap-2">
+          <button x-ref="prev" type="button" class="inline-flex size-11 items-center justify-center rounded-full bg-white ring-1 ring-line hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-brand-400 [&.swiper-button-disabled]:opacity-40" aria-label="Previous">
+            <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+          <button x-ref="next" type="button" class="inline-flex size-11 items-center justify-center rounded-full bg-white ring-1 ring-line hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-brand-400 [&.swiper-button-disabled]:opacity-40" aria-label="Next">
+            <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+        </div>
+      </div>
+      <div x-ref="sw" class="swiper overflow-hidden [&_.swiper-slide]:h-auto">
+        <div class="swiper-wrapper">
+          <template x-for="n in needs" :key="n.t">
+            <div class="swiper-slide [&.swiper-slide]:flex">
+              <a href="listing.html" class="group block w-full rounded-3xl bg-white p-3 text-center ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] hover:shadow-[0_6px_20px_rgba(15,42,51,0.10)] transition-shadow focus-visible:ring-2 focus-visible:ring-brand-400">
+                <span class="flex aspect-[4/3] items-center justify-center rounded-2xl bg-well">
+                  <img src="assets/img/laptop-a.svg" alt="" width="400" height="400" loading="lazy" class="h-[85%] object-contain transition-transform duration-300 group-hover:scale-105">
+                </span>
+                <span class="mt-3 block text-sm font-extrabold leading-tight" x-text="n.t"></span>
+                <span class="mt-0.5 block text-xs font-semibold text-ink-muted" x-text="n.n + ' laptops'"></span>
+              </a>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. FEATURE CARDS -->
+  <section class="py-8 md:py-12" aria-label="Popular categories">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 grid gap-3 md:grid-cols-3 md:gap-5">
+      <template x-for="f in features" :key="f.t">
+        <a href="listing.html" class="group relative flex min-h-48 flex-col justify-center overflow-hidden rounded-3xl p-6 ring-1 ring-line focus-visible:ring-2 focus-visible:ring-brand-400" :class="f.bg">
+          <span class="relative z-10 max-w-[60%]">
+            <span class="block text-xl font-extrabold leading-tight text-ink md:text-2xl" x-text="f.t"></span>
+            <span class="mt-1 block text-sm text-ink-soft" x-text="f.s"></span>
+            <span class="mt-4 inline-flex h-9 items-center gap-1 rounded-full bg-brand-600 px-4 text-sm font-extrabold text-white group-hover:bg-brand-700">Shop now
+              <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+          </span>
+          <img src="assets/img/laptop-b.svg" alt="" width="400" height="400" loading="lazy" class="absolute -right-8 bottom-0 w-44 transition-transform duration-300 group-hover:scale-105 md:w-48">
+        </a>
+      </template>
+    </div>
+  </section>
+
+  <!-- 7. DEALS -->
+  <section class="pb-8 md:pb-12" aria-labelledby="h-deals">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <h2 id="h-deals" class="flex items-center gap-2 text-xl md:text-2xl font-extrabold">
+            <svg class="size-6 text-accent-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-flame"/></svg>Deals
+          </h2>
+          <span class="block mt-2 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+        </div>
+        <a href="listing.html" class="inline-flex min-h-11 items-center whitespace-nowrap text-sm font-bold text-brand-700 hover:underline">All deals →</a>
+      </div>
+      <div class="no-scrollbar -mx-4 -my-2 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 py-2 md:mx-0 md:my-0 md:grid md:grid-cols-4 md:gap-5 md:overflow-visible md:p-0">
+        <template x-for="p in deals" :key="p.name">
+          <!-- COMPONENT: product-card -->
+          <article class="group relative flex w-[46%] shrink-0 snap-start flex-col rounded-3xl bg-white p-2.5 ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] transition-shadow hover:shadow-[0_6px_20px_rgba(15,42,51,0.10)] sm:w-[31%] md:w-auto md:p-3">
+            <div class="relative aspect-square overflow-hidden rounded-2xl bg-well">
+              <img src="assets/img/laptop-a.svg" alt="" width="400" height="400" loading="lazy" class="absolute inset-0 size-full object-contain p-3 transition-opacity duration-200 md:p-4 md:group-hover:opacity-0" :class="p.stock === 0 && 'opacity-50 grayscale'">
+              <img src="assets/img/laptop-b.svg" alt="" width="400" height="400" loading="lazy" class="absolute inset-0 size-full object-contain p-3 opacity-0 transition-opacity duration-200 md:p-4" :class="p.stock === 0 ? 'hidden' : 'md:group-hover:opacity-100'">
+              <span class="absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-bold backdrop-blur-sm md:px-2.5 md:text-xs" :class="condClass(p.cond)"><span x-text="p.cond"></span><span x-show="p.grade" x-text="' · ' + p.grade"></span></span>
+              <span x-show="p.old" class="absolute bottom-2 left-2 rounded-full bg-accent-600 px-2 py-0.5 text-[11px] font-bold text-white md:text-xs" x-text="'-' + (p.old ? off(p) : 0) + '%'"></span>
+              <span x-show="p.stock === 0" class="absolute bottom-2 right-2 rounded-full bg-ink/85 px-2.5 py-0.5 text-[11px] font-bold text-white md:text-xs">Sold out</span>
+            </div>
+            <div class="flex flex-1 flex-col pt-3">
+              <h3 class="line-clamp-2 min-h-[2.5em] text-[13px] font-bold leading-snug text-ink md:text-sm">
+                <a href="product.html" class="after:absolute after:inset-0 after:rounded-3xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-brand-400" x-text="p.name"></a>
+              </h3>
+              <ul class="mt-2 flex flex-nowrap gap-1 overflow-hidden [mask-image:linear-gradient(to_right,black_88%,transparent)]" aria-label="Key specs">
+                <template x-for="s in p.specs" :key="s[0]">
+                  <li class="inline-flex shrink-0 items-center gap-1 rounded-full bg-surface-alt px-2 py-0.5 text-[11px] text-ink-soft">
+                    <svg class="size-3" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use :href="'#i-' + s[0]"/></svg><span x-text="s[1]"></span>
+                  </li>
+                </template>
+              </ul>
+              <p class="mt-2 min-h-4 text-xs font-bold text-accent-700" x-text="p.stock > 0 && p.stock <= 2 ? 'Only ' + p.stock + ' left' : ''"></p>
+              <div class="mt-auto flex items-end justify-between gap-1.5 pt-2">
+                <div class="min-w-0">
+                  <p class="whitespace-nowrap text-[15px] font-extrabold leading-tight tabular-nums sm:text-lg md:text-xl" :class="p.old ? 'text-accent-600' : 'text-ink'" x-text="price(p.price)"></p>
+                  <p class="min-h-4 whitespace-nowrap text-xs tabular-nums text-ink-muted line-through" x-text="p.old ? price(p.old) : ''"></p>
+                </div>
+                <button type="button" @click="add(p)" :disabled="p.stock === 0" class="relative z-10 inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-surface-alt disabled:text-ink-muted" :aria-label="p.stock === 0 ? 'Sold out' : 'Add ' + p.name + ' to cart'">
+                  <svg class="size-[18px] md:size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg>
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- /COMPONENT: product-card -->
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. BRAND ROWS -->
+  <section class="pb-8 md:pb-12" aria-label="Laptops by brand">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 space-y-10 md:space-y-12">
+      <template x-for="row in brandRows" :key="row.name">
+        <div>
+          <div class="mb-5 flex items-end justify-between gap-4">
+            <div>
+              <h2 class="text-xl md:text-2xl font-extrabold" x-text="row.name"></h2>
+              <span class="block mt-2 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+            </div>
+            <a href="listing.html" class="inline-flex min-h-11 items-center whitespace-nowrap text-sm font-bold text-brand-700 hover:underline">View all →</a>
+          </div>
+          <div class="no-scrollbar -mx-4 -my-2 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 py-2 md:-mx-6 md:px-6 lg:mx-0 lg:my-0 lg:grid lg:grid-cols-6 lg:gap-4 lg:overflow-visible lg:p-0">
+            <template x-for="p in row.items" :key="p.name">
+              <!-- COMPONENT: product-card -->
+              <article class="group relative flex w-[46%] shrink-0 snap-start flex-col rounded-3xl bg-white p-2.5 ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] transition-shadow hover:shadow-[0_6px_20px_rgba(15,42,51,0.10)] sm:w-[31%] md:w-[23%] md:p-3 lg:w-auto">
+                <div class="relative aspect-square overflow-hidden rounded-2xl bg-well">
+                  <img src="assets/img/laptop-a.svg" alt="" width="400" height="400" loading="lazy" class="absolute inset-0 size-full object-contain p-3 transition-opacity duration-200 md:p-4 md:group-hover:opacity-0" :class="p.stock === 0 && 'opacity-50 grayscale'">
+                  <img src="assets/img/laptop-b.svg" alt="" width="400" height="400" loading="lazy" class="absolute inset-0 size-full object-contain p-3 opacity-0 transition-opacity duration-200 md:p-4" :class="p.stock === 0 ? 'hidden' : 'md:group-hover:opacity-100'">
+                  <span class="absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-bold backdrop-blur-sm md:px-2.5 md:text-xs" :class="condClass(p.cond)"><span x-text="p.cond"></span><span x-show="p.grade" x-text="' · ' + p.grade"></span></span>
+                  <span x-show="p.old" class="absolute bottom-2 left-2 rounded-full bg-accent-600 px-2 py-0.5 text-[11px] font-bold text-white md:text-xs" x-text="'-' + (p.old ? off(p) : 0) + '%'"></span>
+                  <span x-show="p.stock === 0" class="absolute bottom-2 right-2 rounded-full bg-ink/85 px-2.5 py-0.5 text-[11px] font-bold text-white md:text-xs">Sold out</span>
+                </div>
+                <div class="flex flex-1 flex-col pt-3">
+                  <h3 class="line-clamp-2 min-h-[2.5em] text-[13px] font-bold leading-snug text-ink md:text-sm">
+                    <a href="product.html" class="after:absolute after:inset-0 after:rounded-3xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-brand-400" x-text="p.name"></a>
+                  </h3>
+                  <ul class="mt-2 flex flex-nowrap gap-1 overflow-hidden [mask-image:linear-gradient(to_right,black_88%,transparent)]" aria-label="Key specs">
+                    <template x-for="s in p.specs" :key="s[0]">
+                      <li class="inline-flex shrink-0 items-center gap-1 rounded-full bg-surface-alt px-2 py-0.5 text-[11px] text-ink-soft">
+                        <svg class="size-3" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use :href="'#i-' + s[0]"/></svg><span x-text="s[1]"></span>
+                      </li>
+                    </template>
+                  </ul>
+                  <p class="mt-2 min-h-4 text-xs font-bold text-accent-700" x-text="p.stock > 0 && p.stock <= 2 ? 'Only ' + p.stock + ' left' : ''"></p>
+                  <div class="mt-auto flex items-end justify-between gap-1.5 pt-2">
+                    <div class="min-w-0">
+                      <p class="whitespace-nowrap text-[15px] font-extrabold leading-tight tabular-nums sm:text-lg lg:text-base xl:text-lg" :class="p.old ? 'text-accent-600' : 'text-ink'" x-text="price(p.price)"></p>
+                      <p class="min-h-4 whitespace-nowrap text-xs tabular-nums text-ink-muted line-through" x-text="p.old ? price(p.old) : ''"></p>
+                    </div>
+                    <button type="button" @click="add(p)" :disabled="p.stock === 0" class="relative z-10 inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-surface-alt disabled:text-ink-muted" :aria-label="p.stock === 0 ? 'Sold out' : 'Add ' + p.name + ' to cart'">
+                      <svg class="size-[18px]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </article>
+              <!-- /COMPONENT: product-card -->
+            </template>
+          </div>
+        </div>
+      </template>
+    </div>
+  </section>
+
+  <!-- 9. WHY LAPNEX (client must confirm every promise before launch) -->
+  <section class="bg-surface-alt py-10 md:py-14" aria-labelledby="h-why">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="mb-6 text-center">
+        <h2 id="h-why" class="text-xl md:text-2xl font-extrabold">Why Lapnex?</h2>
+        <span class="mx-auto mt-2 block h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+        <p class="mx-auto mt-3 max-w-xl text-sm text-ink-muted">Quality you can check, service you can reach.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-4">
+        <template x-for="u in usps" :key="u.t">
+          <div class="rounded-3xl bg-white p-4 ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] md:p-5">
+            <span class="inline-flex size-11 items-center justify-center rounded-full bg-brand-50 text-brand-600 md:size-12">
+              <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use :href="'#i-' + u.i"/></svg>
+            </span>
+            <p class="mt-3 text-sm font-extrabold leading-snug md:text-base" x-text="u.t"></p>
+            <p class="mt-1 text-xs text-ink-muted md:text-sm" x-text="u.d"></p>
+          </div>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. SHOP BY CONDITION -->
+  <section class="py-8 md:py-12" aria-labelledby="h-cond">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <h2 id="h-cond" class="text-xl md:text-2xl font-extrabold">Shop by Condition</h2>
+          <span class="block mt-2 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+        </div>
+        <a href="condition-guide.html" class="inline-flex min-h-11 items-center whitespace-nowrap text-sm font-bold text-brand-700 hover:underline">Condition guide →</a>
+      </div>
+      <div class="grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-4">
+        <template x-for="c in conditions" :key="c.t">
+          <a href="listing.html" class="group flex flex-col rounded-3xl bg-white p-4 ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] transition-shadow hover:shadow-[0_6px_20px_rgba(15,42,51,0.10)] focus-visible:ring-2 focus-visible:ring-brand-400 md:p-5">
+            <span class="self-start rounded-full px-2.5 py-0.5 text-xs font-bold" :class="c.badge" x-text="c.t"></span>
+            <span class="mt-3 flex-1 text-xs text-ink-soft md:text-sm" x-text="c.d"></span>
+            <span class="mt-4 inline-flex items-center gap-1 text-sm font-extrabold text-brand-700">Browse
+              <svg class="size-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+          </a>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. OWNER'S MESSAGE (optional section) -->
+  <section class="pb-8 md:pb-12" aria-label="Message from the founder">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="relative overflow-hidden rounded-3xl bg-ink p-6 text-white md:p-12">
+        <span class="absolute -right-16 -top-16 size-64 rounded-full bg-brand-600/30 blur-2xl" aria-hidden="true"></span>
+        <div class="relative grid items-center gap-8 md:grid-cols-[1fr_auto]">
+          <div>
+            <p class="text-xs font-extrabold uppercase tracking-wider text-accent-500">Message from the founder</p>
+            <blockquote class="mt-3 text-lg font-bold leading-relaxed md:text-2xl md:leading-relaxed">
+              “We started Lapnex so that buying a laptop in Pakistan feels simple and honest. Every machine is checked by our team before it reaches you, and we answer every message.”
+            </blockquote>
+            <p class="mt-5 text-base font-extrabold">Founder Name</p>
+            <p class="text-sm text-white/65">Founder, Lapnex</p>
+          </div>
+          <div class="flex size-32 items-center justify-center rounded-full bg-white/10 ring-4 ring-brand-500/40 text-white/60 md:size-44" aria-hidden="true">
+            <svg class="size-16 md:size-20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><use href="#i-user"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. TRUSTED BY (optional section) -->
+  <section class="pb-8 md:pb-12" aria-label="Trusted by">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <p class="mb-4 text-center text-xs font-extrabold uppercase tracking-wider text-ink-muted">Trusted by offices and institutions</p>
+      <div class="lx-marquee-wrap overflow-hidden rounded-3xl bg-white py-5 ring-1 ring-line">
+        <div class="lx-marquee">
+          <template x-for="copy in [1, 2]" :key="copy">
+            <div class="flex shrink-0 items-center gap-6 pr-6" :aria-hidden="copy === 2">
+              <template x-for="l in partners" :key="l">
+                <span class="inline-flex h-14 w-40 items-center justify-center rounded-2xl bg-well text-sm font-extrabold text-ink-muted grayscale opacity-70 transition hover:opacity-100 hover:grayscale-0 hover:text-brand-700" x-text="l"></span>
+              </template>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. CUSTOMER LOVE (testimonials carousel) -->
+  <section class="bg-surface-alt py-10 md:py-14" aria-labelledby="h-love"
+           x-data="{ sw: null }"
+           x-init="$nextTick(() => sw = new Swiper($refs.sw, { slidesPerView: 1, spaceBetween: 16, breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3, spaceBetween: 20 } }, pagination: { el: $refs.dots, clickable: true }, navigation: { prevEl: $refs.prev, nextEl: $refs.next } }))">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="mb-6 flex items-end justify-between gap-4">
+        <div>
+          <h2 id="h-love" class="text-xl md:text-2xl font-extrabold">Customer Love</h2>
+          <span class="block mt-2 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+        </div>
+        <div class="flex gap-2">
+          <button x-ref="prev" type="button" class="inline-flex size-11 items-center justify-center rounded-full bg-white ring-1 ring-line hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-brand-400 [&.swiper-button-disabled]:opacity-40" aria-label="Previous review">
+            <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+          <button x-ref="next" type="button" class="inline-flex size-11 items-center justify-center rounded-full bg-white ring-1 ring-line hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-brand-400 [&.swiper-button-disabled]:opacity-40" aria-label="Next review">
+            <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+        </div>
+      </div>
+      <div x-ref="sw" class="swiper overflow-hidden [&_.swiper-slide]:h-auto">
+        <div class="swiper-wrapper">
+          <template x-for="t in testimonials" :key="t.n">
+            <div class="swiper-slide [&.swiper-slide]:flex">
+              <figure class="flex w-full flex-col rounded-3xl bg-white p-5 ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] md:p-6">
+                <div class="flex items-center gap-3">
+                  <span class="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-100 text-sm font-extrabold text-brand-700" aria-hidden="true" x-text="t.n.split(' ').map(w => w[0]).join('')"></span>
+                  <div class="min-w-0">
+                    <figcaption class="text-sm font-extrabold">
+                      <span x-text="t.n"></span> <span class="font-semibold text-ink-muted" x-text="'(' + t.c + ')'"></span>
+                    </figcaption>
+                    <p class="text-sm tracking-wide text-star" aria-label="5 out of 5 stars">★★★★★</p>
+                  </div>
+                </div>
+                <blockquote class="mt-3 flex-1 text-sm leading-relaxed text-ink-soft" x-text="t.x"></blockquote>
+                <p class="mt-3 text-xs font-bold text-ink-muted" x-text="t.d"></p>
+              </figure>
+            </div>
+          </template>
+        </div>
+      </div>
+      <div class="mt-6 flex flex-col items-center gap-3">
+        <div x-ref="dots" class="flex justify-center gap-1.5"></div>
+        <a href="contact.html" class="inline-flex min-h-11 items-center text-sm font-bold text-brand-700 hover:underline">Visit us in Lahore →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. SHOP BY BRAND -->
+  <section class="py-8 md:py-12" aria-labelledby="h-brand">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="mb-5">
+        <h2 id="h-brand" class="text-xl md:text-2xl font-extrabold">Shop by Brand</h2>
+        <span class="block mt-2 h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+      </div>
+      <div class="grid grid-cols-4 gap-3 md:grid-cols-8 md:gap-4">
+        <template x-for="b in brands" :key="b">
+          <a href="listing.html" class="flex h-16 items-center justify-center rounded-2xl bg-white text-sm font-extrabold text-ink-muted ring-1 ring-line transition hover:text-brand-700 hover:ring-brand-300 focus-visible:ring-2 focus-visible:ring-brand-400 md:h-20 md:text-base" x-text="b"></a>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15. FAQ -->
+  <section class="bg-surface-alt py-10 md:py-14" aria-labelledby="h-faq">
+    <div class="max-w-3xl mx-auto px-4 md:px-6">
+      <div class="mb-6 text-center">
+        <h2 id="h-faq" class="text-xl md:text-2xl font-extrabold">Frequently Asked Questions</h2>
+        <span class="mx-auto mt-2 block h-1 w-10 rounded-full bg-linear-to-r from-brand-500 to-accent-500"></span>
+      </div>
+      <div class="space-y-3">
+        <template x-for="(f, i) in faqs" :key="f.q">
+          <div class="rounded-3xl bg-white ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)]">
+            <h3>
+              <button type="button" @click="faqOpen = faqOpen === i ? null : i" :aria-expanded="faqOpen === i" :aria-controls="'faq-' + i"
+                      class="flex w-full items-center justify-between gap-4 rounded-3xl px-5 py-4 text-left text-sm font-extrabold focus-visible:ring-2 focus-visible:ring-brand-400 md:text-base">
+                <span x-text="f.q"></span>
+                <svg class="size-5 shrink-0 text-brand-600 transition-transform" :class="faqOpen === i && 'rotate-180'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+              </button>
+            </h3>
+            <div :id="'faq-' + i" x-show="faqOpen === i" x-collapse>
+              <p class="px-5 pb-5 text-sm leading-relaxed text-ink-soft" x-text="f.a"></p>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16. SEO TEXT + POPULAR SEARCHES -->
+  <section class="py-8 md:py-12" aria-labelledby="h-seo">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <h2 id="h-seo" class="text-lg md:text-xl font-extrabold">Buy used, refurbished and new laptops in Pakistan</h2>
+      <div class="relative mt-3 space-y-3 text-sm leading-relaxed text-ink-soft" :class="!seoOpen && 'max-h-24 overflow-hidden [mask-image:linear-gradient(to_bottom,black_40%,transparent)]'">
+        <p>Lapnex is a laptop store for people who want reliable machines at fair prices. We sell new, open box, refurbished and used laptops from trusted brands including Dell, HP, Lenovo and Apple, with the condition and cosmetic grade shown clearly on every listing.</p>
+        <p>Shop by budget, processor, generation or the work you do. Students, office teams, developers, designers and gamers can all find a laptop that fits, from affordable Core i5 business laptops to high-performance workstations and MacBooks.</p>
+        <p>Every laptop is tested before it is listed. Pay with Cash on Delivery, bank transfer, JazzCash, Easypaisa or card, and get delivery all over Pakistan. Not sure which laptop to pick? Message us on WhatsApp and we will help you choose.</p>
+      </div>
+      <button type="button" @click="seoOpen = !seoOpen" class="mt-1 inline-flex min-h-11 items-center text-sm font-extrabold text-brand-700 hover:underline focus-visible:ring-2 focus-visible:ring-brand-400 rounded" x-text="seoOpen ? 'Read less' : 'Read more'"></button>
+
+      <p class="mt-8 mb-3 text-xs font-extrabold uppercase tracking-wider text-ink-muted">Popular searches</p>
+      <div class="flex flex-wrap gap-2">
+        <template x-for="s in searches" :key="s">
+          <a href="listing.html" class="inline-flex h-11 items-center rounded-full bg-white px-4 text-sm font-semibold text-ink-soft ring-1 ring-line hover:bg-brand-50 hover:text-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400" x-text="s"></a>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast (add to cart) -->
+  <div x-show="toast" x-transition.opacity x-cloak role="status" aria-live="polite" class="fixed bottom-20 md:bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-full bg-ink py-3 pl-4 pr-5 text-sm font-bold text-white shadow-xl">
+    <svg class="size-5 text-cond-new" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg>
+    <span x-text="toastText"></span>
+    <a href="cart.html" class="text-brand-300 underline underline-offset-2">View cart</a>
+  </div>
+</main>
+
+<!-- COMPONENT: help-band -->
+<section class="bg-linear-to-r from-brand-900 to-brand-700 text-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+    <div>
+      <h2 class="text-xl md:text-2xl font-extrabold">Need help choosing a laptop?</h2>
+      <p class="mt-1 text-sm md:text-[15px] text-white/75">Tell us your budget and what you use it for. We reply fast on WhatsApp.</p>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-3 shrink-0">
+      <a href="https://wa.me/923000000000" class="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-full bg-whatsapp text-ink text-sm font-extrabold hover:brightness-95 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900">
+        <svg class="size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp us</a>
+      <a href="tel:+923000000000" class="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-full bg-white/10 ring-1 ring-white/40 text-sm font-extrabold hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white">
+        <svg class="size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg>+92 300 0000000</a>
+    </div>
+  </div>
+</section>
+<!-- /COMPONENT: help-band -->
+
+<!-- COMPONENT: footer -->
+<footer class="bg-surface-alt">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 pt-10 pb-6">
+    <div class="grid lg:grid-cols-5 gap-x-8 divide-y divide-line lg:divide-y-0">
+      <template x-for="col in footerCols" :key="col.t">
+        <div x-data="{ open: false }" class="py-1 lg:py-0">
+          <button type="button" @click="open = !open" :aria-expanded="open"
+                  class="flex w-full items-center justify-between min-h-12 lg:min-h-0 lg:mb-3 text-left text-[15px] font-extrabold text-brand-800 lg:cursor-default lg:pointer-events-none">
+            <span x-text="col.t"></span>
+            <svg class="size-4 lg:hidden transition-transform" :class="open && 'rotate-180'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+          </button>
+          <ul class="lg:block pb-3 lg:pb-0 space-y-0.5" :class="!open && 'hidden'">
+            <template x-for="l in col.l" :key="l[0] + l[1]">
+              <li><a :href="l[1]" class="flex min-h-11 items-center py-1 text-sm text-ink-soft hover:text-brand-700 hover:underline" x-text="l[0]"></a></li>
+            </template>
+          </ul>
+        </div>
+      </template>
+
+      <div class="py-4 lg:py-0">
+        <p class="min-h-0 mb-3 text-[15px] font-extrabold text-brand-800">Contact</p>
+        <ul class="space-y-3 text-sm text-ink-soft">
+          <li class="flex gap-3"><svg class="size-[18px] shrink-0 mt-0.5 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-map-pin"/></svg><span>Shop No. 00, Main Market, Lahore, Pakistan</span></li>
+          <li class="flex gap-3"><svg class="size-[18px] shrink-0 mt-0.5 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg><a href="tel:+923000000000" class="inline-flex min-h-11 items-center hover:underline">+92 300 0000000</a></li>
+          <li class="flex gap-3"><svg class="size-[18px] shrink-0 mt-0.5 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-whatsapp"/></svg><a href="https://wa.me/923000000000" class="inline-flex min-h-11 items-center hover:underline">WhatsApp us</a></li>
+          <li class="flex gap-3"><svg class="size-[18px] shrink-0 mt-0.5 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:hello@lapnex.pk" class="inline-flex min-h-11 items-center hover:underline">hello@lapnex.pk</a></li>
+          <li class="flex gap-3"><svg class="size-[18px] shrink-0 mt-0.5 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-clock"/></svg><span>Mon – Sat: 11:00 AM – 8:00 PM<br>Sunday: Closed</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-line flex flex-wrap items-center gap-2">
+      <span class="text-xs font-bold text-ink-muted mr-1">We accept</span>
+      <template x-for="m in payments" :key="m">
+        <span class="inline-flex items-center h-7 px-3 rounded-full bg-white ring-1 ring-line text-xs font-bold text-ink-soft" x-text="m"></span>
+      </template>
+    </div>
+  </div>
+
+  <div class="border-t border-line bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <a href="home.html" class="flex min-h-11 items-center text-xl font-extrabold tracking-tight leading-none text-brand-800" aria-label="Lapnex home">LAPNE<svg class="size-6 -ml-px" fill="none" aria-hidden="true"><use href="#lx-x"/></svg></a>
+      <div class="flex items-center gap-2">
+        <template x-for="s in socials" :key="s.n">
+          <a :href="s.u" target="_blank" rel="noopener" :aria-label="s.n + ' (opens in a new tab)'" class="inline-flex items-center justify-center size-11 rounded-full bg-brand-900 text-white hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2">
+            <svg class="size-[18px]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use :href="'#i-' + s.i"/></svg>
+          </a>
+        </template>
+      </div>
+      <p class="text-xs text-ink-muted">© 2026 Lapnex. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+<!-- /COMPONENT: footer -->
+
+<!-- COMPONENT: whatsapp-float (desktop only; on mobile WhatsApp is in the bottom nav) -->
+<a href="https://wa.me/923000000000?text=Hi%21%20I%20need%20help%20choosing%20a%20laptop." aria-label="Chat on WhatsApp"
+   class="hidden md:inline-flex fixed bottom-6 right-6 z-30 items-center gap-2 h-14 pl-4 pr-5 rounded-full bg-whatsapp text-ink text-sm font-extrabold shadow-lg hover:brightness-95 focus-visible:ring-2 focus-visible:ring-whatsapp focus-visible:ring-offset-2">
+  <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-whatsapp"/></svg>Chat with us
+</a>
+<!-- /COMPONENT: whatsapp-float -->
+
+<!-- COMPONENT: bottom-nav (mobile only) -->
+<nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-line pb-[env(safe-area-inset-bottom)]" aria-label="Quick navigation">
+  <ul class="grid grid-cols-5 h-16">
+    <li><a href="home.html" class="flex h-full flex-col items-center justify-center gap-0.5 text-[11px] font-bold text-brand-700" aria-current="page">
+      <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-home"/></svg>Home</a></li>
+    <li><button type="button" @click="drawer = true" class="flex h-full w-full flex-col items-center justify-center gap-0.5 text-[11px] font-bold text-ink-soft">
+      <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-grid"/></svg>Categories</button></li>
+    <li><button type="button" @click="focusSearch()" class="flex h-full w-full flex-col items-center justify-center gap-0.5 text-[11px] font-bold text-ink-soft">
+      <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-search"/></svg>Search</button></li>
+    <li><button type="button" @click="$store.cart.open = true" class="relative flex h-full w-full flex-col items-center justify-center gap-0.5 text-[11px] font-bold text-ink-soft" :aria-label="'Cart, ' + $store.cart.count + ' items'">
+      <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg>Cart
+      <span x-show="$store.cart.count > 0" class="absolute top-2 left-1/2 ml-1.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-accent-600 text-white text-[10px] font-bold" x-text="$store.cart.count"></span></button></li>
+    <li><a href="https://wa.me/923000000000" class="flex h-full flex-col items-center justify-center gap-0.5 text-[11px] font-bold text-ink-soft">
+      <svg class="size-6 text-[#128C4B]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a></li>
+  </ul>
+</nav>
+<!-- /COMPONENT: bottom-nav -->
+
+</body>
+</html>

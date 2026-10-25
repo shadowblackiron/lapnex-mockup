@@ -1,0 +1,1190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Laptops from Rs 40,000 to Rs 60,000 | Lapnex</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+
+      /* Lapnex teal: greener and deeper than the reference site */
+      --color-brand-50:#ECF8F5; --color-brand-100:#D1EFE8; --color-brand-200:#A3DED1;
+      --color-brand-300:#6CC7B5; --color-brand-400:#34AA95; --color-brand-500:#158F7B;
+      --color-brand-600:#0D7A6A; --color-brand-700:#0B6358; --color-brand-800:#0A4F47;
+      --color-brand-900:#08332F;
+
+      /* Orange accent: sale prices, discount badges, Buy Now */
+      --color-accent-50:#FFF4EC; --color-accent-100:#FFE4CF; --color-accent-500:#F97316;
+      --color-accent-600:#EA580C; --color-accent-700:#C2410C;
+
+      --color-ink:#0F2A33; --color-ink-soft:#3A4A50; --color-ink-muted:#6B7A80;
+      --color-line:#E6E9EB;
+      --color-surface:#FFFFFF; --color-surface-alt:#F4F5F6; --color-well:#F7F7F8;
+
+      --color-cond-new:#16A34A; --color-cond-openbox:#7C3AED;
+      --color-cond-refurb:#2563EB; --color-cond-used:#D97706;
+      --color-whatsapp:#25D366; --color-star:#F59E0B;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.8.1/dist/nouislider.min.css">
+  <style>
+    .noUi-target{border:0;box-shadow:none;background:#E6E9EB;height:6px;border-radius:9999px}
+    .noUi-connect{background:#0D7A6A}
+    .noUi-horizontal .noUi-handle{width:24px;height:24px;right:-12px;top:-9px;border-radius:9999px;border:2px solid #0D7A6A;background:#fff;box-shadow:0 1px 4px rgba(15,42,51,.25);cursor:grab}
+    .noUi-handle:before,.noUi-handle:after{display:none}
+    .noUi-handle:focus-visible{outline:2px solid #34AA95;outline-offset:2px}
+    :root{--swiper-theme-color:#0D7A6A}    .no-scrollbar{scrollbar-width:none}.no-scrollbar::-webkit-scrollbar{display:none}
+    [x-cloak]{display:none !important}
+    @keyframes lx-marquee{to{transform:translateX(-50%)}}
+    .lx-marquee{display:flex;width:max-content;animation:lx-marquee 45s linear infinite}
+    .lx-marquee-wrap:hover .lx-marquee{animation-play-state:paused}
+    @media (prefers-reduced-motion:reduce){.lx-marquee{animation:none}}
+  </style>
+  <script defer src="https://cdn.jsdelivr.net/npm/nouislider@15.8.1/dist/nouislider.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.9/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+  <script>
+    /*PAGE-CONFIG*/
+window.PAGE = {
+  title: 'Laptops from Rs 40,000 to Rs 60,000 | Lapnex',
+  h1: 'Laptops from Rs 40,000 to Rs 60,000',
+  crumbs: ['Shop by budget', 'Rs 40,000 â€“ 60,000'],
+  intro: 'Reliable business-class laptops in the Rs 40,000 to Rs 60,000 range. Every other filter still works.',
+  range: [40000, 60000],
+  seoTitle: 'Best laptops between Rs 40,000 and Rs 60,000 in Pakistan',
+  seo: [
+    'This is the sweet spot for dependable Core i5 and Core i7 business laptops from Dell, HP and Lenovo. At this price you can find tested, certified used and refurbished machines with 8GB to 16GB RAM and SSD storage.',
+    'Use the condition filter to compare Used, Refurbished and Open Box options, and check the cosmetic grade on each listing. Add the Use Case filter to find laptops for students, office work or coding.',
+    'All laptops are tested before listing and delivered all over Pakistan with Cash on Delivery available.',
+  ],
+};
+/*/PAGE-CONFIG*/
+
+/* Listing dummy data and working client-side filters. In the Laravel build the same filtering is done by the ProductFilter service on the server. */
+function listing() {
+  // flags: g = dedicated GPU, t = touchscreen, c = 360° / 2-in-1, n = numeric keypad, b = backlit keyboard, h = H-series CPU
+  // uses: s students, o office, d developers, g graphic designers, m gaming, e e-commerce, b beginners, w workstation
+  const R = (name, brand, cond, grade, price, old, stock, fam, cpu, gen, ram, ssd, scr, flags, uses) => ({
+    name, brand, cond, grade, price, old, stock, fam, cpu, gen, ram, ssd, scr, uses: uses.split(''),
+    g: flags.includes('g'), t: flags.includes('t'), c: flags.includes('c'), n: flags.includes('n'), b: flags.includes('b'), h: flags.includes('h'),
+    specs: [['cpu', cpu], ['ram', ram + 'GB'], ['ssd', ssd >= 1024 ? (ssd / 1024) + 'TB' : ssd + 'GB'], ['screen', scr + '"']],
+  });
+  const rows = [
+    R('DELL LATITUDE 7490 i7 8TH', 'Dell', 'Used', 'A', 55000, null, 1, 'i7', 'i7 8th', 8, 16, 512, 14, 'b', 'odse'),
+    R('HP ELITEBOOK 840 G6 i5 8TH', 'HP', 'Refurbished', 'A+', 48500, null, 5, 'i5', 'i5 8th', 8, 16, 256, 14, 'b', 'ode'),
+    R('LENOVO THINKPAD T480 i5 8TH', 'Lenovo', 'Used', 'A', 42000, null, 2, 'i5', 'i5 8th', 8, 8, 256, 14, 'b', 'sod'),
+    R('APPLE MACBOOK AIR M1 13" 2020', 'Apple', 'Open Box', null, 165000, null, 2, 'apple', 'Apple M1', null, 8, 256, 13.3, 'b', 'sdgo'),
+    R('DELL PRECISION 7530 i7 8TH', 'Dell', 'Used', 'A', 98000, null, 2, 'i7', 'i7 8th', 8, 16, 512, 15.6, 'gbhn', 'gdw'),
+    R('HP ZBOOK 15 G5 i7 8TH', 'HP', 'Refurbished', 'A', 89000, null, 2, 'i7', 'i7 8th', 8, 16, 512, 15.6, 'gbhn', 'gdw'),
+    R('LENOVO LEGION 5 RYZEN 7 RTX 3060', 'Lenovo', 'New', null, 215000, 245000, 5, 'ryzen', 'Ryzen 7', null, 16, 512, 15.6, 'gbhn', 'mg'),
+    R('DELL XPS 13 9370 i7 8TH', 'Dell', 'Open Box', null, 89000, null, 1, 'i7', 'i7 8th', 8, 16, 512, 13.3, 'bt', 'dgo'),
+    R('DELL LATITUDE 5440 i5 4TH', 'Dell', 'Used', 'B', 30000, null, 4, 'i5', 'i5 4th', 4, 8, 256, 14, '', 'sbe'),
+    R('DELL LATITUDE 5420 i5 11TH', 'Dell', 'Refurbished', 'A+', 72000, 79000, 3, 'i5', 'i5 11th', 11, 16, 256, 14, 'b', 'ose'),
+    R('DELL INSPIRON 15 3520 i5 12TH', 'Dell', 'New', null, 129000, 142000, 6, 'i5', 'i5 12th', 12, 8, 512, 15.6, 'n', 'sbe'),
+    R('DELL LATITUDE 5320 i5 11TH (TOUCH)', 'Dell', 'Used', 'A', 65000, null, 3, 'i5', 'i5 11th', 11, 16, 256, 13.3, 'tb', 'oe'),
+    R('DELL LATITUDE 5290 2IN1 i7 8TH', 'Dell', 'Used', 'B', 59000, null, 2, 'i7', 'i7 8th', 8, 8, 256, 12.3, 'tcb', 'sd'),
+    R('DELL LATITUDE 5411 i7 10TH H', 'Dell', 'Used', 'A', 66000, null, 2, 'i7', 'i7 10th', 10, 16, 512, 14, 'bhn', 'dgw'),
+    R('DELL LATITUDE 7430 i5 12TH', 'Dell', 'Refurbished', 'A', 93000, null, 2, 'i5', 'i5 12th', 12, 16, 512, 14, 'b', 'od'),
+    R('DELL PRECISION 7520 i7 6TH', 'Dell', 'Used', 'B', 87000, null, 1, 'i7', 'i7 6th', 6, 16, 512, 15.6, 'gbhn', 'gw'),
+    R('DELL G15 5520 i7 12TH RTX 3050', 'Dell', 'New', null, 285000, 310000, 3, 'i7', 'i7 12th', 12, 16, 512, 15.6, 'gbhn', 'm'),
+    R('DELL VOSTRO 3510 i3 10TH', 'Dell', 'Used', 'B', 28000, null, 4, 'i3', 'i3 10th', 10, 4, 256, 15.6, 'n', 'sb'),
+    R('HP ELITEBOOK 830 G5 i5 8TH', 'HP', 'Used', 'A', 53000, null, 0, 'i5', 'i5 8th', 8, 8, 256, 13.3, 'b', 'ose'),
+    R('HP PROBOOK 640 G5 i5 7TH', 'HP', 'Used', 'B', 47000, null, 1, 'i5', 'i5 7th', 7, 8, 256, 14, '', 'sbe'),
+    R('HP ELITEBOOK 1030 G7 i7 10TH x360', 'HP', 'Used', 'A', 109000, null, 2, 'i7', 'i7 10th', 10, 16, 512, 13.3, 'tcb', 'od'),
+    R('HP PAVILION 15 RYZEN 5', 'HP', 'New', null, 118000, 129000, 4, 'ryzen', 'Ryzen 5', null, 8, 512, 15.6, 'n', 'sbe'),
+    R('HP ELITEBOOK 1040 G6 i7 8TH x360', 'HP', 'Used', 'A', 85000, null, 2, 'i7', 'i7 8th', 8, 16, 512, 14, 'tcb', 'od'),
+    R('HP OMEN 16 RYZEN 7 RTX 4060', 'HP', 'New', null, 265000, null, 5, 'ryzen', 'Ryzen 7', null, 16, 1024, 16.1, 'gbhn', 'm'),
+    R('HP ELITEBOOK 850 G5 i7 8TH', 'HP', 'Used', 'A', 62000, null, 3, 'i7', 'i7 8th', 8, 16, 256, 15.6, 'nb', 'ode'),
+    R('HP PROBOOK 450 G8 i5 11TH', 'HP', 'Open Box', null, 82000, null, 2, 'i5', 'i5 11th', 11, 8, 512, 15.6, 'n', 'so'),
+    R('HP 250 G7 i3 7TH', 'HP', 'Used', 'B', 25000, null, 6, 'i3', 'i3 7th', 7, 4, 256, 15.6, 'n', 'sb'),
+    R('LENOVO THINKPAD X260 i7 6TH', 'Lenovo', 'Used', 'B', 35000, null, 3, 'i7', 'i7 6th', 6, 8, 256, 12.5, 'b', 'sd'),
+    R('LENOVO THINKPAD X1 CARBON G7 i7', 'Lenovo', 'Refurbished', 'A+', 98000, null, 1, 'i7', 'i7 10th', 10, 16, 512, 14, 'b', 'od'),
+    R('LENOVO IDEAPAD 3 i3 11TH', 'Lenovo', 'New', null, 74000, null, 8, 'i3', 'i3 11th', 11, 8, 256, 15.6, 'n', 'sb'),
+    R('LENOVO THINKPAD T14 RYZEN 5 PRO', 'Lenovo', 'Open Box', null, 92000, null, 2, 'ryzen', 'Ryzen 5', null, 16, 512, 14, 'b', 'od'),
+    R('LENOVO THINKPAD YOGA X380 i5 8TH', 'Lenovo', 'Used', 'A', 58000, null, 2, 'i5', 'i5 8th', 8, 8, 256, 13.3, 'tcb', 'so'),
+    R('LENOVO THINKPAD P53 i7 9TH QUADRO', 'Lenovo', 'Used', 'A', 175000, 195000, 1, 'i7', 'i7 9th', 9, 32, 1024, 15.6, 'gbhn', 'gdw'),
+    R('LENOVO LOQ 15 i5 12TH RTX 4050', 'Lenovo', 'New', null, 249000, null, 4, 'i5', 'i5 12th', 12, 16, 512, 15.6, 'gbhn', 'm'),
+    R('LENOVO THINKPAD E14 i3 10TH', 'Lenovo', 'Used', 'B', 36000, null, 4, 'i3', 'i3 10th', 10, 8, 256, 14, '', 'sb'),
+    R('APPLE MACBOOK PRO 13" M1', 'Apple', 'Used', 'A', 185000, null, 1, 'apple', 'Apple M1', null, 8, 512, 13.3, 'b', 'dg'),
+    R('APPLE MACBOOK PRO 16" 2019 i7', 'Apple', 'Used', 'A', 195000, 215000, 1, 'i7', 'i7 9th', 9, 16, 512, 16, 'gbh', 'gdw'),
+    R('APPLE MACBOOK AIR 2017 i5', 'Apple', 'Used', 'B', 65000, null, 3, 'i5', 'i5 5th', 5, 8, 128, 13.3, 'b', 'sb'),
+    R('APPLE MACBOOK AIR M2 13"', 'Apple', 'New', null, 255000, 275000, 3, 'apple', 'Apple M2', null, 8, 256, 13.6, 'b', 'sdo'),
+    R('APPLE MACBOOK PRO 14" M1 PRO', 'Apple', 'Refurbished', 'A+', 395000, null, 1, 'apple', 'M1 Pro', null, 16, 512, 14.2, 'b', 'dgw'),
+    R('ASUS TUF F15 i5 11TH RTX 3050', 'Asus', 'New', null, 185000, null, 4, 'i5', 'i5 11th', 11, 16, 512, 15.6, 'gbhn', 'm'),
+    R('ASUS VIVOBOOK 15 i3 11TH', 'Asus', 'New', null, 79000, null, 6, 'i3', 'i3 11th', 11, 8, 256, 15.6, 'n', 'sb'),
+    R('ASUS ZENBOOK 14 OLED i7 12TH', 'Asus', 'Open Box', null, 175000, null, 2, 'i7', 'i7 12th', 12, 16, 512, 14, 'b', 'dgo'),
+    R('ACER NITRO 5 RYZEN 5 RTX 3050', 'Acer', 'Open Box', null, 150000, null, 2, 'ryzen', 'Ryzen 5', null, 16, 512, 15.6, 'gbhn', 'm'),
+    R('ACER ASPIRE 5 i5 12TH', 'Acer', 'New', null, 112000, null, 5, 'i5', 'i5 12th', 12, 8, 512, 15.6, 'n', 'sbe'),
+    R('MICROSOFT SURFACE LAPTOP 3 i7 10TH', 'Microsoft', 'Used', 'A', 105000, null, 2, 'i7', 'i7 10th', 10, 16, 512, 13.5, 't', 'dgo'),
+    R('MICROSOFT SURFACE PRO 6 i5 8TH', 'Microsoft', 'Used', 'B', 52000, null, 3, 'i5', 'i5 8th', 8, 8, 128, 12.3, 'tc', 'sb'),
+    R('MSI KATANA 15 i7 12TH RTX 4060', 'MSI', 'New', null, 325000, 349000, 2, 'i7', 'i7 12th', 12, 16, 1024, 15.6, 'gbhn', 'mg'),
+  ].map((p, i) => ({ ...p, ord: i, feat: !!p.old || i % 7 === 0 }));
+
+  const prices = rows.map(p => p.price);
+  const bounds = { min: Math.floor(Math.min(...prices) / 1000) * 1000, max: Math.ceil(Math.max(...prices) / 1000) * 1000 };
+
+  const groups = [
+    { key: 'cond', title: 'Condition', mode: 'eq', field: 'cond', open: true, keep: true, options: [
+      { v: 'New', label: 'New', dot: 'bg-cond-new' }, { v: 'Open Box', label: 'Open Box', dot: 'bg-cond-openbox' },
+      { v: 'Refurbished', label: 'Refurbished', dot: 'bg-cond-refurb' }, { v: 'Used', label: 'Used', dot: 'bg-cond-used' }] },
+    { key: 'brand', title: 'Brand', mode: 'eq', field: 'brand', open: true, limit: 6, options:
+      ['Dell', 'HP', 'Lenovo', 'Apple', 'Asus', 'Acer', 'Microsoft', 'MSI'].map(b => ({ v: b, label: b === 'Apple' ? 'Apple MacBook' : b })) },
+    { key: 'fam', title: 'Processor', mode: 'eq', field: 'fam', open: true, options: [
+      { v: 'i3', label: 'Core i3' }, { v: 'i5', label: 'Core i5' }, { v: 'i7', label: 'Core i7' }, { v: 'i9', label: 'Core i9' },
+      { v: 'ultra', label: 'Core Ultra' }, { v: 'ryzen', label: 'AMD Ryzen' }, { v: 'apple', label: 'Apple M-series' }] },
+    { key: 'gen', title: 'Generation', mode: 'range', field: 'gen', open: false, options: [
+      { v: 'g11', label: '11th – 14th Gen', lo: 11, hi: 14 }, { v: 'g9', label: '9th – 10th Gen', lo: 9, hi: 10 },
+      { v: 'g7', label: '7th – 8th Gen', lo: 7, hi: 8 }, { v: 'g5', label: '5th – 6th Gen', lo: 5, hi: 6 },
+      { v: 'g1', label: '1st – 4th Gen', lo: 1, hi: 4 }] },
+    { key: 'use', title: 'Use Case', mode: 'has', field: 'uses', open: false, options: [
+      { v: 's', label: 'Students' }, { v: 'o', label: 'Office / Corporate' }, { v: 'd', label: 'Developers / Coding' },
+      { v: 'g', label: 'Graphic Designers' }, { v: 'm', label: 'Gaming' }, { v: 'e', label: 'E-Commerce' },
+      { v: 'b', label: 'Beginners / Daily Use' }, { v: 'w', label: 'Workstation' }] },
+    { key: 'feat', title: 'Features', mode: 'flag', open: false, options: [
+      { v: 'g', label: 'With Graphics Card' }, { v: 't', label: 'Touchscreen' }, { v: 'c', label: '360° / 2-in-1' },
+      { v: 'n', label: 'Numeric Keypad' }, { v: 'b', label: 'Backlit Keyboard' }, { v: 'h', label: 'H-Series CPU' }] },
+    { key: 'ram', title: 'RAM', mode: 'eq', field: 'ram', open: false, options: [4, 8, 12, 16, 32, 64].map(n => ({ v: n, label: n + ' GB' })) },
+    { key: 'ssd', title: 'Storage', mode: 'range', field: 'ssd', open: false, options: [
+      { v: 's128', label: '128 GB', lo: 128, hi: 128 }, { v: 's256', label: '256 GB', lo: 256, hi: 256 },
+      { v: 's512', label: '512 GB', lo: 512, hi: 512 }, { v: 's1024', label: '1 TB', lo: 1024, hi: 1024 },
+      { v: 's2048', label: '2 TB and above', lo: 2048, hi: 99999 }] },
+    { key: 'scr', title: 'Screen Size', mode: 'range', field: 'scr', open: false, options: [
+      { v: 'a', label: '12.9" and below', lo: 0, hi: 12.99 }, { v: 'b', label: '13" – 13.9"', lo: 13, hi: 13.99 },
+      { v: 'c', label: '14" – 14.9"', lo: 14, hi: 14.99 }, { v: 'd', label: '15" – 15.9"', lo: 15, hi: 15.99 },
+      { v: 'e', label: '16" and larger', lo: 16, hi: 99 }] },
+  ];
+
+  const cfg = window.PAGE;
+  const start = cfg.range
+    ? { pmin: Math.max(bounds.min, cfg.range[0] ?? bounds.min), pmax: Math.min(bounds.max, cfg.range[1] ?? bounds.max) }
+    : { pmin: bounds.min, pmax: bounds.max };
+
+  return {
+    cfg, products: rows, groups, bounds,
+    f: { ...start, cond: [], brand: [], fam: [], gen: [], use: [], feat: [], ram: [], ssd: [], scr: [], stock: true },
+    sort: 'new', cur: 1, perPage: 24,
+    showFilters: true, fOpen: false, sortSheet: false, desk: true, showAll: {}, seoOpen: false,
+    sortOptions: [['new', 'Newest First'], ['pl', 'Price: Low to High'], ['ph', 'Price: High to Low'], ['feat', 'Featured']],
+    budgetChips: [
+      { label: 'Under Rs 40,000', min: null, max: 40000 }, { label: 'Rs 40,000 – 60,000', min: 40000, max: 60000 },
+      { label: 'Rs 60,000 – 80,000', min: 60000, max: 80000 }, { label: 'Rs 80,000 – 1 Lakh', min: 80000, max: 100000 },
+      { label: 'Rs 1 – 1.5 Lakh', min: 100000, max: 150000 }, { label: 'Above Rs 1.5 Lakh', min: 150000, max: null },
+    ],
+    toast: false, timer: null,
+
+    init() {
+      document.title = cfg.title;
+      const mq = window.matchMedia('(min-width: 1024px)');
+      this.desk = mq.matches;
+      mq.addEventListener('change', e => { this.desk = e.matches; if (e.matches) { this.fOpen = false; this.sortSheet = false; } });
+
+      this.$nextTick(() => {
+        const el = this.$refs.slider;
+        noUiSlider.create(el, {
+          start: [this.f.pmin, this.f.pmax], connect: true, step: 1000, behaviour: 'tap-drag',
+          range: { min: this.bounds.min, max: this.bounds.max },
+          handleAttributes: [{ 'aria-label': 'Minimum price' }, { 'aria-label': 'Maximum price' }],
+        });
+        el.noUiSlider.on('update', v => {
+          const a = Math.round(v[0]), b = Math.round(v[1]);
+          if (a !== this.f.pmin) { this.f.pmin = a; this.cur = 1; }
+          if (b !== this.f.pmax) { this.f.pmax = b; this.cur = 1; }
+        });
+        const sync = () => el.noUiSlider.set([this.f.pmin, this.f.pmax]);
+        this.$watch('f.pmin', sync);
+        this.$watch('f.pmax', sync);
+      });
+    },
+
+    /* Does option o of group g match product p? */
+    test(g, o, p) {
+      if (g.mode === 'eq') return p[g.field] === o.v;
+      if (g.mode === 'range') return p[g.field] != null && p[g.field] >= o.lo && p[g.field] <= o.hi;
+      if (g.mode === 'has') return p[g.field].includes(o.v);
+      return !!p[o.v];
+    },
+    /* Does p pass every active filter, ignoring group `skip`? (OR inside a group, AND between groups; Features use AND.) */
+    match(p, skip) {
+      const f = this.f;
+      if (p.price < f.pmin || p.price > f.pmax) return false;
+      if (f.stock && p.stock === 0) return false;
+      for (const g of this.groups) {
+        const sel = f[g.key];
+        if (!sel.length || g.key === skip) continue;
+        const ok = g.mode === 'flag' ? sel.every(v => p[v]) : sel.some(v => this.test(g, g.options.find(o => o.v === v), p));
+        if (!ok) return false;
+      }
+      return true;
+    },
+    /* Options of a group with live counts. Zero-count options are hidden unless selected (Condition always shows all). */
+    opts(g) {
+      const skip = g.mode === 'flag' ? null : g.key;
+      return g.options
+        .map(o => ({ ...o, sel: this.f[g.key].includes(o.v), n: this.products.filter(p => this.match(p, skip) && this.test(g, o, p)).length }))
+        .filter(o => o.n > 0 || o.sel || g.keep);
+    },
+    shown(g) { const l = this.opts(g); return g.limit && !this.showAll[g.key] ? l.slice(0, g.limit) : l; },
+    hasMore(g) { return g.limit && this.opts(g).length > g.limit; },
+    toggle(key, v) {
+      const a = this.f[key], i = a.indexOf(v);
+      if (i === -1) a.push(v); else a.splice(i, 1);
+      this.cur = 1;
+    },
+
+    get list() {
+      const s = this.sort;
+      return this.products.filter(p => this.match(p, null)).sort((a, b) =>
+        s === 'pl' ? a.price - b.price : s === 'ph' ? b.price - a.price : s === 'feat' ? (b.feat - a.feat) || (a.ord - b.ord) : a.ord - b.ord);
+    },
+    get pages() { return Math.max(1, Math.ceil(this.list.length / this.perPage)); },
+    get pageItems() { return this.list.slice((this.cur - 1) * this.perPage, this.cur * this.perPage); },
+    get inStock() { return this.list.filter(p => p.stock > 0).length; },
+    go(n) {
+      this.cur = Math.min(Math.max(1, n), this.pages);
+      this.$nextTick(() => document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    },
+
+    /* Price helpers */
+    get priceActive() { return this.f.pmin > this.bounds.min || this.f.pmax < this.bounds.max; },
+    lo(b) { return b.min == null ? this.bounds.min : Math.max(this.bounds.min, b.min); },
+    hi(b) { return b.max == null ? this.bounds.max : Math.min(this.bounds.max, b.max); },
+    setBudget(b) { this.f.pmin = this.lo(b); this.f.pmax = this.hi(b); this.cur = 1; },
+    isBudget(b) { return this.f.pmin === this.lo(b) && this.f.pmax === this.hi(b); },
+    resetPrice() { this.f.pmin = this.bounds.min; this.f.pmax = this.bounds.max; this.cur = 1; },
+    setMin(e) {
+      const v = Math.round(+e.target.value / 1000) * 1000;
+      if (!isNaN(v)) this.f.pmin = Math.min(Math.max(v, this.bounds.min), this.f.pmax);
+      e.target.value = this.f.pmin; this.cur = 1;
+    },
+    setMax(e) {
+      const v = Math.round(+e.target.value / 1000) * 1000;
+      if (!isNaN(v)) this.f.pmax = Math.max(Math.min(v, this.bounds.max), this.f.pmin);
+      e.target.value = this.f.pmax; this.cur = 1;
+    },
+
+    /* Active filter chips */
+    chips() {
+      const out = [];
+      if (this.priceActive) out.push({ key: 'price', v: null, label: this.fmt(this.f.pmin) + ' – ' + this.fmt(this.f.pmax) });
+      for (const g of this.groups) for (const v of this.f[g.key]) out.push({ key: g.key, v, label: g.options.find(o => o.v === v).label });
+      return out;
+    },
+    get activeCount() { return this.chips().length; },
+    removeChip(c) { c.key === 'price' ? this.resetPrice() : this.toggle(c.key, c.v); },
+    clearAll() {
+      for (const g of this.groups) this.f[g.key] = [];
+      this.f.stock = true; this.resetPrice(); this.cur = 1;
+    },
+
+    fmt(n) { return 'Rs ' + n.toLocaleString('en-US'); },
+    off(p) { return Math.round((p.old - p.price) / p.old * 100); },
+    add(p) {
+      if (p.stock === 0) return;
+      Alpine.store('cart').add({ name: p.name, cond: p.cond, grade: p.grade, price: p.price, old: p.old, stock: p.stock, options: [] });
+    },
+  };
+}
+
+    /* Cart store shared by every page (header count, drawer, cart page, add-to-cart buttons).
+       The mockup keeps it in localStorage so it survives page changes. In the Laravel build the cart lives in the
+       session and prices are always recomputed on the server. */
+    function lapnexCart(storage) {
+      const KEY = 'lapnex-cart-v1';
+      const demo = () => [
+        { key: 'DELL LATITUDE 7490 i7 8TH', name: 'DELL LATITUDE 7490 i7 8TH', cond: 'Used', grade: 'A', price: 55000, old: null, stock: 1, options: [], qty: 1 },
+        { key: 'HP ELITEBOOK 840 G6 i5 8TH|32GB DDR4|256GB SSD', name: 'HP ELITEBOOK 840 G6 i5 8TH', cond: 'Refurbished', grade: 'A+', price: 57500, old: 63000, stock: 5, options: ['32GB DDR4', '256GB SSD'], qty: 1 },
+        { key: 'LENOVO THINKPAD T480 i5 8TH', name: 'LENOVO THINKPAD T480 i5 8TH', cond: 'Used', grade: 'A', price: 42000, old: null, stock: 2, options: [], qty: 2 },
+      ];
+      return {
+        items: [], open: false, freeOver: 50000, deliveryFee: 500, justAdded: null,
+        init() { this.load(); },
+        load() {
+          try {
+            const raw = storage.getItem(KEY);
+            if (raw === null) { this.items = demo(); this.save(); } else this.items = JSON.parse(raw);
+          } catch (e) { this.items = demo(); }
+        },
+        save() { try { storage.setItem(KEY, JSON.stringify(this.items)); } catch (e) {} },
+        keyOf(p) { return [p.name, ...(p.options || [])].join('|'); },
+        get count() { return this.items.reduce((n, i) => n + i.qty, 0); },
+        get subtotal() { return this.items.reduce((n, i) => n + i.price * i.qty, 0); },
+        get saved() { return this.items.reduce((n, i) => n + (i.old ? (i.old - i.price) * i.qty : 0), 0); },
+        get toFree() { return Math.max(0, this.freeOver - this.subtotal); },
+        get freeProgress() { return Math.min(100, Math.round(this.subtotal / this.freeOver * 100)); },
+        add(p, qty = 1) {
+          if (!p.stock) return false;
+          const key = this.keyOf(p), have = this.items.find(i => i.key === key);
+          if (have) have.qty = Math.min(p.stock, have.qty + qty);
+          else this.items.push({ key, name: p.name, cond: p.cond, grade: p.grade || null, price: p.price, old: p.old || null, stock: p.stock, options: p.options || [], qty: Math.min(p.stock, qty) });
+          this.justAdded = key; this.save(); this.open = true;
+          return true;
+        },
+        setQty(key, n) {
+          const it = this.items.find(i => i.key === key); if (!it) return;
+          it.qty = Math.max(1, Math.min(it.stock, Math.round(+n) || 1)); this.save();
+        },
+        inc(key) { const it = this.items.find(i => i.key === key); if (it) this.setQty(key, it.qty + 1); },
+        dec(key) { const it = this.items.find(i => i.key === key); if (it) this.setQty(key, it.qty - 1); },
+        remove(key) { this.items = this.items.filter(i => i.key !== key); this.save(); },
+        clear() { this.items = []; this.save(); },
+        reset() { this.items = demo(); this.save(); },
+        fmt(n) { return 'Rs ' + n.toLocaleString('en-US'); },
+      };
+    }
+    document.addEventListener('alpine:init', () => {
+      let store; try { store = window.localStorage; store.getItem('x'); } catch (e) { const m = {}; store = { getItem: k => (k in m ? m[k] : null), setItem: (k, v) => { m[k] = v; } }; }
+      Alpine.store('cart', lapnexCart(store));
+    });
+
+    /* Shared header/footer data. In the Laravel build these come from the database and settings. */
+    function lapnex() {
+      const money = (n) => 'Rs ' + n.toLocaleString('en-US');
+      return {
+        drawer: false, mega: false, navOpen: null, accOpen: null, scrolled: false, sOpen: false, q: '',
+
+        ticker: [
+          '32-point inspection on every laptop',
+          'Warranty on every laptop',
+          'Free delivery all over Pakistan',
+          'Cash on Delivery available',
+          'Video call before dispatch',
+        ],
+        socials: [
+          { n: 'Facebook', i: 'facebook', u: 'https://www.facebook.com/' }, { n: 'Instagram', i: 'instagram', u: 'https://www.instagram.com/' },
+          { n: 'TikTok', i: 'tiktok', u: 'https://www.tiktok.com/' }, { n: 'YouTube', i: 'youtube', u: 'https://www.youtube.com/' },
+        ],
+
+        menu: {
+          processor: [
+            { t: 'Core i3' }, { t: 'Core i5' }, { t: 'Core i7' }, { t: 'Core i9' },
+            { t: 'Core Ultra' }, { t: 'AMD Ryzen' }, { t: 'Apple M-series' },
+          ],
+          generation: [
+            { t: '11th – 14th Gen' }, { t: '9th – 10th Gen' }, { t: '7th – 8th Gen' },
+            { t: '5th – 6th Gen' }, { t: '1st – 4th Gen' },
+          ],
+          features: [
+            { t: 'With Graphics Card' }, { t: 'Touchscreen' }, { t: '360° / 2-in-1' },
+            { t: 'Numeric Keypad' }, { t: 'Backlit Keyboard' }, { t: 'H-Series CPU' },
+          ],
+          use: [
+            { t: 'Students' }, { t: 'Office / Corporate' }, { t: 'Developers / Coding' },
+            { t: 'Graphic Designers' }, { t: 'Gaming' }, { t: 'E-Commerce' },
+            { t: 'Beginners / Daily Use' }, { t: 'Workstation' },
+          ],
+          brands: [
+            { t: 'Dell' }, { t: 'HP' }, { t: 'Lenovo' }, { t: 'Apple MacBook' }, { t: 'Asus' },
+            { t: 'Acer' }, { t: 'Microsoft' }, { t: 'MSI' }, { t: 'Samsung' },
+          ],
+          budget: [
+            { t: 'Under Rs 40,000' }, { t: 'Rs 40,000 – 60,000', u: 'budget.html' }, { t: 'Rs 60,000 – 80,000' },
+            { t: 'Rs 80,000 – 1 Lakh' }, { t: 'Rs 1 – 1.5 Lakh' }, { t: 'Above Rs 1.5 Lakh' },
+          ],
+          condition: [
+            { t: 'New', dot: 'bg-cond-new' }, { t: 'Open Box', dot: 'bg-cond-openbox' },
+            { t: 'Refurbished', dot: 'bg-cond-refurb' }, { t: 'Used', dot: 'bg-cond-used' },
+          ],
+        },
+        navItems: [
+          { k: 'processor', t: 'Processor' }, { k: 'generation', t: 'Generation' },
+          { k: 'features', t: 'Features' }, { k: 'use', t: 'Use Case' }, { k: 'brands', t: 'Brands' },
+          { k: 'budget', t: 'Budget' }, { k: 'condition', t: 'Condition' },
+        ],
+        megaCols: [
+          { groups: [{ h: 'Brands', k: 'brands' }] },
+          { groups: [{ h: 'Processor', k: 'processor' }, { h: 'Generation', k: 'generation' }] },
+          { groups: [{ h: 'Use Case', k: 'use' }] },
+          { groups: [{ h: 'Features', k: 'features' }] },
+          { groups: [{ h: 'Budget', k: 'budget' }] },
+          { groups: [{ h: 'Condition', k: 'condition' }] },
+        ],
+        topCategories: ['Laptops', 'MacBooks', 'Desktops & PCs', 'Accessories'],
+
+        footerCols: [
+          { t: 'Shop', l: [['Laptops', 'listing.html'], ['MacBooks', 'listing.html'], ['Desktops & PCs', 'listing.html'], ['Accessories', 'listing.html'], ['New Arrivals', 'listing.html'], ['Deals', 'listing.html'], ['Lowest Price', 'listing.html']] },
+          { t: 'Popular', l: [['Dell Laptops', 'listing.html'], ['HP Laptops', 'listing.html'], ['Lenovo Laptops', 'listing.html'], ['Core i5 Laptops', 'listing.html'], ['Core i7 Laptops', 'listing.html'], ['8th Gen Laptops', 'listing.html'], ['Touchscreen Laptops', 'listing.html'], ['Gaming Laptops', 'listing.html'], ['Laptops Under Rs 60,000', 'budget.html'], ['Laptops for Students', 'listing.html']] },
+          { t: 'Information', l: [['About Us', 'about.html'], ['Contact Us', 'contact.html'], ['Condition Guide', 'condition-guide.html'], ['Track Order', 'track.html'], ['FAQs', 'faq.html'], ['Your Cart', 'cart.html']] },
+          { t: 'Policy', l: [['Warranty', 'warranty.html'], ['Returns & Refunds', 'returns.html'], ['Delivery', 'delivery.html'], ['Privacy Policy', 'privacy.html'], ['Terms & Conditions', 'terms.html']] },
+        ],
+        payments: ['Cash on Delivery', 'Bank Transfer', 'JazzCash', 'Easypaisa', 'Raast', 'Visa', 'Mastercard'],
+
+        products: [
+          { n: 'Dell Latitude 7490 i7 8th · 16GB · 512GB SSD', p: 55000, c: 'Used' },
+          { n: 'HP EliteBook 840 G6 i5 8th · 16GB · 256GB SSD', p: 48500, c: 'Refurbished' },
+          { n: 'Lenovo ThinkPad T480 i5 8th · 8GB · 256GB SSD', p: 42000, c: 'Used' },
+          { n: 'Apple MacBook Air M1 · 8GB · 256GB', p: 165000, c: 'Open Box' },
+          { n: 'Dell Precision 7530 i7 8th · 16GB · Quadro P1000', p: 98000, c: 'Used' },
+          { n: 'HP ZBook 15 G5 i7 8th · 16GB · 512GB SSD', p: 89000, c: 'Refurbished' },
+          { n: 'Lenovo Legion 5 Ryzen 7 · 16GB · RTX 3060', p: 215000, c: 'New' },
+          { n: 'Asus TUF F15 i5 11th · 16GB · RTX 3050', p: 185000, c: 'New' },
+          { n: 'Dell Latitude 5420 i5 11th · 16GB · 256GB SSD', p: 72000, c: 'Refurbished' },
+          { n: 'Dell XPS 13 9370 i7 8th · 16GB · 512GB SSD', p: 89000, c: 'Open Box' },
+          { n: 'Dell Latitude 5440 i5 4th · 8GB · 256GB SSD', p: 30000, c: 'Used' },
+          { n: 'HP EliteBook 830 G5 i5 8th · 8GB · 256GB SSD', p: 53000, c: 'Used' },
+        ],
+        get results() {
+          const words = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+          if (this.q.trim().length < 2) return [];
+          return this.products.filter(p => words.every(w => p.n.toLowerCase().includes(w))).slice(0, 6);
+        },
+        price: money,
+        condClass(c) {
+          return { 'New': 'bg-cond-new/10 text-cond-new', 'Open Box': 'bg-cond-openbox/10 text-cond-openbox',
+                   'Refurbished': 'bg-cond-refurb/10 text-cond-refurb', 'Used': 'bg-cond-used/10 text-cond-used' }[c];
+        },
+
+        onScroll() {
+          const y = window.scrollY;
+          if (y > 80) this.scrolled = true; else if (y < 10) this.scrolled = false;
+        },
+        closeAll() { this.drawer = false; this.mega = false; this.navOpen = null; this.sOpen = false; this.$store.cart.open = false; },
+        focusSearch() {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          this.$nextTick(() => { this.$refs.search.focus(); });
+        },
+      };
+    }
+  </script>
+</head>
+<body class="bg-surface text-ink font-sans antialiased pb-16 md:pb-0"
+      x-data="lapnex()"
+      @scroll.window.passive="onScroll()" @keydown.escape.window="closeAll()"
+      x-effect="document.body.classList.toggle('overflow-hidden', drawer || $store.cart.open)">
+
+<!-- Icon sprite: Lucide-style 24px icons, used via <svg><use href="#i-name"/></svg> -->
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+  <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/></symbol>
+  <symbol id="i-ram" viewBox="0 0 24 24"><path d="M6 19v-3M10 19v-3M14 19v-3M18 19v-3M8 6v4M12 6v4M16 6v4"/><rect x="2" y="3" width="20" height="14" rx="2"/></symbol>
+  <symbol id="i-ssd" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></symbol>
+  <symbol id="i-screen" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><path d="m16 13 5.22 3.48a.5.5 0 0 0 .78-.42V7.87a.5.5 0 0 0-.75-.43L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
+  <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2" y="7" width="16" height="10" rx="2"/><path d="M22 11v2M6 11v2M10 11v2M14 11v2"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+  <symbol id="i-percent" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 17.5v-11"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></symbol>
+  <symbol id="i-sort" viewBox="0 0 24 24"><path d="m21 16-4 4-4-4M17 20V4M3 8l4-4 4 4M7 4v16"/></symbol>
+  <!-- Lapnex placeholder mark: two crossing strokes forming the X -->
+  <symbol id="lx-x" viewBox="0 0 24 24"><path d="M4 4l16 16" stroke="#34AA95" stroke-width="3.2" stroke-linecap="round"/><path d="M20 4 4 20" stroke="#F97316" stroke-width="3.2" stroke-linecap="round"/></symbol>
+</svg>
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:font-bold focus:text-brand-700">Skip to content</a>
+
+<!-- COMPONENT: site-header (topbar + header + nav-bar + mega-menu) -->
+<div class="sticky top-0 z-40 bg-linear-to-r from-brand-900 to-brand-800 text-white">
+
+  <!-- COMPONENT: topbar -->
+  <div x-show="!scrolled" x-collapse class="bg-black/20 text-xs text-white/80">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-9 flex items-center gap-6">
+      <div class="lx-marquee-wrap flex-1 min-w-0 overflow-hidden" aria-label="Why shop at Lapnex">
+        <div class="lx-marquee whitespace-nowrap">
+          <template x-for="copy in [1, 2]" :key="copy">
+            <div class="flex shrink-0 items-center gap-8 pr-8" :aria-hidden="copy === 2">
+              <template x-for="item in ticker" :key="item">
+                <span class="inline-flex items-center gap-1.5 font-semibold">
+                  <svg class="size-3.5 text-accent-500" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg>
+                  <span x-text="item"></span>
+                </span>
+              </template>
+            </div>
+          </template>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-4 shrink-0">
+        <a href="tel:+923000000000" class="inline-flex items-center gap-1.5 font-bold text-white hover:underline">
+          <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg>+92 300 0000000
+        </a>
+        <a href="track.html" class="hover:text-white hover:underline">Track order</a>
+        <a href="contact.html" class="hover:text-white hover:underline">Help</a>
+        <span class="h-4 w-px bg-white/25" aria-hidden="true"></span>
+        <div class="flex items-center gap-1.5">
+          <template x-for="s in socials" :key="s.n">
+            <a :href="s.u" target="_blank" rel="noopener" :aria-label="s.n + ' (opens in a new tab)'" class="hit inline-flex items-center justify-center size-6 rounded-full bg-white/10 hover:bg-white/25">
+              <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use :href="'#i-' + s.i"/></svg>
+            </a>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /COMPONENT: topbar -->
+
+  <!-- COMPONENT: header -->
+  <header>
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex flex-wrap items-center gap-x-3 gap-y-3 lg:gap-x-6">
+      <button type="button" @click="drawer = true; mega = false" class="lg:hidden inline-flex items-center justify-center size-11 -ml-2 rounded-full hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand-300" aria-label="Open menu" :aria-expanded="drawer">
+        <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+
+      <a href="home.html" class="flex min-h-11 items-center text-[26px] font-extrabold tracking-tight leading-none focus-visible:ring-2 focus-visible:ring-brand-300 rounded" aria-label="Lapnex home">LAPNE<svg class="size-7 -ml-px" fill="none" aria-hidden="true"><use href="#lx-x"/></svg></a>
+
+      <!-- Search: sits on its own row on mobile, in the middle on desktop -->
+      <div class="relative order-last w-full lg:order-none lg:w-auto lg:flex-1 lg:max-w-3xl" @click.outside="sOpen = false">
+        <form role="search" action="#" onsubmit="return false" class="flex items-center h-12 rounded-full bg-white text-ink ring-1 ring-white/20 focus-within:ring-2 focus-within:ring-brand-300 pl-2 pr-1.5">
+          <label for="hdr-cat" class="sr-only">Category</label>
+          <select id="hdr-cat" class="hidden sm:block h-9 rounded-full bg-surface-alt text-xs font-bold text-ink-soft pl-3 pr-2 border-0 focus:outline-none">
+            <option>All</option><option>Laptops</option><option>MacBooks</option><option>Accessories</option>
+          </select>
+          <label for="hdr-q" class="sr-only">Search laptops</label>
+          <input id="hdr-q" x-ref="search" x-model="q" @focus="sOpen = true" @input="sOpen = true" type="search" autocomplete="off"
+                 placeholder="Search by brand, model or processor…"
+                 class="flex-1 min-w-0 h-full bg-transparent px-3 text-sm placeholder:text-ink-muted focus:outline-none"
+                 role="combobox" aria-autocomplete="list" aria-controls="hdr-suggest" :aria-expanded="sOpen && results.length > 0">
+          <button type="submit" class="shrink-0 inline-flex items-center justify-center size-11 rounded-full bg-accent-600 text-white hover:bg-accent-700 focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2" aria-label="Search">
+            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-search"/></svg>
+          </button>
+        </form>
+
+        <div id="hdr-suggest" x-show="sOpen && results.length > 0" x-transition.opacity x-cloak role="listbox"
+             class="absolute left-0 right-0 top-full mt-2 z-50 rounded-3xl bg-white text-ink shadow-xl ring-1 ring-line p-2">
+          <template x-for="p in results" :key="p.n">
+            <a href="product.html" role="option" class="flex items-center gap-3 rounded-2xl p-2 hover:bg-brand-50 focus-visible:bg-brand-50">
+              <span class="inline-flex items-center justify-center size-11 shrink-0 rounded-xl bg-well text-ink-muted">
+                <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-laptop"/></svg>
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="block truncate text-sm font-bold" x-text="p.n"></span>
+                <span class="mt-0.5 flex items-center gap-2">
+                  <span class="text-sm font-extrabold tabular-nums text-accent-600" x-text="price(p.p)"></span>
+                  <span class="rounded-full text-[11px] font-bold px-2 py-px" :class="condClass(p.c)" x-text="p.c"></span>
+                </span>
+              </span>
+            </a>
+          </template>
+          <a href="listing.html" class="mt-1 flex items-center justify-between rounded-2xl px-3 py-2.5 text-sm font-bold text-brand-700 hover:bg-brand-50">
+            <span>See all results for “<span x-text="q.trim()"></span>”</span>
+            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="ml-auto lg:ml-0 flex items-center gap-1 sm:gap-2">
+        <a href="login.html" class="hidden lg:flex flex-col items-center justify-center min-w-12 h-12 rounded-2xl text-[11px] font-bold text-white/85 hover:text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand-300">
+          <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-user"/></svg>Account
+        </a>
+        <a href="wishlist.html" class="relative flex flex-col items-center justify-center min-w-11 sm:min-w-12 h-11 sm:h-12 rounded-2xl text-[11px] font-bold text-white/85 hover:text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand-300" aria-label="Wishlist, 3 items">
+          <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-heart"/></svg>
+          <span class="hidden sm:block">Wishlist</span>
+          <span class="absolute top-0.5 right-1.5 sm:right-2 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-accent-600 text-white text-[10px] font-bold">3</span>
+        </a>
+        <button type="button" @click="$store.cart.open = true; mega = false; navOpen = null" class="relative flex flex-col items-center justify-center min-w-11 sm:min-w-12 h-11 sm:h-12 rounded-2xl text-[11px] font-bold text-white/85 hover:text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand-300" :aria-label="'Cart, ' + $store.cart.count + ' items'">
+          <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg>
+          <span class="hidden sm:block">Cart</span>
+          <span x-show="$store.cart.count > 0" class="absolute top-0.5 right-1.5 sm:right-2 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-accent-600 text-white text-[10px] font-bold" x-text="$store.cart.count"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <!-- /COMPONENT: header -->
+
+  <!-- COMPONENT: nav-bar (desktop only) -->
+  <nav class="hidden lg:block bg-white text-ink border-b border-line relative" aria-label="Shop by">
+    <div class="max-w-7xl mx-auto px-6 h-12 flex items-center gap-1">
+      <button type="button" @click="mega = !mega; navOpen = null" :aria-expanded="mega" aria-controls="mega-menu"
+              class="inline-flex items-center gap-2 h-9 pl-3 pr-4 mr-2 rounded-full bg-brand-600 text-white text-sm font-bold hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2">
+        <svg class="size-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-grid"/></svg>
+        All Categories
+        <svg class="size-4 transition-transform" :class="mega && 'rotate-180'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+      </button>
+
+      <ul class="flex items-center" @click.outside="navOpen = null">
+        <template x-for="item in navItems" :key="item.k">
+          <li class="relative" @mouseenter="navOpen = item.k; mega = false" @mouseleave="navOpen = null">
+            <button type="button" @click="navOpen = item.k; mega = false" :aria-expanded="navOpen === item.k"
+                    class="inline-flex items-center gap-1 h-9 px-3 rounded-full text-sm font-bold text-ink-soft hover:text-brand-700 hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-brand-400"
+                    :class="navOpen === item.k && 'text-brand-700 bg-brand-50'">
+              <span x-text="item.t"></span>
+              <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </button>
+            <div x-show="navOpen === item.k" x-cloak x-transition.opacity.duration.100ms
+                 class="absolute left-0 top-full w-60 z-40 pt-1">
+              <ul class="rounded-2xl bg-white shadow-xl ring-1 ring-line p-2">
+                <template x-for="link in menu[item.k]" :key="link.t">
+                  <li><a :href="link.u || 'listing.html'" class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-semibold text-ink-soft hover:bg-brand-50 hover:text-brand-700">
+                    <span x-show="link.dot" class="size-2.5 rounded-full" :class="link.dot"></span><span x-text="link.t"></span></a></li>
+                </template>
+              </ul>
+            </div>
+          </li>
+        </template>
+      </ul>
+
+      <a href="listing.html" class="ml-auto inline-flex items-center gap-1.5 h-9 px-3 rounded-full text-sm font-extrabold text-accent-600 hover:bg-accent-50 focus-visible:ring-2 focus-visible:ring-accent-500">
+        <svg class="size-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-flame"/></svg>Deals
+      </a>
+    </div>
+
+    <!-- COMPONENT: mega-menu -->
+    <div id="mega-menu" x-show="mega" x-cloak x-transition.opacity.duration.100ms @click.outside="mega = false"
+         class="absolute left-0 right-0 top-full z-40 bg-white text-ink border-b border-line shadow-xl max-h-[calc(100vh-170px)] overflow-y-auto">
+      <div class="max-w-7xl mx-auto px-6 py-6 grid grid-cols-7 gap-6">
+        <template x-for="col in megaCols" :key="col.groups[0].h">
+          <div>
+            <template x-for="(g, gi) in col.groups" :key="g.h">
+              <div :class="gi > 0 && 'mt-5'">
+                <p class="text-xs font-extrabold uppercase tracking-wider text-brand-700 mb-2" x-text="g.h"></p>
+                <ul class="space-y-0.5">
+                  <template x-for="link in menu[g.k]" :key="link.t">
+                    <li><a :href="link.u || 'listing.html'" class="flex items-center gap-2 py-1 text-sm font-semibold text-ink-soft hover:text-brand-700">
+                      <span x-show="link.dot" class="size-2.5 rounded-full" :class="link.dot"></span><span x-text="link.t"></span></a></li>
+                  </template>
+                </ul>
+              </div>
+            </template>
+          </div>
+        </template>
+        <a href="listing.html" class="group relative flex flex-col justify-end overflow-hidden rounded-3xl bg-linear-to-br from-brand-700 to-brand-900 p-4 text-white min-h-52 focus-visible:ring-2 focus-visible:ring-brand-400">
+          <span class="absolute -top-8 -right-8 size-28 rounded-full bg-accent-500/80 blur-sm" aria-hidden="true"></span>
+          <span class="relative text-[11px] font-extrabold uppercase tracking-wider text-accent-100">This week</span>
+          <span class="relative mt-1 text-lg font-extrabold leading-tight">Certified laptops on sale</span>
+          <span class="relative mt-3 inline-flex items-center gap-1 text-sm font-bold">Shop deals
+            <svg class="size-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-right"/></svg></span>
+        </a>
+      </div>
+    </div>
+    <!-- /COMPONENT: mega-menu -->
+  </nav>
+  <!-- /COMPONENT: nav-bar -->
+</div>
+<!-- /COMPONENT: site-header -->
+
+<!-- COMPONENT: mobile-drawer -->
+<div x-show="drawer" x-cloak class="lg:hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Menu">
+  <div x-show="drawer" x-transition.opacity @click="drawer = false" class="absolute inset-0 bg-ink/50"></div>
+  <div x-show="drawer" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+       x-transition:leave="transition ease-in duration-150" x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
+       class="absolute inset-y-0 left-0 w-[88%] max-w-sm bg-white flex flex-col shadow-2xl">
+    <div class="flex items-center justify-between px-4 h-16 bg-linear-to-r from-brand-900 to-brand-800 text-white shrink-0">
+      <span class="flex items-center text-2xl font-extrabold tracking-tight leading-none">LAPNE<svg class="size-6 -ml-px" fill="none" aria-hidden="true"><use href="#lx-x"/></svg></span>
+      <button type="button" @click="drawer = false" class="inline-flex items-center justify-center size-11 -mr-2 rounded-full hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand-300" aria-label="Close menu">
+        <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto overscroll-contain">
+      <div class="p-4 grid grid-cols-2 gap-2">
+        <a href="login.html" class="inline-flex items-center justify-center gap-2 h-11 rounded-full bg-brand-600 text-white text-sm font-bold">
+          <svg class="size-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-user"/></svg>Sign in</a>
+        <a href="track.html" class="inline-flex items-center justify-center gap-2 h-11 rounded-full bg-white ring-1 ring-line text-sm font-bold">Track order</a>
+      </div>
+
+      <ul class="px-2">
+        <template x-for="c in topCategories" :key="c">
+          <li><a href="listing.html" class="flex items-center justify-between min-h-12 px-3 rounded-2xl text-[15px] font-bold hover:bg-brand-50"><span x-text="c"></span>
+            <svg class="size-4 text-ink-muted" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-right"/></svg></a></li>
+        </template>
+        <li><a href="listing.html" class="flex items-center gap-2 min-h-12 px-3 rounded-2xl text-[15px] font-extrabold text-accent-600 hover:bg-accent-50">
+          <svg class="size-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-flame"/></svg>Deals</a></li>
+      </ul>
+
+      <p class="px-5 pt-4 pb-1 text-xs font-extrabold uppercase tracking-wider text-ink-muted">Shop by</p>
+      <ul class="px-2 pb-4">
+        <template x-for="item in navItems" :key="item.k">
+          <li>
+            <button type="button" @click="accOpen = accOpen === item.k ? null : item.k" :aria-expanded="accOpen === item.k"
+                    class="flex w-full items-center justify-between min-h-12 px-3 rounded-2xl text-[15px] font-bold hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-brand-400">
+              <span x-text="item.t"></span>
+              <svg class="size-4 text-ink-muted transition-transform" :class="accOpen === item.k && 'rotate-180'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </button>
+            <ul x-show="accOpen === item.k" x-collapse class="ml-3 pl-3 border-l-2 border-brand-100">
+              <template x-for="link in menu[item.k]" :key="link.t">
+                <li><a :href="link.u || 'listing.html'" class="flex items-center gap-2.5 min-h-11 px-3 rounded-xl text-sm font-semibold text-ink-soft hover:bg-brand-50 hover:text-brand-700">
+                  <span x-show="link.dot" class="size-2.5 rounded-full" :class="link.dot"></span><span x-text="link.t"></span></a></li>
+              </template>
+            </ul>
+          </li>
+        </template>
+      </ul>
+    </div>
+
+    <div class="shrink-0 p-4 border-t border-line">
+      <a href="https://wa.me/923000000000" class="inline-flex w-full items-center justify-center gap-2 h-12 rounded-full bg-whatsapp text-ink text-sm font-extrabold">
+        <svg class="size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-whatsapp"/></svg>Chat on WhatsApp</a>
+    </div>
+  </div>
+</div>
+<!-- /COMPONENT: mobile-drawer -->
+
+<!-- COMPONENT: cart-drawer -->
+<div x-show="$store.cart.open" x-cloak class="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title" x-data="{ c: $store.cart }">
+  <div x-show="c.open" x-transition.opacity @click="c.open = false" class="absolute inset-0 bg-ink/50"></div>
+  <div x-show="c.open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+       x-transition:leave="transition ease-in duration-150" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
+       class="absolute inset-y-0 right-0 flex w-full max-w-md flex-col bg-white shadow-2xl">
+
+    <div class="flex shrink-0 items-center justify-between border-b border-line px-5 h-16">
+      <h2 id="cart-drawer-title" class="flex items-center gap-2 text-lg font-extrabold">
+        <svg class="size-5 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg>
+        Your cart <span class="text-sm font-bold text-ink-muted" x-text="'(' + c.count + ')'"></span></h2>
+      <button type="button" @click="c.open = false" class="inline-flex size-11 -mr-2 items-center justify-center rounded-full hover:bg-surface-alt focus-visible:ring-2 focus-visible:ring-brand-400" aria-label="Close cart">
+        <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+
+    <!-- Empty -->
+    <div x-show="c.items.length === 0" class="flex flex-1 flex-col items-center justify-center px-8 text-center">
+      <span class="inline-flex size-16 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+        <svg class="size-8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg></span>
+      <p class="mt-4 text-lg font-extrabold">Your cart is empty</p>
+      <p class="mt-1 text-sm text-ink-muted">Find a laptop you like and add it here.</p>
+      <a href="listing.html" class="mt-5 inline-flex h-11 items-center rounded-full bg-brand-600 px-6 text-sm font-extrabold text-white hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2">Shop laptops</a>
+    </div>
+
+    <!-- Items -->
+    <div x-show="c.items.length > 0" class="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5">
+      <div class="mt-4 rounded-2xl bg-brand-50 p-3 text-sm">
+        <p class="font-bold text-brand-800" x-text="c.toFree > 0 ? 'Add ' + c.fmt(c.toFree) + ' more for free delivery' : 'You have unlocked free delivery'"></p>
+        <div class="mt-2 h-2 overflow-hidden rounded-full bg-white" role="progressbar" :aria-valuenow="c.freeProgress" aria-valuemin="0" aria-valuemax="100" aria-label="Progress to free delivery">
+          <div class="h-full rounded-full bg-linear-to-r from-brand-500 to-accent-500 transition-all" :style="'width:' + c.freeProgress + '%'"></div></div>
+      </div>
+      <ul class="divide-y divide-line">
+        <template x-for="i in c.items" :key="i.key">
+          <li class="flex gap-3 py-4">
+            <a href="product.html" class="size-20 shrink-0 rounded-2xl bg-well p-1.5" tabindex="-1" aria-hidden="true"><img src="assets/img/laptop-a.svg" alt="" width="80" height="80" class="size-full object-contain"></a>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-start justify-between gap-2">
+                <a href="product.html" class="line-clamp-2 text-[13px] font-bold leading-snug hover:text-brand-700" x-text="i.name"></a>
+                <button type="button" @click="c.remove(i.key)" class="-mr-3 -mt-2.5 inline-flex size-11 shrink-0 items-center justify-center rounded-full text-ink-muted hover:bg-accent-50 hover:text-accent-700 focus-visible:ring-2 focus-visible:ring-accent-500" :aria-label="'Remove ' + i.name">
+                  <svg class="size-[18px]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-trash"/></svg></button>
+              </div>
+              <p class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span class="rounded-full px-2 py-0.5 text-[11px] font-bold" :class="condClass(i.cond)"><span x-text="i.cond"></span><span x-show="i.grade" x-text="' · ' + i.grade"></span></span>
+                <span x-show="i.options.length" class="text-xs text-ink-muted" x-text="i.options.join(' · ')"></span>
+              </p>
+              <div class="mt-2 flex items-center justify-between gap-2">
+                <div class="inline-flex h-11 items-center rounded-full bg-white ring-1 ring-line" role="group" :aria-label="'Quantity for ' + i.name">
+                  <button type="button" @click="c.dec(i.key)" :disabled="i.qty <= 1" class="inline-flex size-11 items-center justify-center rounded-full hover:bg-surface-alt focus-visible:ring-2 focus-visible:ring-brand-400 disabled:opacity-40" aria-label="Decrease quantity">
+                    <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><use href="#i-minus"/></svg></button>
+                  <span class="w-7 text-center text-sm font-extrabold tabular-nums" aria-live="polite" x-text="i.qty"></span>
+                  <button type="button" @click="c.inc(i.key)" :disabled="i.qty >= i.stock" class="inline-flex size-11 items-center justify-center rounded-full hover:bg-surface-alt focus-visible:ring-2 focus-visible:ring-brand-400 disabled:opacity-40" aria-label="Increase quantity">
+                    <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><use href="#i-plus"/></svg></button>
+                </div>
+                <p class="text-right"><span class="block text-base font-extrabold tabular-nums" x-text="c.fmt(i.price * i.qty)"></span>
+                  <span x-show="i.qty > 1" class="block text-xs tabular-nums text-ink-muted" x-text="c.fmt(i.price) + ' each'"></span></p>
+              </div>
+              <p x-show="i.qty >= i.stock" class="mt-1.5 text-xs font-bold text-accent-700" x-text="i.stock === 1 ? 'Only 1 available' : 'Maximum available: ' + i.stock"></p>
+            </div>
+          </li>
+        </template>
+      </ul>
+    </div>
+
+    <!-- Footer -->
+    <div x-show="c.items.length > 0" class="shrink-0 border-t border-line p-5">
+      <div class="flex items-baseline justify-between">
+        <span class="text-sm font-bold text-ink-soft">Subtotal</span>
+        <span class="text-xl font-extrabold tabular-nums" x-text="c.fmt(c.subtotal)"></span>
+      </div>
+      <p x-show="c.saved > 0" class="mt-1 text-right text-xs font-bold text-cond-new" x-text="'You are saving ' + c.fmt(c.saved)"></p>
+      <p class="mt-1 text-xs text-ink-muted">Delivery and any advance-payment discount are calculated at checkout.</p>
+      <div class="mt-4 grid grid-cols-2 gap-3">
+        <a href="cart.html" class="inline-flex h-12 items-center justify-center rounded-full bg-white text-sm font-extrabold ring-1 ring-line hover:bg-surface-alt focus-visible:ring-2 focus-visible:ring-brand-400">View cart</a>
+        <a href="checkout.html" class="inline-flex h-12 items-center justify-center rounded-full bg-accent-600 text-sm font-extrabold text-white hover:bg-accent-700 focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2">Checkout</a>
+      </div>
+      <p class="mt-3 text-center text-xs text-ink-muted">By checking out you agree to our <a href="terms.html" class="font-bold text-brand-700 hover:underline">Terms &amp; Conditions</a>.</p>
+    </div>
+  </div>
+</div>
+<!-- /COMPONENT: cart-drawer -->
+
+<main id="main" x-data="listing()"
+      x-effect="document.body.classList.toggle('overflow-hidden', fOpen || sortSheet)"
+      @keydown.escape.window="fOpen = false; sortSheet = false">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 pt-4 md:pt-6 pb-10 md:pb-14">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="text-xs text-ink-muted">
+      <ol class="flex flex-wrap items-center gap-1.5">
+        <li><a href="home.html" class="hover:text-brand-700 hover:underline">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="listing.html" class="hover:text-brand-700 hover:underline" :aria-current="cfg.crumbs.length === 0 ? 'page' : null">Laptops</a></li>
+        <template x-for="c in cfg.crumbs" :key="c">
+          <li class="flex items-center gap-1.5"><span aria-hidden="true">/</span><span class="font-bold text-ink-soft" aria-current="page" x-text="c"></span></li>
+        </template>
+      </ol>
+    </nav>
+
+    <!-- Heading -->
+    <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+      <h1 class="text-2xl md:text-[32px] font-extrabold tracking-tight" x-text="cfg.h1"></h1>
+      <span class="inline-flex h-7 items-center rounded-full bg-brand-50 px-3 text-xs font-extrabold text-brand-700" x-text="inStock + ' in stock'"></span>
+    </div>
+    <p x-show="cfg.intro" class="mt-2 max-w-2xl text-sm text-ink-muted" x-text="cfg.intro"></p>
+
+    <!-- Budget chips (category by price) -->
+    <div class="no-scrollbar -mx-4 mt-5 flex gap-2 overflow-x-auto px-4 md:mx-0 md:px-0" role="group" aria-label="Shop by budget">
+      <button type="button" @click="resetPrice()" :aria-pressed="!priceActive"
+              class="inline-flex h-11 shrink-0 items-center rounded-full px-4 text-sm font-bold focus-visible:ring-2 focus-visible:ring-brand-400"
+              :class="!priceActive ? 'bg-brand-600 text-white' : 'bg-white text-ink-soft ring-1 ring-line hover:bg-brand-50'">All prices</button>
+      <template x-for="b in budgetChips" :key="b.label">
+        <button type="button" @click="setBudget(b)" :aria-pressed="isBudget(b)"
+                class="inline-flex h-11 shrink-0 items-center rounded-full px-4 text-sm font-bold focus-visible:ring-2 focus-visible:ring-brand-400"
+                :class="isBudget(b) ? 'bg-brand-600 text-white' : 'bg-white text-ink-soft ring-1 ring-line hover:bg-brand-50'" x-text="b.label"></button>
+      </template>
+    </div>
+
+    <!-- Toolbar: desktop -->
+    <div class="mt-4 hidden items-center gap-3 rounded-2xl bg-surface-alt px-3 py-2 lg:flex">
+      <button type="button" @click="showFilters = !showFilters" :aria-pressed="showFilters"
+              class="inline-flex h-11 shrink-0 items-center gap-2 rounded-full bg-white px-4 text-sm font-extrabold ring-1 ring-line hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-brand-400">
+        <svg class="size-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-filter"/></svg>
+        <span x-text="showFilters ? 'Hide filters' : 'Show filters'"></span>
+        <span x-show="activeCount > 0" class="inline-flex size-5 items-center justify-center rounded-full bg-accent-600 text-[11px] font-bold text-white" x-text="activeCount"></span>
+      </button>
+      <ul class="flex min-w-0 flex-1 flex-wrap items-center gap-2" aria-label="Active filters">
+        <template x-for="c in chips()" :key="c.key + c.v">
+          <li><button type="button" @click="removeChip(c)" class="hit inline-flex h-8 items-center gap-1.5 rounded-full bg-brand-50 pl-3 pr-2 text-xs font-bold text-brand-800 ring-1 ring-brand-200 hover:bg-brand-100 focus-visible:ring-2 focus-visible:ring-brand-400" :aria-label="'Remove filter ' + c.label">
+            <span x-text="c.label"></span>
+            <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-x"/></svg></button></li>
+        </template>
+        <li x-show="activeCount > 0"><button type="button" @click="clearAll()" class="inline-flex min-h-11 items-center px-3 text-xs font-extrabold text-accent-700 hover:underline">Clear all</button></li>
+      </ul>
+      <label class="flex shrink-0 items-center gap-2 text-sm font-bold text-ink-soft">Sort by
+        <select x-model="sort" @change="cur = 1" class="h-11 rounded-full bg-white pl-4 pr-8 text-sm font-bold text-ink ring-1 ring-line focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">
+          <template x-for="o in sortOptions" :key="o[0]"><option :value="o[0]" x-text="o[1]"></option></template>
+        </select>
+      </label>
+    </div>
+
+    <!-- Toolbar: mobile (sticky) -->
+    <div class="sticky top-[128px] z-30 -mx-4 mt-3 border-b border-line bg-white/95 px-4 py-2 backdrop-blur lg:hidden">
+      <div class="grid grid-cols-2 gap-2">
+        <button type="button" @click="fOpen = true" class="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white text-sm font-extrabold ring-1 ring-line focus-visible:ring-2 focus-visible:ring-brand-400">
+          <svg class="size-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-filter"/></svg>Filter
+          <span x-show="activeCount > 0" class="inline-flex size-5 items-center justify-center rounded-full bg-accent-600 text-[11px] font-bold text-white" x-text="activeCount"></span>
+        </button>
+        <button type="button" @click="sortSheet = true" class="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white text-sm font-extrabold ring-1 ring-line focus-visible:ring-2 focus-visible:ring-brand-400">
+          <svg class="size-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-sort"/></svg>Sort
+        </button>
+      </div>
+    </div>
+    <ul x-show="activeCount > 0" class="no-scrollbar -mx-4 mt-3 flex gap-2 overflow-x-auto px-4 lg:hidden" aria-label="Active filters">
+      <template x-for="c in chips()" :key="'m' + c.key + c.v">
+        <li class="shrink-0"><button type="button" @click="removeChip(c)" class="hit inline-flex h-8 items-center gap-1.5 rounded-full bg-brand-50 pl-3 pr-2 text-xs font-bold text-brand-800 ring-1 ring-brand-200" :aria-label="'Remove filter ' + c.label">
+          <span x-text="c.label"></span>
+          <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-x"/></svg></button></li>
+      </template>
+      <li class="shrink-0"><button type="button" @click="clearAll()" class="inline-flex min-h-11 items-center px-3 text-xs font-extrabold text-accent-700">Clear all</button></li>
+    </ul>
+
+    <div class="mt-4 lg:mt-5 lg:flex lg:items-start lg:gap-6">
+
+      <!-- COMPONENT: filter-card (sidebar on desktop, full-screen drawer on mobile) -->
+      <aside x-show="desk ? showFilters : fOpen" x-cloak aria-label="Filters"
+             :class="desk ? '' : 'fixed inset-0 z-50'"
+             class="flex flex-col bg-white lg:sticky lg:top-[136px] lg:max-h-[calc(100vh-152px)] lg:w-[270px] lg:shrink-0 lg:rounded-3xl lg:ring-1 lg:ring-line lg:shadow-[0_2px_10px_rgba(15,42,51,0.06)]"
+             :role="desk ? null : 'dialog'" :aria-modal="desk ? null : 'true'">
+        <div class="flex shrink-0 items-center justify-between border-b border-line px-5 py-4">
+          <p class="flex items-center gap-2 text-base font-extrabold">
+            <svg class="size-[18px] text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-filter"/></svg>Filters</p>
+          <div class="flex items-center gap-1">
+            <button type="button" x-show="activeCount > 0" @click="clearAll()" class="inline-flex min-h-11 items-center rounded-full px-3 text-xs font-extrabold text-accent-700 hover:underline focus-visible:ring-2 focus-visible:ring-accent-500">Clear all</button>
+            <button type="button" @click="fOpen = false" class="inline-flex size-11 items-center justify-center rounded-full hover:bg-surface-alt focus-visible:ring-2 focus-visible:ring-brand-400 lg:hidden" aria-label="Close filters">
+              <svg class="size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-x"/></svg></button>
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto overscroll-contain px-5">
+          <!-- Price first -->
+          <div class="border-b border-line py-4">
+            <p class="mb-5 text-sm font-extrabold">Price (Rs)</p>
+            <div x-ref="slider" class="mx-2"></div>
+            <div class="mt-5 flex items-center gap-2">
+              <label for="pmin" class="sr-only">Minimum price</label>
+              <input id="pmin" type="number" inputmode="numeric" step="1000" :min="bounds.min" :max="f.pmax" :value="f.pmin" @change="setMin($event)"
+                     class="h-10 w-full min-w-0 rounded-full bg-white px-3 text-center text-sm font-bold tabular-nums ring-1 ring-line focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">
+              <span class="text-ink-muted" aria-hidden="true">–</span>
+              <label for="pmax" class="sr-only">Maximum price</label>
+              <input id="pmax" type="number" inputmode="numeric" step="1000" :min="f.pmin" :max="bounds.max" :value="f.pmax" @change="setMax($event)"
+                     class="h-10 w-full min-w-0 rounded-full bg-white px-3 text-center text-sm font-bold tabular-nums ring-1 ring-line focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">
+            </div>
+            <div class="mt-3 flex flex-wrap gap-1.5">
+              <template x-for="b in budgetChips" :key="b.label">
+                <button type="button" @click="setBudget(b)" :aria-pressed="isBudget(b)"
+                        class="hit inline-flex h-8 items-center rounded-full px-3 text-xs font-bold focus-visible:ring-2 focus-visible:ring-brand-400"
+                        :class="isBudget(b) ? 'bg-brand-600 text-white' : 'bg-surface-alt text-ink-soft hover:bg-brand-50'" x-text="b.label"></button>
+              </template>
+            </div>
+          </div>
+
+          <template x-for="g in groups" :key="g.key">
+            <div class="border-b border-line" x-data="{ open: g.open }">
+              <h3>
+                <button type="button" @click="open = !open" :aria-expanded="open" class="flex w-full items-center justify-between py-4 text-left text-sm font-extrabold focus-visible:ring-2 focus-visible:ring-brand-400 rounded">
+                  <span class="flex items-center gap-2"><span x-text="g.title"></span>
+                    <span x-show="f[g.key].length" class="inline-flex size-5 items-center justify-center rounded-full bg-brand-600 text-[11px] font-bold text-white" x-text="f[g.key].length"></span></span>
+                  <svg class="size-4 text-ink-muted transition-transform" :class="open && 'rotate-180'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+                </button>
+              </h3>
+              <div x-show="open" x-collapse>
+                <ul class="pb-2">
+                  <template x-for="o in shown(g)" :key="o.v">
+                    <li>
+                      <label class="flex min-h-11 cursor-pointer items-center gap-3 text-sm lg:min-h-10" :class="o.sel ? 'font-bold text-brand-700' : 'text-ink-soft'">
+                        <input type="checkbox" :checked="o.sel" @change="toggle(g.key, o.v)" class="size-[18px] shrink-0 rounded accent-brand-600 focus-visible:ring-2 focus-visible:ring-brand-400">
+                        <span x-show="o.dot" class="size-2.5 shrink-0 rounded-full" :class="o.dot"></span>
+                        <span class="flex-1" x-text="o.label"></span>
+                        <span class="text-xs font-normal tabular-nums text-ink-muted" x-text="o.n"></span>
+                      </label>
+                    </li>
+                  </template>
+                </ul>
+                <button type="button" x-show="hasMore(g)" @click="showAll[g.key] = !showAll[g.key]" class="mb-2 inline-flex min-h-11 items-center rounded text-xs font-extrabold text-brand-700 hover:underline focus-visible:ring-2 focus-visible:ring-brand-400" x-text="showAll[g.key] ? 'Show less' : 'Show all'"></button>
+              </div>
+            </div>
+          </template>
+
+          <div class="flex items-center justify-between gap-3 py-4">
+            <span class="text-sm font-extrabold" id="stock-label">In stock only</span>
+            <button type="button" role="switch" :aria-checked="f.stock" aria-labelledby="stock-label" @click="f.stock = !f.stock; cur = 1"
+                    :class="f.stock ? 'bg-brand-600' : 'bg-line'" class="relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2">
+              <span :class="f.stock ? 'translate-x-6' : 'translate-x-1'" class="inline-block size-5 rounded-full bg-white shadow transition-transform"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="shrink-0 border-t border-line p-4 lg:hidden">
+          <button type="button" @click="fOpen = false" class="inline-flex h-12 w-full items-center justify-center rounded-full bg-brand-600 text-sm font-extrabold text-white hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2" x-text="'Show ' + list.length + ' results'"></button>
+        </div>
+      </aside>
+      <!-- /COMPONENT: filter-card -->
+
+      <!-- Results -->
+      <section id="results" class="min-w-0 flex-1 scroll-mt-40" aria-label="Results" aria-live="polite">
+        <div class="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5" :class="showFilters ? 'lg:grid-cols-3' : 'lg:grid-cols-4'">
+          <template x-for="p in pageItems" :key="p.name">
+            <!-- COMPONENT: product-card -->
+            <article class="group relative flex flex-col rounded-3xl bg-white p-2.5 ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] transition-shadow hover:shadow-[0_6px_20px_rgba(15,42,51,0.10)] md:p-3">
+              <div class="relative aspect-square overflow-hidden rounded-2xl bg-well">
+                <img src="assets/img/laptop-a.svg" alt="" width="400" height="400" loading="lazy" class="absolute inset-0 size-full object-contain p-3 transition-opacity duration-200 md:p-4 md:group-hover:opacity-0" :class="p.stock === 0 && 'opacity-50 grayscale'">
+                <img src="assets/img/laptop-b.svg" alt="" width="400" height="400" loading="lazy" class="absolute inset-0 size-full object-contain p-3 opacity-0 transition-opacity duration-200 md:p-4" :class="p.stock === 0 ? 'hidden' : 'md:group-hover:opacity-100'">
+                <span class="absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-bold backdrop-blur-sm md:px-2.5 md:text-xs" :class="condClass(p.cond)"><span x-text="p.cond"></span><span x-show="p.grade" x-text="' · ' + p.grade"></span></span>
+                <span x-show="p.old" class="absolute bottom-2 left-2 rounded-full bg-accent-600 px-2 py-0.5 text-[11px] font-bold text-white md:text-xs" x-text="'-' + (p.old ? off(p) : 0) + '%'"></span>
+                <span x-show="p.stock === 0" class="absolute bottom-2 right-2 rounded-full bg-ink/85 px-2.5 py-0.5 text-[11px] font-bold text-white md:text-xs">Sold out</span>
+              </div>
+              <div class="flex flex-1 flex-col pt-3">
+                <h3 class="line-clamp-2 min-h-[2.5em] text-[13px] font-bold leading-snug text-ink md:text-sm">
+                  <a href="product.html" class="after:absolute after:inset-0 after:rounded-3xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-brand-400" x-text="p.name"></a>
+                </h3>
+                <ul class="mt-2 flex flex-nowrap gap-1 overflow-hidden [mask-image:linear-gradient(to_right,black_88%,transparent)]" aria-label="Key specs">
+                  <template x-for="s in p.specs" :key="s[0]">
+                    <li class="inline-flex shrink-0 items-center gap-1 rounded-full bg-surface-alt px-2 py-0.5 text-[11px] text-ink-soft">
+                      <svg class="size-3" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use :href="'#i-' + s[0]"/></svg><span x-text="s[1]"></span>
+                    </li>
+                  </template>
+                </ul>
+                <p class="mt-2 min-h-4 text-xs font-bold text-accent-700" x-text="p.stock > 0 && p.stock <= 2 ? 'Only ' + p.stock + ' left' : ''"></p>
+                <div class="mt-auto flex items-end justify-between gap-1.5 pt-2">
+                  <div class="min-w-0">
+                    <p class="whitespace-nowrap text-[15px] font-extrabold leading-tight tabular-nums sm:text-lg md:text-xl" :class="p.old ? 'text-accent-600' : 'text-ink'" x-text="price(p.price)"></p>
+                    <p class="min-h-4 whitespace-nowrap text-xs tabular-nums text-ink-muted line-through" x-text="p.old ? price(p.old) : ''"></p>
+                  </div>
+                  <button type="button" @click="add(p)" :disabled="p.stock === 0" class="relative z-10 inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-surface-alt disabled:text-ink-muted" :aria-label="p.stock === 0 ? 'Sold out' : 'Add ' + p.name + ' to cart'">
+                    <svg class="size-[18px] md:size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+            <!-- /COMPONENT: product-card -->
+          </template>
+        </div>
+
+        <!-- Empty state -->
+        <div x-show="list.length === 0" class="rounded-3xl bg-well px-6 py-14 text-center ring-1 ring-line">
+          <span class="mx-auto inline-flex size-14 items-center justify-center rounded-full bg-white text-ink-muted ring-1 ring-line">
+            <svg class="size-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-search"/></svg></span>
+          <p class="mt-4 text-lg font-extrabold">No laptops match these filters</p>
+          <p class="mt-1 text-sm text-ink-muted">Try a wider price range or remove a filter.</p>
+          <button type="button" @click="clearAll()" class="mt-5 inline-flex h-11 items-center rounded-full bg-brand-600 px-6 text-sm font-extrabold text-white hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2">Clear all filters</button>
+        </div>
+
+        <!-- Pagination -->
+        <nav x-show="pages > 1" aria-label="Pagination" class="mt-8 flex items-center justify-center gap-2">
+          <button type="button" @click="go(cur - 1)" :disabled="cur === 1" class="inline-flex h-11 items-center gap-1 rounded-full bg-white px-4 text-sm font-bold ring-1 ring-line hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-brand-400 disabled:cursor-not-allowed disabled:opacity-40">
+            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-left"/></svg>Prev</button>
+          <template x-for="n in pages" :key="n">
+            <button type="button" @click="go(n)" :aria-current="cur === n ? 'page' : null" :aria-label="'Page ' + n"
+                    class="inline-flex size-11 items-center justify-center rounded-full text-sm font-bold focus-visible:ring-2 focus-visible:ring-brand-400"
+                    :class="cur === n ? 'bg-brand-600 text-white' : 'bg-white ring-1 ring-line hover:bg-brand-50'" x-text="n"></button>
+          </template>
+          <button type="button" @click="go(cur + 1)" :disabled="cur === pages" class="inline-flex h-11 items-center gap-1 rounded-full bg-white px-4 text-sm font-bold ring-1 ring-line hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-brand-400 disabled:cursor-not-allowed disabled:opacity-40">Next
+            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+        </nav>
+      </section>
+    </div>
+
+    <!-- SEO text -->
+    <section class="mt-12 border-t border-line pt-8" aria-labelledby="h-seo">
+      <h2 id="h-seo" class="text-lg font-extrabold md:text-xl" x-text="cfg.seoTitle"></h2>
+      <div class="relative mt-3 space-y-3 text-sm leading-relaxed text-ink-soft" :class="!seoOpen && 'max-h-24 overflow-hidden [mask-image:linear-gradient(to_bottom,black_40%,transparent)]'">
+        <template x-for="t in cfg.seo" :key="t"><p x-text="t"></p></template>
+      </div>
+      <button type="button" @click="seoOpen = !seoOpen" class="mt-1 inline-flex min-h-11 items-center rounded text-sm font-extrabold text-brand-700 hover:underline focus-visible:ring-2 focus-visible:ring-brand-400" x-text="seoOpen ? 'Read less' : 'Read more'"></button>
+    </section>
+  </div>
+
+  <!-- Mobile sort sheet -->
+  <div x-show="sortSheet" x-cloak class="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Sort">
+    <div x-show="sortSheet" x-transition.opacity @click="sortSheet = false" class="absolute inset-0 bg-ink/50"></div>
+    <div x-show="sortSheet" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="translate-y-full" x-transition:enter-end="translate-y-0"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="translate-y-0" x-transition:leave-end="translate-y-full"
+         class="absolute inset-x-0 bottom-0 rounded-t-3xl bg-white p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
+      <div class="mb-2 flex items-center justify-between">
+        <p class="text-base font-extrabold">Sort by</p>
+        <button type="button" @click="sortSheet = false" class="inline-flex size-10 items-center justify-center rounded-full hover:bg-surface-alt" aria-label="Close sort">
+          <svg class="size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-x"/></svg></button>
+      </div>
+      <template x-for="o in sortOptions" :key="o[0]">
+        <label class="flex min-h-12 cursor-pointer items-center gap-3 text-[15px]" :class="sort === o[0] ? 'font-extrabold text-brand-700' : 'font-semibold text-ink-soft'">
+          <input type="radio" name="sort-m" :value="o[0]" x-model="sort" @change="cur = 1; sortSheet = false" class="size-5 accent-brand-600">
+          <span x-text="o[1]"></span>
+        </label>
+      </template>
+    </div>
+  </div>
+
+  <!-- Toast (add to cart) -->
+  <div x-show="toast" x-transition.opacity x-cloak role="status" aria-live="polite" class="fixed bottom-20 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-full bg-ink py-3 pl-4 pr-5 text-sm font-bold text-white shadow-xl md:bottom-6">
+    <svg class="size-5 text-cond-new" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg>
+    Added to cart
+    <a href="cart.html" class="text-brand-300 underline underline-offset-2">View cart</a>
+  </div>
+</main>
+
+<!-- COMPONENT: help-band -->
+<section class="bg-linear-to-r from-brand-900 to-brand-700 text-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+    <div>
+      <h2 class="text-xl md:text-2xl font-extrabold">Need help choosing a laptop?</h2>
+      <p class="mt-1 text-sm md:text-[15px] text-white/75">Tell us your budget and what you use it for. We reply fast on WhatsApp.</p>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-3 shrink-0">
+      <a href="https://wa.me/923000000000" class="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-full bg-whatsapp text-ink text-sm font-extrabold hover:brightness-95 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900">
+        <svg class="size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp us</a>
+      <a href="tel:+923000000000" class="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-full bg-white/10 ring-1 ring-white/40 text-sm font-extrabold hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white">
+        <svg class="size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg>+92 300 0000000</a>
+    </div>
+  </div>
+</section>
+<!-- /COMPONENT: help-band -->
+
+<!-- COMPONENT: footer -->
+<footer class="bg-surface-alt">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 pt-10 pb-6">
+    <div class="grid lg:grid-cols-5 gap-x-8 divide-y divide-line lg:divide-y-0">
+      <template x-for="col in footerCols" :key="col.t">
+        <div x-data="{ open: false }" class="py-1 lg:py-0">
+          <button type="button" @click="open = !open" :aria-expanded="open"
+                  class="flex w-full items-center justify-between min-h-12 lg:min-h-0 lg:mb-3 text-left text-[15px] font-extrabold text-brand-800 lg:cursor-default lg:pointer-events-none">
+            <span x-text="col.t"></span>
+            <svg class="size-4 lg:hidden transition-transform" :class="open && 'rotate-180'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+          </button>
+          <ul class="lg:block pb-3 lg:pb-0 space-y-0.5" :class="!open && 'hidden'">
+            <template x-for="l in col.l" :key="l[0] + l[1]">
+              <li><a :href="l[1]" class="flex min-h-11 items-center py-1 text-sm text-ink-soft hover:text-brand-700 hover:underline" x-text="l[0]"></a></li>
+            </template>
+          </ul>
+        </div>
+      </template>
+
+      <div class="py-4 lg:py-0">
+        <p class="min-h-0 mb-3 text-[15px] font-extrabold text-brand-800">Contact</p>
+        <ul class="space-y-3 text-sm text-ink-soft">
+          <li class="flex gap-3"><svg class="size-[18px] shrink-0 mt-0.5 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-map-pin"/></svg><span>Shop No. 00, Main Market, Lahore, Pakistan</span></li>
+          <li class="flex gap-3"><svg class="size-[18px] shrink-0 mt-0.5 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg><a href="tel:+923000000000" class="inline-flex min-h-11 items-center hover:underline">+92 300 0000000</a></li>
+          <li class="flex gap-3"><svg class="size-[18px] shrink-0 mt-0.5 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-whatsapp"/></svg><a href="https://wa.me/923000000000" class="inline-flex min-h-11 items-center hover:underline">WhatsApp us</a></li>
+          <li class="flex gap-3"><svg class="size-[18px] shrink-0 mt-0.5 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:hello@lapnex.pk" class="inline-flex min-h-11 items-center hover:underline">hello@lapnex.pk</a></li>
+          <li class="flex gap-3"><svg class="size-[18px] shrink-0 mt-0.5 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-clock"/></svg><span>Mon – Sat: 11:00 AM – 8:00 PM<br>Sunday: Closed</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-line flex flex-wrap items-center gap-2">
+      <span class="text-xs font-bold text-ink-muted mr-1">We accept</span>
+      <template x-for="m in payments" :key="m">
+        <span class="inline-flex items-center h-7 px-3 rounded-full bg-white ring-1 ring-line text-xs font-bold text-ink-soft" x-text="m"></span>
+      </template>
+    </div>
+  </div>
+
+  <div class="border-t border-line bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <a href="home.html" class="flex min-h-11 items-center text-xl font-extrabold tracking-tight leading-none text-brand-800" aria-label="Lapnex home">LAPNE<svg class="size-6 -ml-px" fill="none" aria-hidden="true"><use href="#lx-x"/></svg></a>
+      <div class="flex items-center gap-2">
+        <template x-for="s in socials" :key="s.n">
+          <a :href="s.u" target="_blank" rel="noopener" :aria-label="s.n + ' (opens in a new tab)'" class="inline-flex items-center justify-center size-11 rounded-full bg-brand-900 text-white hover:bg-brand-700 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2">
+            <svg class="size-[18px]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use :href="'#i-' + s.i"/></svg>
+          </a>
+        </template>
+      </div>
+      <p class="text-xs text-ink-muted">© 2026 Lapnex. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+<!-- /COMPONENT: footer -->
+
+<!-- COMPONENT: whatsapp-float (desktop only; on mobile WhatsApp is in the bottom nav) -->
+<a href="https://wa.me/923000000000?text=Hi%21%20I%20need%20help%20choosing%20a%20laptop." aria-label="Chat on WhatsApp"
+   class="hidden md:inline-flex fixed bottom-6 right-6 z-30 items-center gap-2 h-14 pl-4 pr-5 rounded-full bg-whatsapp text-ink text-sm font-extrabold shadow-lg hover:brightness-95 focus-visible:ring-2 focus-visible:ring-whatsapp focus-visible:ring-offset-2">
+  <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-whatsapp"/></svg>Chat with us
+</a>
+<!-- /COMPONENT: whatsapp-float -->
+
+<!-- COMPONENT: bottom-nav (mobile only) -->
+<nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-line pb-[env(safe-area-inset-bottom)]" aria-label="Quick navigation">
+  <ul class="grid grid-cols-5 h-16">
+    <li><a href="home.html" class="flex h-full flex-col items-center justify-center gap-0.5 text-[11px] font-bold text-ink-soft">
+      <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-home"/></svg>Home</a></li>
+    <li><button type="button" @click="drawer = true" class="flex h-full w-full flex-col items-center justify-center gap-0.5 text-[11px] font-bold text-ink-soft">
+      <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-grid"/></svg>Categories</button></li>
+    <li><button type="button" @click="focusSearch()" class="flex h-full w-full flex-col items-center justify-center gap-0.5 text-[11px] font-bold text-ink-soft">
+      <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-search"/></svg>Search</button></li>
+    <li><button type="button" @click="$store.cart.open = true" class="relative flex h-full w-full flex-col items-center justify-center gap-0.5 text-[11px] font-bold text-ink-soft" :aria-label="'Cart, ' + $store.cart.count + ' items'">
+      <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-cart"/></svg>Cart
+      <span x-show="$store.cart.count > 0" class="absolute top-2 left-1/2 ml-1.5 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full bg-accent-600 text-white text-[10px] font-bold" x-text="$store.cart.count"></span></button></li>
+    <li><a href="https://wa.me/923000000000" class="flex h-full flex-col items-center justify-center gap-0.5 text-[11px] font-bold text-ink-soft">
+      <svg class="size-6 text-[#128C4B]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a></li>
+  </ul>
+</nav>
+<!-- /COMPONENT: bottom-nav -->
+
+</body>
+</html>

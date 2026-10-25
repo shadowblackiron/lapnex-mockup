@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Checkout | Lapnex</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+
+      /* Lapnex teal: greener and deeper than the reference site */
+      --color-brand-50:#ECF8F5; --color-brand-100:#D1EFE8; --color-brand-200:#A3DED1;
+      --color-brand-300:#6CC7B5; --color-brand-400:#34AA95; --color-brand-500:#158F7B;
+      --color-brand-600:#0D7A6A; --color-brand-700:#0B6358; --color-brand-800:#0A4F47;
+      --color-brand-900:#08332F;
+
+      /* Orange accent: sale prices, discount badges, Buy Now */
+      --color-accent-50:#FFF4EC; --color-accent-100:#FFE4CF; --color-accent-500:#F97316;
+      --color-accent-600:#EA580C; --color-accent-700:#C2410C;
+
+      --color-ink:#0F2A33; --color-ink-soft:#3A4A50; --color-ink-muted:#6B7A80;
+      --color-line:#E6E9EB;
+      --color-surface:#FFFFFF; --color-surface-alt:#F4F5F6; --color-well:#F7F7F8;
+
+      --color-cond-new:#16A34A; --color-cond-openbox:#7C3AED;
+      --color-cond-refurb:#2563EB; --color-cond-used:#D97706;
+      --color-whatsapp:#25D366; --color-star:#F59E0B;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
+  <style>
+    :root{--swiper-theme-color:#0D7A6A;--swiper-pagination-bullet-inactive-color:#0F2A33;--swiper-pagination-bullet-inactive-opacity:.2}
+    .hero-dots .swiper-pagination-bullet{background:#fff;opacity:.45;width:8px;height:8px;transition:width .2s}
+    .hero-dots .swiper-pagination-bullet-active{opacity:1;width:24px;border-radius:9999px}
+    .hit{position:relative}.hit::after{content:"";position:absolute;inset:-6px -2px}
+    nav[aria-label="Breadcrumb"] a{position:relative}nav[aria-label="Breadcrumb"] a::after{content:"";position:absolute;inset:-14px -6px}
+    .swiper-pagination-bullet{position:relative}.swiper-pagination-bullet::after{content:"";position:absolute;inset:-18px -8px}
+    .no-scrollbar{scrollbar-width:none}.no-scrollbar::-webkit-scrollbar{display:none}
+    [x-cloak]{display:none !important}
+    @keyframes lx-marquee{to{transform:translateX(-50%)}}
+    .lx-marquee{display:flex;width:max-content;animation:lx-marquee 45s linear infinite}
+    .lx-marquee-wrap:hover .lx-marquee{animation-play-state:paused}
+    @media (prefers-reduced-motion:reduce){.lx-marquee{animation:none}}
+  </style>
+  <script src="assets/js/orders.js"></script>
+  <script src="assets/js/pages.js"></script>
+  <script src="assets/js/content.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.9/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+  <script>
+    /* Cart store shared by every page (header count, drawer, cart page, add-to-cart buttons).
+       The mockup keeps it in localStorage so it survives page changes. In the Laravel build the cart lives in the
+       session and prices are always recomputed on the server. */
+    function lapnexCart(storage) {
+      const KEY = 'lapnex-cart-v1';
+      const demo = () => [
+        { key: 'DELL LATITUDE 7490 i7 8TH', name: 'DELL LATITUDE 7490 i7 8TH', cond: 'Used', grade: 'A', price: 55000, old: null, stock: 1, options: [], qty: 1 },
+        { key: 'HP ELITEBOOK 840 G6 i5 8TH|32GB DDR4|256GB SSD', name: 'HP ELITEBOOK 840 G6 i5 8TH', cond: 'Refurbished', grade: 'A+', price: 57500, old: 63000, stock: 5, options: ['32GB DDR4', '256GB SSD'], qty: 1 },
+        { key: 'LENOVO THINKPAD T480 i5 8TH', name: 'LENOVO THINKPAD T480 i5 8TH', cond: 'Used', grade: 'A', price: 42000, old: null, stock: 2, options: [], qty: 2 },
+      ];
+      return {
+        items: [], open: false, freeOver: 50000, deliveryFee: 500, justAdded: null,
+        init() { this.load(); },
+        load() {
+          try {
+            const raw = storage.getItem(KEY);
+            if (raw === null) { this.items = demo(); this.save(); } else this.items = JSON.parse(raw);
+          } catch (e) { this.items = demo(); }
+        },
+        save() { try { storage.setItem(KEY, JSON.stringify(this.items)); } catch (e) {} },
+        keyOf(p) { return [p.name, ...(p.options || [])].join('|'); },
+        get count() { return this.items.reduce((n, i) => n + i.qty, 0); },
+        get subtotal() { return this.items.reduce((n, i) => n + i.price * i.qty, 0); },
+        get saved() { return this.items.reduce((n, i) => n + (i.old ? (i.old - i.price) * i.qty : 0), 0); },
+        get toFree() { return Math.max(0, this.freeOver - this.subtotal); },
+        get freeProgress() { return Math.min(100, Math.round(this.subtotal / this.freeOver * 100)); },
+        add(p, qty = 1) {
+          if (!p.stock) return false;
+          const key = this.keyOf(p), have = this.items.find(i => i.key === key);
+          if (have) have.qty = Math.min(p.stock, have.qty + qty);
+          else this.items.push({ key, name: p.name, cond: p.cond, grade: p.grade || null, price: p.price, old: p.old || null, stock: p.stock, options: p.options || [], qty: Math.min(p.stock, qty) });
+          this.justAdded = key; this.save(); this.open = true;
+          return true;
+        },
+        setQty(key, n) {
+          const it = this.items.find(i => i.key === key); if (!it) return;
+          it.qty = Math.max(1, Math.min(it.stock, Math.round(+n) || 1)); this.save();
+        },
+        inc(key) { const it = this.items.find(i => i.key === key); if (it) this.setQty(key, it.qty + 1); },
+        dec(key) { const it = this.items.find(i => i.key === key); if (it) this.setQty(key, it.qty - 1); },
+        remove(key) { this.items = this.items.filter(i => i.key !== key); this.save(); },
+        clear() { this.items = []; this.save(); },
+        reset() { this.items = demo(); this.save(); },
+        fmt(n) { return 'Rs ' + n.toLocaleString('en-US'); },
+      };
+    }
+    document.addEventListener('alpine:init', () => {
+      let store; try { store = window.localStorage; store.getItem('x'); } catch (e) { const m = {}; store = { getItem: k => (k in m ? m[k] : null), setItem: (k, v) => { m[k] = v; } }; }
+      Alpine.store('cart', lapnexCart(store));
+    });
+
+    /* Shared header/footer data. In the Laravel build these come from the database and settings. */
+    function lapnex() {
+      const money = (n) => 'Rs ' + n.toLocaleString('en-US');
+      return {
+        drawer: false, mega: false, navOpen: null, accOpen: null, scrolled: false, sOpen: false, q: '',
+
+        ticker: [
+          '32-point inspection on every laptop',
+          'Warranty on every laptop',
+          'Free delivery all over Pakistan',
+          'Cash on Delivery available',
+          'Video call before dispatch',
+        ],
+        socials: [
+          { n: 'Facebook', i: 'facebook', u: 'https://www.facebook.com/' }, { n: 'Instagram', i: 'instagram', u: 'https://www.instagram.com/' },
+          { n: 'TikTok', i: 'tiktok', u: 'https://www.tiktok.com/' }, { n: 'YouTube', i: 'youtube', u: 'https://www.youtube.com/' },
+        ],
+
+        menu: {
+          processor: [
+            { t: 'Core i3' }, { t: 'Core i5' }, { t: 'Core i7' }, { t: 'Core i9' },
+            { t: 'Core Ultra' }, { t: 'AMD Ryzen' }, { t: 'Apple M-series' },
+          ],
+          generation: [
+            { t: '11th – 14th Gen' }, { t: '9th – 10th Gen' }, { t: '7th – 8th Gen' },
+            { t: '5th – 6th Gen' }, { t: '1st – 4th Gen' },
+          ],
+          features: [
+            { t: 'With Graphics Card' }, { t: 'Touchscreen' }, { t: '360° / 2-in-1' },
+            { t: 'Numeric Keypad' }, { t: 'Backlit Keyboard' }, { t: 'H-Series CPU' },
+          ],
+          use: [
+            { t: 'Students' }, { t: 'Office / Corporate' }, { t: 'Developers / Coding' },
+            { t: 'Graphic Designers' }, { t: 'Gaming' }, { t: 'E-Commerce' },
+            { t: 'Beginners / Daily Use' }, { t: 'Workstation' },
+          ],
+          brands: [
+            { t: 'Dell' }, { t: 'HP' }, { t: 'Lenovo' }, { t: 'Apple MacBook' }, { t: 'Asus' },
+            { t: 'Acer' }, { t: 'Microsoft' }, { t: 'MSI' }, { t: 'Samsung' },
+          ],
+          budget: [
+            { t: 'Under Rs 40,000' }, { t: 'Rs 40,000 – 60,000', u: 'budget.html' }, { t: 'Rs 60,000 – 80,000' },
+            { t: 'Rs 80,000 – 1 Lakh' }, { t: 'Rs 1 – 1.5 Lakh' }, { t: 'Above Rs 1.5 Lakh' },
+          ],
+          condition: [
+            { t: 'New', dot: 'bg-cond-new' }, { t: 'Open Box', dot: 'bg-cond-openbox' },
+            { t: 'Refurbished', dot: 'bg-cond-refurb' }, { t: 'Used', dot: 'bg-cond-used' },
+          ],
+        },
+        navItems: [
+          { k: 'processor', t: 'Processor' }, { k: 'generation', t: 'Generation' },
+          { k: 'features', t: 'Features' }, { k: 'use', t: 'Use Case' }, { k: 'brands', t: 'Brands' },
+          { k: 'budget', t: 'Budget' }, { k: 'condition', t: 'Condition' },
+        ],
+        megaCols: [
+          { groups: [{ h: 'Brands', k: 'brands' }] },
+          { groups: [{ h: 'Processor', k: 'processor' }, { h: 'Generation', k: 'generation' }] },
+          { groups: [{ h: 'Use Case', k: 'use' }] },
+          { groups: [{ h: 'Features', k: 'features' }] },
+          { groups: [{ h: 'Budget', k: 'budget' }] },
+          { groups: [{ h: 'Condition', k: 'condition' }] },
+        ],
+        topCategories: ['Laptops', 'MacBooks', 'Desktops & PCs', 'Accessories'],
+
+        footerCols: [
+          { t: 'Shop', l: [['Laptops', 'listing.html'], ['MacBooks', 'listing.html'], ['Desktops & PCs', 'listing.html'], ['Accessories', 'listing.html'], ['New Arrivals', 'listing.html'], ['Deals', 'listing.html'], ['Lowest Price', 'listing.html']] },
+          { t: 'Popular', l: [['Dell Laptops', 'listing.html'], ['HP Laptops', 'listing.html'], ['Lenovo Laptops', 'listing.html'], ['Core i5 Laptops', 'listing.html'], ['Core i7 Laptops', 'listing.html'], ['8th Gen Laptops', 'listing.html'], ['Touchscreen Laptops', 'listing.html'], ['Gaming Laptops', 'listing.html'], ['Laptops Under Rs 60,000', 'budget.html'], ['Laptops for Students', 'listing.html']] },
+          { t: 'Information', l: [['About Us', 'about.html'], ['Contact Us', 'contact.html'], ['Condition Guide', 'condition-guide.html'], ['Track Order', 'track.html'], ['FAQs', 'faq.html'], ['Your Cart', 'cart.html']] },
+          { t: 'Policy', l: [['Warranty', 'warranty.html'], ['Returns & Refunds', 'returns.html'], ['Delivery', 'delivery.html'], ['Privacy Policy', 'privacy.html'], ['Terms & Conditions', 'terms.html']] },
+        ],
+        payments: ['Cash on Delivery', 'Bank Transfer', 'JazzCash', 'Easypaisa', 'Raast', 'Visa', 'Mastercard'],
+
+        products: [
+          { n: 'Dell Latitude 7490 i7 8th · 16GB · 512GB SSD', p: 55000, c: 'Used' },
+          { n: 'HP EliteBook 840 G6 i5 8th · 16GB · 256GB SSD', p: 48500, c: 'Refurbished' },
+          { n: 'Lenovo ThinkPad T480 i5 8th · 8GB · 256GB SSD', p: 42000, c: 'Used' },
+          { n: 'Apple MacBook Air M1 · 8GB · 256GB', p: 165000, c: 'Open Box' },
+          { n: 'Dell Precision 7530 i7 8th · 16GB · Quadro P1000', p: 98000, c: 'Used' },
+          { n: 'HP ZBook 15 G5 i7 8th · 16GB · 512GB SSD', p: 89000, c: 'Refurbished' },
+          { n: 'Lenovo Legion 5 Ryzen 7 · 16GB · RTX 3060', p: 215000, c: 'New' },
+          { n: 'Asus TUF F15 i5 11th · 16GB · RTX 3050', p: 185000, c: 'New' },
+          { n: 'Dell Latitude 5420 i5 11th · 16GB · 256GB SSD', p: 72000, c: 'Refurbished' },
+          { n: 'Dell XPS 13 9370 i7 8th · 16GB · 512GB SSD', p: 89000, c: 'Open Box' },
+          { n: 'Dell Latitude 5440 i5 4th · 8GB · 256GB SSD', p: 30000, c: 'Used' },
+          { n: 'HP EliteBook 830 G5 i5 8th · 8GB · 256GB SSD', p: 53000, c: 'Used' },
+        ],
+        get results() {
+          const words = this.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+          if (this.q.trim().length < 2) return [];
+          return this.products.filter(p => words.every(w => p.n.toLowerCase().includes(w))).slice(0, 6);
+        },
+        price: money,
+        condClass(c) {
+          return { 'New': 'bg-cond-new/10 text-cond-new', 'Open Box': 'bg-cond-openbox/10 text-cond-openbox',
+                   'Refurbished': 'bg-cond-refurb/10 text-cond-refurb', 'Used': 'bg-cond-used/10 text-cond-used' }[c];
+        },
+
+        onScroll() {
+          const y = window.scrollY;
+          if (y > 80) this.scrolled = true; else if (y < 10) this.scrolled = false;
+        },
+        closeAll() { this.drawer = false; this.mega = false; this.navOpen = null; this.sOpen = false; this.$store.cart.open = false; },
+        focusSearch() {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          this.$nextTick(() => { this.$refs.search.focus(); });
+        },
+      };
+    }
+  </script>
+</head>
+<body class="bg-surface text-ink font-sans antialiased"
+      x-data="lapnex()"
+      @scroll.window.passive="onScroll()" @keydown.escape.window="closeAll()"
+      x-effect="document.body.classList.toggle('overflow-hidden', drawer || $store.cart.open)">
+
+<!-- Icon sprite: Lucide-style 24px icons, used via <svg><use href="#i-name"/></svg> -->
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+  <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/></symbol>
+  <symbol id="i-ram" viewBox="0 0 24 24"><path d="M6 19v-3M10 19v-3M14 19v-3M18 19v-3M8 6v4M12 6v4M16 6v4"/><rect x="2" y="3" width="20" height="14" rx="2"/></symbol>
+  <symbol id="i-ssd" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></symbol>
+  <symbol id="i-screen" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><path d="m16 13 5.22 3.48a.5.5 0 0 0 .78-.42V7.87a.5.5 0 0 0-.75-.43L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
+  <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2" y="7" width="16" height="10" rx="2"/><path d="M22 11v2M6 11v2M10 11v2M14 11v2"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+  <symbol id="i-percent" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 17.5v-11"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <!-- Lapnex placeholder mark: two crossing strokes forming the X -->
+  <symbol id="lx-x" viewBox="0 0 24 24"><path d="M4 4l16 16" stroke="#34AA95" stroke-width="3.2" stroke-linecap="round"/><path d="M20 4 4 20" stroke="#F97316" stroke-width="3.2" stroke-linecap="round"/></symbol>
+</svg>
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:font-bold focus:text-brand-700">Skip to content</a>
+
+<!-- COMPONENT: checkout-header (focused header: no menus, so shoppers stay on the path to payment) -->
+<header class="bg-linear-to-r from-brand-900 to-brand-800 text-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between gap-3">
+    <a href="home.html" class="flex min-h-11 items-center text-[26px] font-extrabold tracking-tight leading-none rounded focus-visible:ring-2 focus-visible:ring-brand-300" aria-label="Lapnex home">LAPNE<svg class="size-7 -ml-px" fill="none" aria-hidden="true"><use href="#lx-x"/></svg></a>
+    <p class="hidden sm:flex items-center gap-2 text-sm font-bold">
+      <svg class="size-[18px] text-brand-300" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-lock"/></svg>Secure checkout</p>
+    <a href="https://wa.me/923000000000?text=Hi%2C%20I%20need%20help%20with%20my%20order." class="inline-flex h-11 items-center gap-2 rounded-full bg-white/10 px-4 text-sm font-bold ring-1 ring-white/30 hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white">
+      <svg class="size-[18px]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+      <span class="hidden sm:inline">Need help? WhatsApp us</span><span class="sm:hidden">Help</span></a>
+  </div>
+</header>
+<!-- /COMPONENT: checkout-header -->
+
+
+
+
+
+<main id="main" x-data="checkoutPage()">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
+    <div class="flex flex-wrap items-end justify-between gap-2">
+      <div>
+        <h1 class="text-2xl md:text-[32px] font-extrabold tracking-tight">Checkout</h1>
+        <p class="mt-1 text-sm text-ink-muted">No account needed. It takes about a minute.</p>
+      </div>
+      <a href="cart.html" class="inline-flex min-h-11 items-center gap-1.5 text-sm font-extrabold text-brand-700 hover:underline focus-visible:ring-2 focus-visible:ring-brand-400 rounded">
+        <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-left"/></svg>Back to cart</a>
+    </div>
+
+    <!-- Empty cart -->
+    <div x-show="items.length === 0" x-cloak class="mt-8 rounded-3xl bg-well px-6 py-16 text-center ring-1 ring-line">
+      <p class="text-xl font-extrabold">Your cart is empty</p>
+      <p class="mx-auto mt-1 max-w-sm text-sm text-ink-muted">Add a laptop to your cart to check out.</p>
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+        <a href="listing.html" class="inline-flex h-12 items-center rounded-full bg-brand-600 px-7 text-sm font-extrabold text-white hover:bg-brand-700">Shop laptops</a>
+        <button type="button" @click="cart.reset()" class="inline-flex h-12 items-center rounded-full bg-white px-7 text-sm font-extrabold ring-1 ring-line hover:bg-brand-50">Mockup: add 3 demo items</button>
+      </div>
+    </div>
+
+    <form id="checkout-form" x-show="items.length > 0" @submit.prevent="submit()" @input="tried && validate()" @change="tried && validate()" novalidate
+          class="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_400px] lg:gap-8" aria-label="Checkout">
+
+      <div class="min-w-0 space-y-5">
+
+        <!-- 1. Contact -->
+        <section class="rounded-3xl bg-white p-5 ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] md:p-6" aria-labelledby="h-contact">
+          <h2 id="h-contact" class="flex items-center gap-3 text-lg font-extrabold"><span class="inline-flex size-7 items-center justify-center rounded-full bg-brand-600 text-sm text-white" aria-hidden="true">1</span>Contact</h2>
+          <div class="mt-5 grid gap-4 md:grid-cols-2">
+            <div>
+              <label for="f-name" class="mb-1.5 block text-sm font-bold">Full name</label>
+              <input id="f-name" type="text" autocomplete="name" x-model="f.name" :aria-invalid="!!errors.name" aria-describedby="e-name" placeholder="e.g. Ahmed Khan"
+                     class="h-12 w-full rounded-full bg-white px-5 text-sm placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-400" :class="errors.name ? 'ring-2 ring-red-500' : 'ring-1 ring-line'">
+              <p id="e-name" x-show="errors.name" x-text="errors.name" role="alert" class="mt-1.5 px-2 text-xs font-bold text-red-600"></p>
+            </div>
+            <div>
+              <label for="f-phone" class="mb-1.5 block text-sm font-bold">Mobile number</label>
+              <input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" x-model="f.phone" :aria-invalid="!!errors.phone" aria-describedby="e-phone h-phone" placeholder="03001234567"
+                     class="h-12 w-full rounded-full bg-white px-5 text-sm placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-400" :class="errors.phone ? 'ring-2 ring-red-500' : 'ring-1 ring-line'">
+              <p id="e-phone" x-show="errors.phone" x-text="errors.phone" role="alert" class="mt-1.5 px-2 text-xs font-bold text-red-600"></p>
+              <p id="h-phone" class="mt-1.5 px-2 text-xs text-ink-muted">We will call or WhatsApp this number to confirm your order.</p>
+            </div>
+            <div class="md:col-span-2">
+              <label for="f-email" class="mb-1.5 block text-sm font-bold">Email <span class="font-normal text-ink-muted">(optional, for your receipt)</span></label>
+              <input id="f-email" type="email" autocomplete="email" x-model="f.email" :aria-invalid="!!errors.email" aria-describedby="e-email" placeholder="you@example.com"
+                     class="h-12 w-full rounded-full bg-white px-5 text-sm placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-400" :class="errors.email ? 'ring-2 ring-red-500' : 'ring-1 ring-line'">
+              <p id="e-email" x-show="errors.email" x-text="errors.email" role="alert" class="mt-1.5 px-2 text-xs font-bold text-red-600"></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Delivery -->
+        <section class="rounded-3xl bg-white p-5 ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] md:p-6" aria-labelledby="h-delivery">
+          <h2 id="h-delivery" class="flex items-center gap-3 text-lg font-extrabold"><span class="inline-flex size-7 items-center justify-center rounded-full bg-brand-600 text-sm text-white" aria-hidden="true">2</span>Delivery</h2>
+
+          <fieldset class="mt-5 grid gap-3 sm:grid-cols-2">
+            <legend class="sr-only">Delivery method</legend>
+            <label class="cursor-pointer">
+              <input type="radio" name="delivery" value="ship" x-model="f.delivery" class="peer sr-only">
+              <span class="flex h-full items-start gap-3 rounded-2xl bg-white p-4 ring-1 ring-line transition peer-checked:bg-brand-50 peer-checked:ring-2 peer-checked:ring-brand-600 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-400">
+                <svg class="mt-0.5 size-6 shrink-0 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-truck"/></svg>
+                <span><span class="block text-sm font-extrabold">Deliver to my address</span><span class="block text-xs text-ink-muted">2 to 4 working days · free above Rs 50,000</span></span></span>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="delivery" value="pickup" x-model="f.delivery" class="peer sr-only">
+              <span class="flex h-full items-start gap-3 rounded-2xl bg-white p-4 ring-1 ring-line transition peer-checked:bg-brand-50 peer-checked:ring-2 peer-checked:ring-brand-600 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-400">
+                <svg class="mt-0.5 size-6 shrink-0 text-brand-600" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-map-pin"/></svg>
+                <span><span class="block text-sm font-extrabold">Pick up from our store</span><span class="block text-xs text-ink-muted">Free · ready after we confirm</span></span></span>
+            </label>
+          </fieldset>
+
+          <!-- Ship -->
+          <div x-show="f.delivery === 'ship'" class="mt-5 grid gap-4 md:grid-cols-2">
+            <div class="relative md:col-span-2" @click.outside="cityOpen = false">
+              <label for="f-city" class="mb-1.5 block text-sm font-bold">City</label>
+              <input id="f-city" type="text" role="combobox" autocomplete="off" aria-autocomplete="list" aria-controls="city-list" :aria-expanded="cityOpen && cityList.length > 0"
+                     x-model="f.city" @focus="cityOpen = true" @input="cityOpen = true; cityActive = -1" @keydown="cityKey($event)" :aria-invalid="!!errors.city" aria-describedby="e-city h-city" placeholder="Start typing your city"
+                     class="h-12 w-full rounded-full bg-white px-5 text-sm placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-400" :class="errors.city ? 'ring-2 ring-red-500' : 'ring-1 ring-line'">
+              <ul id="city-list" role="listbox" x-show="cityOpen && cityList.length > 0" x-cloak class="absolute z-20 mt-2 max-h-60 w-full overflow-auto rounded-2xl bg-white p-1 shadow-xl ring-1 ring-line">
+                <template x-for="(c, i) in cityList" :key="c.name">
+                  <li role="option" :aria-selected="i === cityActive" @mousedown.prevent="pickCity(c)" class="flex cursor-pointer items-center justify-between rounded-xl px-4 py-2.5 text-sm hover:bg-brand-50" :class="i === cityActive && 'bg-brand-50'">
+                    <span class="font-bold" x-text="c.name"></span><span class="text-xs text-ink-muted" x-text="t.free ? 'Free delivery' : fmt(c.fee)"></span></li>
+                </template>
+              </ul>
+              <p id="e-city" x-show="errors.city" x-text="errors.city" role="alert" class="mt-1.5 px-2 text-xs font-bold text-red-600"></p>
+              <p id="h-city" class="mt-1.5 px-2 text-xs text-ink-muted" x-text="t.free ? 'Free delivery on this order.' : (t.deliveryKnown ? 'Delivery to ' + f.city + ': ' + fmt(t.delivery) : 'Delivery charges depend on your city.')"></p>
+            </div>
+            <div class="md:col-span-2">
+              <label for="f-address" class="mb-1.5 block text-sm font-bold">Full address</label>
+              <textarea id="f-address" rows="3" autocomplete="street-address" x-model="f.address" :aria-invalid="!!errors.address" aria-describedby="e-address" placeholder="House or shop number, street, area"
+                        class="w-full rounded-2xl bg-white px-5 py-3 text-sm placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-400" :class="errors.address ? 'ring-2 ring-red-500' : 'ring-1 ring-line'"></textarea>
+              <p id="e-address" x-show="errors.address" x-text="errors.address" role="alert" class="mt-1.5 px-2 text-xs font-bold text-red-600"></p>
+            </div>
+            <div>
+              <label for="f-landmark" class="mb-1.5 block text-sm font-bold">Nearest landmark <span class="font-normal text-ink-muted">(optional)</span></label>
+              <input id="f-landmark" type="text" x-model="f.landmark" placeholder="e.g. Near Liberty Market" class="h-12 w-full rounded-full bg-white px-5 text-sm ring-1 ring-line placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-400">
+            </div>
+            <div>
+              <label for="f-notes" class="mb-1.5 block text-sm font-bold">Order notes <span class="font-normal text-ink-muted">(optional)</span></label>
+              <input id="f-notes" type="text" x-model="f.notes" placeholder="Anything we should know?" class="h-12 w-full rounded-full bg-white px-5 text-sm ring-1 ring-line placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-brand-400">
+            </div>
+          </div>
+
+          <!-- Pickup -->
+          <div x-show="f.delivery === 'pickup'" x-cloak class="mt-5 rounded-2xl bg-surface-alt p-4 text-sm">
+            <p class="font-extrabold" x-text="rules.store.name"></p>
+            <p class="mt-1 text-ink-soft" x-text="rules.store.address"></p>
+            <p class="text-xs text-ink-muted" x-text="rules.store.hours"></p>
+            <p class="mt-2 text-xs text-ink-muted">We will message you when your order is ready to collect. Bring your order number and ID.</p>
+          </div>
+
+          <div class="mt-5 space-y-1 border-t border-line pt-4">
+            <label class="flex min-h-11 cursor-pointer items-start gap-3 text-sm">
+              <input type="checkbox" x-model="f.video" class="mt-0.5 size-5 shrink-0 rounded accent-brand-600 focus-visible:ring-2 focus-visible:ring-brand-400">
+              <span><span class="font-bold">Video call me before dispatch</span><span class="block text-xs text-ink-muted">We will show you the actual laptop on a WhatsApp video call before it ships.</span></span>
+            </label>
+            <label class="flex min-h-11 cursor-pointer items-start gap-3 text-sm">
+              <input type="checkbox" x-model="f.account" class="mt-0.5 size-5 shrink-0 rounded accent-brand-600 focus-visible:ring-2 focus-visible:ring-brand-400">
+              <span><span class="font-bold">Create an account with these details</span><span class="block text-xs text-ink-muted">Track orders and check out faster next time. We will send you a link to set a password.</span></span>
+            </label>
+          </div>
+        </section>
+
+        <!-- 3. Payment -->
+        <section class="rounded-3xl bg-white p-5 ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] md:p-6" aria-labelledby="h-payment">
+          <h2 id="h-payment" class="flex items-center gap-3 text-lg font-extrabold"><span class="inline-flex size-7 items-center justify-center rounded-full bg-brand-600 text-sm text-white" aria-hidden="true">3</span>Payment</h2>
+          <p class="mt-1 text-sm text-ink-muted">Pay in advance and get <span class="font-bold text-cond-new" x-text="rules.prepaidPct + '% off (up to ' + fmt(rules.prepaidMax) + ')'"></span>.</p>
+
+          <fieldset class="mt-4 grid gap-3 sm:grid-cols-2">
+            <legend class="sr-only">Payment method</legend>
+            <template x-for="m in methods" :key="m.id">
+              <label :class="m.disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'">
+                <input type="radio" name="method" :value="m.id" x-model="method" :disabled="m.disabled" class="peer sr-only">
+                <span class="flex h-full items-start gap-3 rounded-2xl bg-white p-4 ring-1 ring-line transition peer-checked:bg-brand-50 peer-checked:ring-2 peer-checked:ring-brand-600 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-400" :class="!m.disabled && 'hover:ring-brand-300'">
+                  <span class="min-w-0 flex-1">
+                    <span class="flex items-center justify-between gap-2"><span class="text-sm font-extrabold" x-text="m.label"></span>
+                      <span class="shrink-0 rounded-full bg-surface-alt px-2 py-0.5 text-[11px] font-bold text-ink-soft" x-text="m.short"></span></span>
+                    <span class="mt-0.5 block text-xs text-ink-muted" x-text="m.disabled ? 'Not available for orders over ' + fmt(rules.codMax) : m.note"></span>
+                    <span x-show="m.save > 0" class="mt-1.5 inline-block rounded-full bg-cond-new/10 px-2 py-0.5 text-[11px] font-bold text-cond-new" x-text="'Save ' + fmt(m.save)"></span>
+                  </span>
+                </span>
+              </label>
+            </template>
+          </fieldset>
+
+          <!-- What happens with the chosen method -->
+          <div class="mt-4 rounded-2xl bg-surface-alt p-4 text-sm leading-relaxed text-ink-soft" aria-live="polite">
+            <div x-show="method === 'cod'">
+              <p>Pay cash to the courier when your laptop arrives. Please check it before paying.</p>
+              <p x-show="t.advance > 0" class="mt-3 rounded-xl bg-accent-50 p-3 text-accent-700 ring-1 ring-accent-100">
+                <span class="font-extrabold" x-text="'An advance of ' + fmt(t.advance) + ' is needed'"></span> to confirm orders over <span x-text="fmt(rules.codAdvanceFrom)"></span>.
+                Send it by JazzCash, Easypaisa or bank transfer (details on the next page). You will pay <span class="font-extrabold" x-text="fmt(t.dueOnDelivery)"></span> on delivery.</p>
+            </div>
+            <p x-show="method === 'bank'">You will see our bank account details on the next page. Send the amount, then upload your receipt. We keep your order for 24 hours.</p>
+            <p x-show="method === 'jazzcash'">You will see our JazzCash number on the next page. Send the amount, then upload a screenshot. We keep your order for 24 hours.</p>
+            <p x-show="method === 'easypaisa'">You will see our Easypaisa number on the next page. Send the amount, then upload a screenshot. We keep your order for 24 hours.</p>
+            <div x-show="method === 'card'">
+              <p>You will be taken to our secure payment partner to pay by Visa, Mastercard or PayPak. We never see your card number.</p>
+              <label class="mt-3 flex cursor-pointer items-center gap-2 rounded-xl border border-dashed border-line px-3 py-2 text-xs text-ink-muted">
+                <input type="checkbox" x-model="simFail" class="size-4 accent-brand-600"> Mockup only: pretend the card payment fails</label>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Terms -->
+        <div class="rounded-3xl bg-white p-5 ring-1 ring-line md:p-6">
+          <label class="flex min-h-11 cursor-pointer items-start gap-3 text-sm">
+            <input id="f-terms" type="checkbox" x-model="f.terms" :aria-invalid="!!errors.terms" aria-describedby="e-terms" class="mt-0.5 size-5 shrink-0 rounded accent-brand-600 focus-visible:ring-2 focus-visible:ring-brand-400">
+            <span>I agree to the <a href="terms.html" target="_blank" rel="noopener" class="font-bold text-brand-700 hover:underline">Terms &amp; Conditions</a>, the <a href="warranty.html" target="_blank" rel="noopener" class="font-bold text-brand-700 hover:underline">Warranty</a> and <a href="returns.html" target="_blank" rel="noopener" class="font-bold text-brand-700 hover:underline">Returns</a> policy.</span>
+          </label>
+          <p id="e-terms" x-show="errors.terms" x-text="errors.terms" role="alert" class="mt-2 px-8 text-xs font-bold text-red-600"></p>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <aside aria-label="Order summary" class="rounded-3xl bg-white p-5 ring-1 ring-line shadow-[0_2px_10px_rgba(15,42,51,0.06)] md:p-6 lg:sticky lg:top-6">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-extrabold">Order summary</h2>
+          <button type="button" @click="summaryOpen = !summaryOpen" :aria-expanded="summaryOpen" class="inline-flex min-h-11 items-center gap-1 rounded-full text-xs font-extrabold text-brand-700 hover:underline focus-visible:ring-2 focus-visible:ring-brand-400 lg:hidden">
+            <span x-text="summaryOpen ? 'Hide items' : 'Show ' + count + ' items'"></span>
+            <svg class="size-4 transition-transform" :class="summaryOpen && 'rotate-180'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chevron-down"/></svg></button>
+        </div>
+        <ul class="mt-3 divide-y divide-line" :class="!summaryOpen && 'hidden lg:block'">
+          <template x-for="i in items" :key="i.key">
+            <li class="flex gap-3 py-3">
+              <span class="relative size-14 shrink-0 rounded-xl bg-well p-1"><img src="assets/img/laptop-a.svg" alt="" width="56" height="56" class="size-full object-contain">
+                <span class="absolute -right-1.5 -top-1.5 inline-flex min-w-5 items-center justify-center rounded-full bg-ink px-1 text-[11px] font-bold text-white" x-text="i.qty"></span></span>
+              <div class="min-w-0 flex-1">
+                <p class="line-clamp-2 text-[13px] font-bold leading-snug" x-text="i.name"></p>
+                <p class="mt-0.5 text-xs text-ink-muted"><span x-text="i.cond + (i.grade ? ' · ' + i.grade : '')"></span><span x-show="i.options.length" x-text="' · ' + i.options.join(' · ')"></span></p>
+              </div>
+              <p class="whitespace-nowrap text-sm font-extrabold tabular-nums" x-text="fmt(i.price * i.qty)"></p>
+            </li>
+          </template>
+        </ul>
+
+        <dl class="mt-2 space-y-2.5 border-t border-line pt-4 text-sm">
+          <div class="flex justify-between gap-3"><dt class="text-ink-soft">Subtotal</dt><dd class="font-bold tabular-nums" x-text="fmt(t.subtotal)"></dd></div>
+          <div class="flex justify-between gap-3"><dt class="text-ink-soft">Delivery</dt>
+            <dd class="text-right font-bold tabular-nums" x-text="f.delivery === 'pickup' ? 'Free (pickup)' : (t.free ? 'Free' : (t.deliveryKnown ? fmt(t.delivery) : 'Choose your city'))"></dd></div>
+          <div x-show="t.discount > 0" class="flex justify-between gap-3 text-cond-new"><dt>Advance-payment discount</dt><dd class="font-bold tabular-nums" x-text="'- ' + fmt(t.discount)"></dd></div>
+          <div class="flex items-baseline justify-between gap-3 border-t border-line pt-3"><dt class="text-base font-extrabold">Total</dt><dd class="text-2xl font-extrabold tabular-nums" x-text="fmt(t.total)"></dd></div>
+          <template x-if="method === 'cod' && t.advance > 0">
+            <div class="space-y-1 rounded-2xl bg-accent-50 p-3 text-xs">
+              <div class="flex justify-between"><dt class="font-bold text-accent-700">Advance to pay now</dt><dd class="font-extrabold tabular-nums text-accent-700" x-text="fmt(t.payNow)"></dd></div>
+              <div class="flex justify-between"><dt class="text-ink-soft">Pay on delivery</dt><dd class="font-bold tabular-nums" x-text="fmt(t.dueOnDelivery)"></dd></div>
+            </div>
+          </template>
+        </dl>
+
+        <button type="submit" class="mt-5 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-accent-600 px-4 text-[15px] font-extrabold text-white hover:bg-accent-700 focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2">
+          <svg class="size-5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-lock"/></svg><span x-text="buttonLabel"></span></button>
+        <p x-show="Object.keys(errors).length" x-cloak role="alert" class="mt-3 text-center text-xs font-bold text-red-600">Please fix the highlighted fields above.</p>
+        <p class="mt-3 text-center text-xs text-ink-muted">Your details are only used to deliver your order.</p>
+      </aside>
+    </form>
+  </div>
+</main>
+
+
+
+<!-- COMPONENT: checkout-footer -->
+<footer class="mt-4 border-t border-line bg-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-5 flex flex-col items-center justify-between gap-2 text-xs text-ink-muted md:flex-row">
+    <p>© 2026 Lapnex. Your details are only used to deliver your order.</p>
+    <p class="flex gap-4"><a href="terms.html" class="inline-flex min-h-11 items-center hover:text-brand-700 hover:underline">Terms &amp; Conditions</a><a href="returns.html" class="inline-flex min-h-11 min-w-11 items-center justify-center hover:text-brand-700 hover:underline">Returns</a><a href="privacy.html" class="inline-flex min-h-11 min-w-11 items-center justify-center hover:text-brand-700 hover:underline">Privacy</a></p>
+  </div>
+</footer>
+<!-- /COMPONENT: checkout-footer -->
+
+
+
+
+
+</body>
+</html>
